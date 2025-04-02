@@ -462,8 +462,9 @@
     }
   
     
-    alert(`Bileta është paguar nga ${firstName} ${lastName} për ${ticketQuantity} bileta. Shuma totale: ${totalAmount}€`);
+   alert(`Bileta është paguar nga ${firstName} ${lastName} për ${ticketQuantity} bileta. Shuma totale: ${totalAmount}€`);
     closePopup();
+    
 
             if (firstName === "" || lastName === "" || email === "" || accountNumber === "") {
                 alert("Ju lutem plotësoni të gjitha fushat!");
@@ -474,6 +475,12 @@
         }
 
     </script>
-    
+
+<?php
+if($totalPrice !== ""){
+  echo"<p>Cmimi total per $quantity bileta eshte $totalPrice</p>";
+}
+?>
 </body>
+
 </html>

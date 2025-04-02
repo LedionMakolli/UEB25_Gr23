@@ -4,6 +4,7 @@
  $djEmri="Illyrian";
  $tourViti=2025;
  $tiketaCmimi=100;
+ $cmimiTotal="";
 var_dump($djEmri);
 var_dump($tiketaCmimi);
  
@@ -16,11 +17,15 @@ var_dump($tiketaCmimi);
     ], "Ed Sheeran" => [
         "Shape of you" =>[1123123],
         "Galway girl" =>[1123123],
-        "Photograph" =>[1123123]
+        "Photograph" =>[1123123]          
     ], "Majku" => [
         "Dashni" => [123123]
     ]
 ];
+
+function kalkuloCmiminTotal($tiketaCmimi, $quantity){
+    return  $tiketaCmimi * $quantity;
+ }
 
     $rankimet = [
         "Ariana Grande" => 1,
