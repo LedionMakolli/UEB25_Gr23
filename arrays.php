@@ -25,7 +25,7 @@
 
 
     $udhetimet = ["New York","Berlin","Amsterdan"];
-
+    echo "</br>";
     asort($rankimet);
     print_r($rankimet);
     ksort($rankimet);
