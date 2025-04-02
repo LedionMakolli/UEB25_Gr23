@@ -30,9 +30,12 @@
     print_r($rankimet);
     echo "</br>";
     ksort($rankimet);
+    print_r($rankimet);
     echo "</br>";
     rsort($rankimet); 
+    print_r($rankimet);
     echo "</br>";
     sort($rankimet);
+    print_r($rankimet);
     echo "</br>";
 ?>
