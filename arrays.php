@@ -1,9 +1,14 @@
 <?php 
  echo "HELLLOORRR DUA";
 
+ $djEmri="Illyrian";
+ $tourViti=2025;
+ $tiketaCmimi=100;
+var_dump($djEmri);
+var_dump($tiketaCmimi);
  
 
- $bahkpunimet = [
+ $bashkepunimet = [
     "Ariana Grande" => [
         "One Last Time" => [123120023],
         "One Last Time" => [873123123],
