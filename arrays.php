@@ -28,7 +28,11 @@
     echo "</br>";
     asort($rankimet);
     print_r($rankimet);
+    echo "</br>";
     ksort($rankimet);
+    echo "</br>";
     rsort($rankimet); 
+    echo "</br>";
     sort($rankimet);
+    echo "</br>";
 ?>
