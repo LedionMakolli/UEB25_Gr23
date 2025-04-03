@@ -23,8 +23,8 @@
             padding: 2rem 5%;
             background: #1b1f24;
             color: var(--white);
-            padding-top: 100px;
-            padding-bottom: 78px;
+            padding-top: 120px;
+            padding-bottom: 100px;
         }
 
         .login-form {
