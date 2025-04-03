@@ -49,8 +49,8 @@
   text-align: center;
 }
 
-.btn {
-  margin: 0 30px 0 30px;
+.btn1 {
+  margin: 0 0 0 15px;
   padding: 0.75rem 1.5rem;
   outline: none;
   border: none;
@@ -62,7 +62,19 @@
   transition: 0.3s;
   cursor: pointer;
 }
-
+.btn2 {
+  margin: 0 15px 0 0;
+  padding: 0.75rem 1.5rem;
+  outline: none;
+  border: none;
+  font-size: 1rem;
+  white-space: nowrap;
+  color: var(--text-dark);
+  background-color: var(--secondary-color);
+  border-radius: 5rem;
+  transition: 0.3s;
+  cursor: pointer;
+}
 .logo {
   margin: 30px;
   font-size: 1.5rem;
