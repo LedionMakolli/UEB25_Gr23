@@ -20,9 +20,5 @@
     <button class="btn2" onclick="window.location.href='login.php'">Log In</button>
   </div>
 
-<!-- thirrja:
-  <div id="nav-placeholder"></div>
-  <script src="nav.js"></script>
-   -->
   
 </nav>

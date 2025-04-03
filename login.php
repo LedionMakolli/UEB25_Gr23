@@ -93,8 +93,10 @@
     </style>
 </head>
 <body>
-    <div id="nav-placeholder"></div>
-    <script src="nav.php"></script>
+    <!-- <div id="nav-placeholder"></div>
+    <script src="nav.php"></script> -->
+
+    <?php include 'nav.php'; ?>
 
     <section class="login-container">
         <div class="login-form">
@@ -121,10 +123,15 @@
         </div>
     </section>
 
-    <footer>
+    <!-- <footer>
         <div id="footer"></div>
     </footer>
-    <script src="footer.php"></script>
+    <script src="footer.php"></script> -->
+
+    <footer>
+      <?php include 'footer.php'; ?>
+    </footer>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         document.getElementById("login-form").addEventListener("submit", function(event) {
