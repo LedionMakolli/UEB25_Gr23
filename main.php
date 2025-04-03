@@ -32,7 +32,7 @@
             </p>
             <div class="header__btns">
               <a href="contact_us.html" style="text-decoration: none;">
-                <button class="btn">
+                <button class="btn1">
                   Get Started
                   <span><i class="ri-arrow-right-line"></i></span>
                 </button>
