@@ -24,6 +24,7 @@
             background: #1b1f24;
             color: var(--white);
             padding-top: 100px;
+            padding-bottom: 78px;
         }
 
         .login-form {
