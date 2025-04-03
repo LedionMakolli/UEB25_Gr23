@@ -17,7 +17,7 @@
     <button class="btn1" onclick="window.location.href='contact_us.php'">Contact Us</button>
   </div>
   <div class="nav__btns">
-    <button class="btn2" onclick="window.location.href='login.php'">Log In</button>
+    <button class="btn2" onclick="window.location.href='login.php'" style="background-color: #87CEEB">Log In</button>
   </div>
 
   

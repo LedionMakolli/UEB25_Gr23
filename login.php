@@ -74,7 +74,7 @@
         }
 
         .login-form button {
-            background: linear-gradient(90deg, #4bad52, #36a344);
+            background:rgb(112, 194, 227);
             color: white;
             border: none;
             padding: 0.8rem 1.5rem;
@@ -88,7 +88,7 @@
         }
 
         .login-form button:hover {
-            background: linear-gradient(90deg, #36a344, #4bad52);
+            background:rgb(49, 156, 199);
             transform: scale(1.02);
         }
     </style>
@@ -147,6 +147,8 @@
             }
 
             alert("Kyçja u krye me sukses!");
+
+            this.reset();
         });
     </script>
 </body>
