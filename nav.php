@@ -14,7 +14,10 @@
     <li><a href="blog.php">Blog</a></li>
   </ul>
   <div class="nav__btns">
-    <button class="btn" onclick="window.location.href='contact_us.php'">Contact Us</button>
+    <button class="btn1" onclick="window.location.href='contact_us.php'">Contact Us</button>
+  </div>
+  <div class="nav__btns">
+    <button class="btn2" onclick="window.location.href='login.php'">Log In</button>
   </div>
 
 <!-- thirrja:
