@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In</title>
+    <title>Sign Up</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="foto/logo.png" type="image/png">
@@ -16,7 +16,7 @@
             color: var(--white);
         }
 
-        .login-container {
+        .signup-container {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -27,7 +27,7 @@
             padding-bottom: 100px;
         }
 
-        .login-form {
+        .signup-form {
             background: #fdfdfd;
             padding: 2rem;
             border-radius: 20px;
@@ -37,26 +37,26 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .login-form:hover {
+        .signup-form:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
         }
 
-        .login-form h2 {
+        .signup-form h2 {
             text-align: center;
             margin-bottom: 1.5rem;
             color: var(--primary-color-dark);
             font-size: 1.8rem;
         }
 
-        .login-form label {
+        .signup-form label {
             font-size: 1rem;
             color: #333;
             display: block;
             margin-bottom: 0.5rem;
         }
 
-        .login-form input {
+        .signup-form input {
             width: 100%;
             padding: 0.8rem;
             margin-bottom: 1rem;
@@ -66,15 +66,15 @@
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .login-form input:focus {
+        .signup-form input:focus {
             border-color: #4bad52;
             box-shadow: 0 0 8px rgba(75, 173, 82, 0.7);
             outline: 2px solid #4bad52;
             outline-offset: 2px;
         }
 
-        .login-form button {
-            background:rgb(112, 194, 227);
+        .signup-form button {
+            background: rgb(112, 194, 227);
             color: white;
             border: none;
             padding: 0.8rem 1.5rem;
@@ -87,35 +87,26 @@
             font-weight: bold;
         }
 
-        .login-form button:hover {
-            background:rgb(49, 156, 199);
+        .signup-form button:hover {
+            background: rgb(49, 156, 199);
             transform: scale(1.02);
-        }
-
-        .register-link {
-            text-align: center;
-            margin-top: 1rem;
-            color: #333;
-        }
-
-        .register-link a {
-            color: rgb(49, 156, 199);
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .register-link a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <?php include 'nav.php'; ?>
 
-    <section class="login-container">
-        <div class="login-form">
-            <h2>Log In</h2>
-            <form id="login-form">
+    <section class="signup-container">
+        <div class="signup-form">
+            <h2>Regjistrohu</h2>
+            <form id="signup-form">
+                <label for="fullname">Emri i plotë:</label>
+                <input 
+                    type="text" 
+                    id="fullname" 
+                    placeholder="Shkruani emrin tuaj të plotë" 
+                    required>
+
                 <label for="email">Email:</label>
                 <input 
                     type="email" 
@@ -124,7 +115,7 @@
                     required 
                     autocomplete="email">
                 
-                <label for="password">Password:</label>
+                <label for="password">Fjalëkalimi:</label>
                 <input 
                     type="password" 
                     id="password" 
@@ -132,34 +123,45 @@
                     required 
                     minlength="6">
                 
-                <button type="submit">Kyçu</button>
+                <label for="confirm-password">Konfirmo Fjalëkalimin:</label>
+                <input 
+                    type="password" 
+                    id="confirm-password" 
+                    placeholder="Përsërit fjalëkalimin" 
+                    required 
+                    minlength="6">
                 
-                <div class="register-link">
-                    Nuk je i regjistruar? <a href="signup.php">Regjistrohu</a>
-                </div>
+                <button type="submit">Regjistrohu</button>
             </form>
         </div>
     </section>
 
     <footer>
-      <?php include 'footer.php'; ?>
+        <?php include 'footer.php'; ?>
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        document.getElementById("login-form").addEventListener("submit", function(event) {
+        document.getElementById("signup-form").addEventListener("submit", function(event) {
             event.preventDefault();
             
+            const fullname = document.getElementById("fullname").value.trim();
             const email = document.getElementById("email").value.trim();
             const password = document.getElementById("password").value.trim();
+            const confirmPassword = document.getElementById("confirm-password").value.trim();
 
-            if (!email || !password) {
-                alert("Ju lutem plotësoni të gjitha fushat e kërkuara!");
+            if (!fullname || !email || !password || !confirmPassword) {
+                alert("Ju lutem plotesoni te gjitha fushat!");
                 return;
             }
 
-            alert("Kyçja u krye me sukses!");
+            if (password !== confirmPassword) {
+                alert("Fjalekalimet nuk përputhen!");
+                return;
+            }
 
+            alert("Regjistrimi u krye me sukses!");
+            
             this.reset();
         });
     </script>
