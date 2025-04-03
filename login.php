@@ -94,7 +94,7 @@
 </head>
 <body>
     <div id="nav-placeholder"></div>
-    <script src="nav.js"></script>
+    <script src="nav.php"></script>
 
     <section class="login-container">
         <div class="login-form">
@@ -124,7 +124,7 @@
     <footer>
         <div id="footer"></div>
     </footer>
-    <script src="footer.js"></script>
+    <script src="footer.php"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         document.getElementById("login-form").addEventListener("submit", function(event) {
