@@ -390,8 +390,11 @@
 </head>
 <body>
     <!-- Header -->
-    <div id="nav-placeholder"></div>
-    <script src="nav.js" defer></script>
+    <!-- <div id="nav-placeholder"></div>
+    <script src="nav.js" defer></script> -->
+
+    <?php include 'nav.php'; ?>
+    
 <section class="main_section">
     <header class="masthead">
         <div class="video-backgournd">

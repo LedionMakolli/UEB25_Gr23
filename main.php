@@ -13,8 +13,11 @@
   </head>
   <body>
     
-    <div id="nav-placeholder"></div>
-    <script src="nav.js"></script>
+    <!-- <div id="nav-placeholder"></div>
+    <script src="nav.js"></script> -->
+
+    <?php include 'nav.php'; ?>
+
 
     <header class="header" id="home">
         <div class="section__container header__container">

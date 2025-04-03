@@ -340,8 +340,10 @@
         </style>
 </head>
 <body>
-    <div id="nav-placeholder"></div>
-    <script src="nav.js"></script>
+    <!-- <div id="nav-placeholder"></div>
+    <script src="nav.js"></script> -->
+
+    <?php include 'nav.php'; ?>
 
     <main id="songs-one">
 
