@@ -194,13 +194,15 @@ html{
 
 </head>
 <body>
-    <header class="header">
+    <!-- <header class="header">
         <div class="container">
             
             <div id="nav-placeholder"></div>
               </div>
-    </header>
-    <script src="nav.js"></script>
+    </header> -->
+    <!-- <script src="nav.js"></script> -->
+
+    <?php include 'nav.php'; ?>
 
     <nav class="nav-link">
       <a id="link1" href="#europe-tour-card">Turneu në Evropë</a>
