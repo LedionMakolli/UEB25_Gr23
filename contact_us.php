@@ -232,10 +232,15 @@
         </div>
     </section>
 
-    <footer>
+    <!-- <footer>
         <div id="footer"></div>
     </footer>
-    <script src="footer.js"></script>
+    <script src="footer.js"></script> -->
+
+    <footer>
+        <?php include 'footer.php'; ?>
+    </footer>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {

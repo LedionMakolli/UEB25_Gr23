@@ -394,7 +394,7 @@
     <script src="nav.js" defer></script> -->
 
     <?php include 'nav.php'; ?>
-    
+
 <section class="main_section">
     <header class="masthead">
         <div class="video-backgournd">
@@ -769,10 +769,14 @@
     </script>
 
 
-<footer>
+<!-- <footer>
     <div id="footer"></div>
 </footer>
-<script src="footer.js"></script>
+<script src="footer.js"></script> -->
+
+    <footer>
+      <?php include 'footer.php'; ?>
+    </footer>
     
 </body>
 </html>

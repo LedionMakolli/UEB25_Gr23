@@ -267,9 +267,14 @@
 
 
 
-  <footer>
+  <!-- <footer>
     <div id="footer"></div>
 </footer>
-<script src="footer.js"></script>
+<script src="footer.js"></script> -->
+
+    <footer>
+      <?php include 'footer.php'; ?>
+    </footer>
+
    </body>
 </html>
