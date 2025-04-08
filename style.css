@@ -395,6 +395,7 @@ nav {
   }
   
   .client__container {
+    margin-left: -10px;
     padding: 5rem 1rem 0rem 1rem;
   }
   
@@ -406,6 +407,7 @@ nav {
   /* -------------Qikjo o pjesa e scroll te komentet------------------------------- */
   .swiper-wrapper {
     display: flex;
+    flex-direction: row;
     overflow-x: scroll; 
     padding: 20px 0;
     gap: 20px;
@@ -418,6 +420,7 @@ nav {
  
  
   .swiper-slide {
+    display: block;
     max-width: 400px;
     padding: px;
   }

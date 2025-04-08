@@ -266,11 +266,11 @@
 <!-- </script> -->
 <?php
 class Client {
-    protected $name;       
-    public $position;    
-    public $comment;       
-    public $rating;        
-    private $imageSrc;     
+    protected $name;
+    public $position;
+    public $comment;
+    public $rating;
+    private $imageSrc;
 
     public function __construct($name, $position, $comment, $rating, $imageSrc) {
         $this->name = $name;
@@ -279,7 +279,12 @@ class Client {
         $this->rating = $rating;
         $this->imageSrc = $imageSrc;
     }
-
+    public function setImageSrc($newImageSrc) {
+      $this->imageSrc=$newImageSrc;
+    }
+    public function getImageSrc() {
+      return $this->imageSrc;
+    }
     public function renderClient() {
         return "
             <div class='swiper-slide'>
@@ -298,10 +303,6 @@ class Client {
                 </div>
             </div>
         ";
-    }
-
-    public function getImageSrc() {
-        return $this->imageSrc;
     }
 }
 
@@ -338,9 +339,13 @@ $client4 = new Client(
 );
 
 $clients = [$client1, $client2, $client3, $client4];
+
+$swiperContent = "";
 foreach ($clients as $client) {
-    echo $client->renderClient();
+    $swiperContent .= $client->renderClient();
 }
+
+echo "<div class='swiper-wrapper'>$swiperContent</div>";
 ?>
 
 
