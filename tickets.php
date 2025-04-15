@@ -412,6 +412,12 @@ if(!preg_match($cardNameRegex, $cardName)){
 echo "Numri i gjirollogarise nuk eshte i vlefshem";
 }
 
+$expiryDate = trim($_POST["expiry-date"]);
+$expiryDateRegex= "/^(0[1-9]|1[0-2])\/[0-9]{4}$/";
+
+if(!preg_match($expiryDateRegex, $expiryDate)){
+  echo"<p><strong>Data e skadimit te karteles nuk eshte i vlefshem.Duhet muaji/viti</strong><p>";
+}
 
 
 
