@@ -162,6 +162,25 @@
 
             this.reset();
         });
+        <?php
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $email = trim($_POST["email"] ?? "");
+            $password = trim($_POST["password"] ?? "");
+        
+            $regEx="/^[^0-9][a-zA-Z_\.\-0-9]{2,}@[a-zA-Z]{2,}\.[a-z]{2,5}$/"; // regEx fillon me / edhe perfundon, nenkupton qe i permban qito
+
+            if (!preg_match($regEx, $email)) {
+                echo alert('Email adresa nuk është valide!');;
+                exit;
+            }
+        
+            if (strlen($password) < 8) {
+                echo alert('Fjalëkalimi duhet të ketë së paku 6 karaktere!');
+                exit;
+            }
+        }
+        ?>
+        
     </script>
     <?php
     class User {
