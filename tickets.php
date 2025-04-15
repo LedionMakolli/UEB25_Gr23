@@ -367,21 +367,47 @@
         <div class="popup-content">
           <span class="close" onclick="closePopup()">&times;</span>
           <h3>Plotesoni të dhënat për blerjen e biletës</h3>
-          <form id="ticket-form">
-            <input type="text" id="first-name" placeholder="Emri" required>
-            <input type="text" id="last-name" placeholder="Mbiemri" required>
+          <form id="ticket-form" method="POST" action="">
+            <input type="text" id="first-name" placeholder="Emri" name="first-name" required>
+            <input type="text" id="last-name" placeholder="Mbiemri" name="last-name" required>
             <input type="email" id="email" placeholder="Email" required>
             <input type="text" id="account-number" placeholder="Numri i llogarise" required>
+            <input type="text" id="card-expiry" placeholder="Data e skadimit" required>
             <input type="number" id="ticket-quantity" value="1" min="1" placeholder="Sasia" required>
             <input type="text" id="amount" value="100€" readonly>
-            <button type="submit" onclick="payTicket(event)">Paguaj</button>
+            <button type="submit" name="submit">Paguaj</button>
             <button type="button" onclick="closePopup()">Anulo</button>
           </form>
         </div>
       </div>
 
-      
-      <div class="ticket-container">
+<?php
+if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['submit'])){
+
+$regexName = "/^[a-zA-ZçëÇË\s\-']{2,}$/u";
+$valid=true;
+if(!preg_match($regexName, $firstname)){
+  echo"Emri nuk eshte i vlefshem";
+ $valid=false;
+} 
+
+$lastname =trim( $_POST['last-name']);
+
+if(!preg_match($regexName, $lastname)){
+  echo"Mbiemri nuk eshte i vlefshem";
+ $valid=false;
+}
+
+
+
+
+
+}
+
+
+?>
+
+   <div class="ticket-container">
         <div class="ticket">
             <p id="ticket-music">
               <span class="music">MUSIC</span>
@@ -392,6 +418,7 @@
           <button  id="buy-button" onclick="showPopup()" disabled>Bli Tani</button>
         </div>
       </div>
+
 
       <script>
         function updateTicket(location, dateString) {
@@ -431,56 +458,48 @@
             document.getElementById('ticket-popup').style.display = 'none';
             document.getElementById('buy-button').disabled = true;
         }
+        
     
-        function payTicket(event) {
-            event.preventDefault();
-            const firstName = document.getElementById('first-name').value;
-            const lastName = document.getElementById('last-name').value;
-            const email = document.getElementById('email').value;
-            const accountNumber = document.getElementById('account-number').value;
-            const amount = document.getElementById('amount').value;
-            const ticketQuantity = document.getElementById('ticket-quantity').value; 
-    const ticketPrice = 100; 
-    const totalAmount = ticketQuantity * ticketPrice; 
+  //       function payTicket(event) {
+  //           event.preventDefault();
+  //           const firstName = document.getElementById('first-name').value;
+  //           const lastName = document.getElementById('last-name').value;
+  //           const email = document.getElementById('email').value;
+  //           const accountNumber = document.getElementById('account-number').value;
+  //           const amount = document.getElementById('amount').value;
+  //           const ticketQuantity = document.getElementById('ticket-quantity').value; 
+  //   const ticketPrice = 100; 
+  //   const totalAmount = ticketQuantity * ticketPrice; 
 
-    // Merr vlerën aktuale të shumës nga inputi dhe përditësoje me totalAmount
-    const amountInput = document.getElementById('amount');
-    const oldAmount = amountInput.value.match(/\d+/); 
+  //   // Merr vlerën aktuale të shumës nga inputi dhe përditësoje me totalAmount
+  //   const amountInput = document.getElementById('amount');
+  //   const oldAmount = amountInput.value.match(/\d+/); 
     
-    if (oldAmount) {
+  //   if (oldAmount) {
       
-        amountInput.value = amountInput.value.replace(oldAmount[0], totalAmount);
-    } else {
+  //       amountInput.value = amountInput.value.replace(oldAmount[0], totalAmount);
+  //   } else {
       
-        amountInput.value = totalAmount;
-    }
-
+  //       amountInput.value = totalAmount;
+  //   }
+  // }
    
-    if (firstName === "" || lastName === "" || email === "" || accountNumber === "") {
-        alert("Ju lutem plotësoni të gjitha fushat!");
-        return;
-    }
+
+
+  // //   if (firstName === "" || lastName === "" || email === "" || accountNumber === "") {
+  // //       alert("Ju lutem plotësoni të gjitha fushat!");
+  // //       return;
+  // //   }
   
     
-   alert(`Bileta është paguar nga ${firstName} ${lastName} për ${ticketQuantity} bileta. Shuma totale: ${totalAmount}€`);
-    closePopup();
+  //  alert(`Bileta është paguar nga ${firstName} ${lastName} për ${ticketQuantity} bileta. Shuma totale: ${totalAmount}€`);
+  //   closePopup();
     
 
-            if (firstName === "" || lastName === "" || email === "" || accountNumber === "") {
-                alert("Ju lutem plotësoni të gjitha fushat!");
-                return;
-            }
-            alert(`Bileta është paguar nga ${firstName} ${lastName} për ${ticketQuantity} bileta. Shuma totale: ${totalAmount}€`);
-            closePopup();
-        }
 
     </script>
 
-<?php
-if($totalPrice !== ""){
-  echo"<p>Cmimi total per $quantity bileta eshte $totalPrice</p>";
-}
-?>
+
 </body>
 
 </html>
