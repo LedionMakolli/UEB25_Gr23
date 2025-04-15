@@ -370,10 +370,10 @@
           <form id="ticket-form" method="POST" action="">
             <input type="text" id="first-name" placeholder="Emri" name="first-name" required>
             <input type="text" id="last-name" placeholder="Mbiemri" name="last-name" required>
-            <input type="email" id="email" placeholder="Email" required>
-            <input type="text" id="account-number" placeholder="Numri i llogarise" required>
-            <input type="text" id="card-expiry" placeholder="Data e skadimit" required>
-            <input type="number" id="ticket-quantity" value="1" min="1" placeholder="Sasia" required>
+            <input type="email" id="email" placeholder="Email" name="email" required>
+            <input type="text" id="account-number" placeholder="Numri i llogarise" name="account-number" required>
+            <input type="text" id="card-expiry" placeholder="Data e skadimit" name="expiry-date" required>
+            <input type="number" id="ticket-quantity" value="1" min="1" placeholder="Sasia"  required>
             <input type="text" id="amount" value="100€" readonly>
             <button type="submit" name="submit">Paguaj</button>
             <button type="button" onclick="closePopup()">Anulo</button>
@@ -383,21 +383,34 @@
 
 <?php
 if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['submit'])){
-
+$firstname = trim($_POST["first-name"]);
 $regexName = "/^[a-zA-ZçëÇË\s\-']{2,}$/u";
-$valid=true;
+
 if(!preg_match($regexName, $firstname)){
-  echo"Emri nuk eshte i vlefshem";
- $valid=false;
+  echo"<p><strong>Emri nuk eshte i vlefshem</strong></p>";
+ 
 } 
 
-$lastname =trim( $_POST['last-name']);
+$lastname =trim( $_POST["last-name"]);
 
 if(!preg_match($regexName, $lastname)){
-  echo"Mbiemri nuk eshte i vlefshem";
- $valid=false;
+  echo"<p><strong>Mbiemri nuk eshte i vlefshem</strong</p>";
+
 }
 
+$email = trim($_POST["email"]);
+$emailRegex= "/^[a-zA-Z0-9.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
+
+if(!preg_match($emailRegex, $email)){
+  echo"<p><strong>Emaili nuk eshte i vlefshem</strong></p>";
+}
+
+$cardName=trim($_POST["account-number"]);
+$cardNameRegex = "/^[0-9]{16}$/";
+
+if(!preg_match($cardNameRegex, $cardName)){
+echo "Numri i gjirollogarise nuk eshte i vlefshem";
+}
 
 
 
