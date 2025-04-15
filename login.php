@@ -115,11 +115,12 @@
     <section class="login-container">
         <div class="login-form">
             <h2>Log In</h2>
-            <form id="login-form">
+            <form id="login-form" method="POST">
                 <label for="email">Email:</label>
                 <input 
                     type="email" 
                     id="email" 
+                    name="email"
                     placeholder="Shkruani email-in tuaj" 
                     required 
                     autocomplete="email">
@@ -128,6 +129,7 @@
                 <input 
                     type="password" 
                     id="password" 
+                    name="password"
                     placeholder="Shkruani fjalëkalimin tuaj" 
                     required 
                     minlength="6">
@@ -146,42 +148,24 @@
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-        document.getElementById("login-form").addEventListener("submit", function(event) {
-            event.preventDefault();
-            
-            const email = document.getElementById("email").value.trim();
-            const password = document.getElementById("password").value.trim();
 
-            if (!email || !password) {
-                alert("Ju lutem plotësoni të gjitha fushat e kërkuara!");
-                return;
-            }
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $email = trim($_POST["email"] ?? "");
+        $password = trim($_POST["password"] ?? "");
 
-            alert("Kyçja u krye me sukses!");
+        $regEx1 = "/^[^0-9][a-zA-Z_\.\-0-9]{2,}@[a-zA-Z]{4,8}\.[a-z]{2,5}$/";
 
-            this.reset();
-        });
-        <?php
-        if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $email = trim($_POST["email"] ?? "");
-            $password = trim($_POST["password"] ?? "");
-        
-            $regEx="/^[^0-9][a-zA-Z_\.\-0-9]{2,}@[a-zA-Z]{2,}\.[a-z]{2,5}$/"; // regEx fillon me / edhe perfundon, nenkupton qe i permban qito
-
-            if (!preg_match($regEx, $email)) {
-                echo alert('Email adresa nuk është valide!');;
-                exit;
-            }
-        
-            if (strlen($password) < 8) {
-                echo alert('Fjalëkalimi duhet të ketë së paku 6 karaktere!');
-                exit;
-            }
+        if (!preg_match($regEx1, $email)) {
+            echo "<script>alert('Email adresa nuk është valide!');</script>";
         }
-        ?>
-        
-    </script>
+
+        if (strlen($password) < 6) {
+            echo "<script>alert('Fjalëkalimi duhet të ketë së paku 6 karaktere!');</script>";
+        }
+    }
+    ?>
+
     <?php
     class User {
         private $id;
@@ -195,9 +179,10 @@
             $this->created_at = date('Y-m-d H:i:s');
             $this->id = uniqid(); 
         }
-                public function __destruct() {
-        }
-                public function getId() {
+
+        public function __destruct() {}
+
+        public function getId() {
             return $this->id;
         }
         
