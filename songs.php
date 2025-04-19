@@ -592,39 +592,51 @@
         }
     }
     ?>
-    <?php // Krijo HTML per te gjitha kenget
-        foreach ($songObjects as $song) {
-            $plays = $song->getPlays();
-            $formattedPlays = $plays >= 1000
-                ? number_format($plays/1000,1).'K'
-                : $plays;
-            
-            echo '
-            <div class="song fade-up">
-                <div class="song-img">
-                    <img src="'.$song->getImage().'" alt="'.$song->getTitle().'">
-                </div>
-                <div class="song-details">
-                    <div class="song-details-content">
-                        <div class="song-name">'.$song->getTitle().'</div>
-                        <div class="artist-name">'.$song->getName().'</div>
-                    </div>
-                    <div class="music-player">
-                        <img src="foto/play.png" alt="play" data-song="'.$song->getId().'">
-                        <audio data-audio="'.$song->getId().'">
-                            <source src="'.$song->getAudio().'" type="audio/mp3">
-                        </audio>
-                    </div>
-                    <div class="download-song mouse">
-                        <a href="'.$song->getAudio().'" download="'.$song->getTitle().' - '.explode(' ', $song->getName())[0].'">
-                            ' . $formattedPlays.'<img src="foto/download.png" alt="download">
-                        </a>
-                    </div>
-                </div>
-            </div>';
-        }
 
-        ?>
+
+<?php 
+    foreach ($songObjects as $song): 
+    $plays = $song->getPlays();
+    $formattedPlays = $plays >= 1000
+        ? number_format($plays/1000, 1).'K'
+        : $plays;
+?>
+
+    <div class="song fade-up">
+        <div class="song-img">
+            <img src="<?= $song->getImage() ?>" alt="<?= $song->getTitle() ?>">
+        </div>
+        <div class="song-details">
+            <div class="song-details-content">
+                <div class="song-name"><?= $song->getTitle() ?></div>
+                <div class="artist-name"><?= $song->getName() ?></div>
+            </div>
+            <div class="music-player">
+                <div class="play-song mouse">
+                    <img 
+                        src="foto/play.png" 
+                        alt="play" 
+                        data-song="<?= $song->getId() ?>"
+                    >
+                    <audio data-audio="<?= $song->getId() ?>">
+                        <source src="<?= $song->getAudio() ?>" type="audio/mp3">
+                    </audio>
+                </div>
+                <div class="download-song mouse">
+                    <a 
+                        href="<?= $song->getAudio() ?>" 
+                        download="<?= $song->getTitle() ?> - <?= explode(' ', $song->getName())[0] ?>"
+                    >
+                        <?= $formattedPlays ?><img src="foto/download.png" alt="download">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
+
+
+        
      </div>
 </div>
 </div>
