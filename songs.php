@@ -337,6 +337,31 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
+        .sort-dropdown {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        .sort-dropdown-btn {
+            padding: 12px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sort-dropdown-btn:hover {
+            background-color: #0056b3;
+        }
+        
         </style>
 </head>
 <body>
@@ -492,6 +517,8 @@
     </form>
 </div>
 
+<div class="sort-dropdown">
+                    <button class="sort-dropdown-btn">
                         <span>Sorto Këngët</span>
                         <svg class="dropdown-icon" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1 1L6 6L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/>
@@ -499,6 +526,7 @@
                     </button>
                     <div class="sort-dropdown-content">
                         <form method="post">
+                            <button type="submit" name="sort" value="sort_title_asc">Sipas Titullit (A-Z)</button>
                             <button type="submit" name="sort" value="sort_title_desc">Sipas Titullit (Z-A)</button>
                             <button type="submit" name="sort" value="sort_plays_asc">Sipas Dëgjimeve (↑)</button>
                             <button type="submit" name="sort" value="sort_plays_desc">Sipas Dëgjimeve (↓)</button>
