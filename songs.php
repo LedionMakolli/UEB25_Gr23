@@ -529,6 +529,20 @@
                 }
                 $songsForDisplay = $sortedSongs;
                 break;
+
+                case 'sort_plays_asc':
+                    $plays = array();
+                    foreach ($songsForDisplay as $key => $song) {
+                        $plays[$key] = $song['plays'];
+                    }
+                    // Përdor asort për të sortuar sipas dëgjimeve (nga e ulët në të lartë)
+                    asort($plays);
+                    $sortedSongs = array();
+                    foreach ($plays as $key => $play) {
+                        $sortedSongs[$key] = $songsForDisplay[$key];
+                    }
+                    $songsForDisplay = $sortedSongs;
+                    break;
         }
     }
         // Krijo HTML per te gjitha kenget
