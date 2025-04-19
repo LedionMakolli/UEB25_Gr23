@@ -170,14 +170,14 @@
     class User {
         private $id;
         protected $email;
-        protected $password;
+        private $password;
         public $created_at;
         
         public function __construct($email, $password) {
             $this->email = $email;
             $this->setPassword($password); 
             $this->created_at = date('Y-m-d H:i:s');
-            $this->id = uniqid(); 
+            $this->id = uniqId(); 
         }
 
         public function __destruct() {
@@ -210,6 +210,10 @@
         public function returnDataforUser() {
             echo "User with ID : " . $this->id . " has email: " . $this->email . " and has been created at " . $this->created_at;
         }   
+        function uniqId() {
+            return str_pad(mt_rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+        }
+        
     }
     ?>
 </body>
