@@ -492,6 +492,21 @@
     </form>
 </div>
 
+                        <span>Sorto Këngët</span>
+                        <svg class="dropdown-icon" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 1L6 6L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    <div class="sort-dropdown-content">
+                        <form method="post">
+                            <button type="submit" name="sort" value="sort_title_desc">Sipas Titullit (Z-A)</button>
+                            <button type="submit" name="sort" value="sort_plays_asc">Sipas Dëgjimeve (↑)</button>
+                            <button type="submit" name="sort" value="sort_plays_desc">Sipas Dëgjimeve (↓)</button>
+                            <button type="submit" name="sort" value="reset">Rikthe Rendin Origjinal</button>
+                        </form>
+                    </div>
+                </div>
+
 <div class="buttonat-form">
     <h3>Funksionet Add, Get, Set, Remove</h3>
     <div class="form-funksione">
