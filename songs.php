@@ -522,62 +522,73 @@
         $sortOption = $_POST['sort'];
 
         switch($sortOption){
-            case 'sort_title_asc': $titles = array();
-            foreach($songsForDisplay as $key =>$song){
-                $titles[$key]= $song['title'];
-            }
-            ksort($titles);
-            $sortedSongs = array();
-            foreach($titles as $key=>$title){
-               $sortedSongs[$key] = $songsForDisplay[$key];
-            }
-            $songsForDisplay = $sortedSongs;
-            break;
-
-            case 'sort_title_desc':
-                $titles = array();
-                foreach($songsForDisplay as $key=>$song){
-                    $titles[$key] = $song['title'];
+            case 'sort_title_asc': 
+                $titles = [];
+                foreach($songObjects as $key =>$song){
+                    $titles[$key]= $song->getTitle();
                 }
-                krsort($titles);
-                $sortedSongs = array();
-                foreach ($titles as $key => $title) {
-                    $sortedSongs[$key] = $songsForDisplay[$key];
+                ksort($titles);
+                $sorted = [];
+                foreach($titles as $key=> $_){
+                   $sorted[$key] = $songObjects[$key];
                 }
-                $songsForDisplay = $sortedSongs;
+                $songObjects = $sorted;
                 break;
 
-                case 'sort_plays_asc':
-                    $plays = array();
-                    foreach ($songsForDisplay as $key => $song) {
-                        $plays[$key] = $song['plays'];
-                    }
-                    // Përdor asort për të sortuar sipas dëgjimeve (nga e ulët në të lartë)
-                    asort($plays);
-                    $sortedSongs = array();
-                    foreach ($plays as $key => $play) {
-                        $sortedSongs[$key] = $songsForDisplay[$key];
-                    }
-                    $songsForDisplay = $sortedSongs;
-                    break;
+            case 'sort_title_desc':
+                $titles = [];
+                foreach($songObjects as $key=>$song){
+                    $titles[$key] = $song->getTitle();
+                }
+                krsort($titles);
+                $sorted = [];
+                foreach ($titles as $key => $_) {       // $_  - ketu nuk na intereson value
+                    $sorted[$key] = $songObjects[$key];
+                }
+                $songObjects = $sorted;
+                break;
 
-                    case 'sort_plays_desc':
-                        $plays = array();
-                        foreach ($songsForDisplay as $key => $song) {
-                            $plays[$key] = $song['plays'];
-                        }
-                        // Përdor arsort për të sortuar sipas dëgjimeve (nga e lartë në të ulët)
-                        arsort($plays);
-                        $sortedSongs = array();
-                        foreach ($plays as $key => $play) {
-                            $sortedSongs[$key] = $songsForDisplay[$key];
-                        }
-                        $songsForDisplay = $sortedSongs;
-                        break;
+            case 'sort_plays_asc':
+                $plays = array();
+                foreach ($songObjects as $key => $song) {
+                    $plays[$key] = $song->getPlays();
+                }
+                // perdor asort per te sortuar sipas degjimeve (nga e ulet ne te larte)
+                asort($plays);
+                $sorted = [];
+                foreach ($plays as $key => $_) {
+                    $sorted[$key] = $songObjects[$key];
+                }
+                $songObjects = $sorted;
+                break;
 
-                        case 'reset':
-                            $songsForDisplay = $originalSongs;
-                            break;
+            case 'sort_plays_desc':
+                $plays = array();
+                foreach ($songObjects as $key => $song) {
+                    $plays[$key] = $song->getPlays();
+                }
+                // perdor arsort per te sortuar sipas degjimeve (nga e larte ne te ulet)
+                arsort($plays);
+                $sorted = [];
+                foreach ($plays as $key => $_) {
+                    $sorted[$key] = $songObjects[$key];
+                }
+                $songObjects = $sorted;
+                break;
+
+            case 'reset':
+                // rikrijimi i objekteve prej vargjeve origjinale
+                $songObjects = array_map(function(array $s) {
+                    return new Song(
+                        $s['artist'],
+                        $s['title'],
+                        $s['plays'],
+                        $s['image'],
+                        $s['audio'],
+                        $s['id']
+                    );
+                }, $originalSongs);
+                break;
         }
     }
     ?>
