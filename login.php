@@ -180,7 +180,9 @@
             $this->id = uniqid(); 
         }
 
-        public function __destruct() {}
+        public function __destruct() {
+            echo "<script>console.log('User me email " . $this->email . " u shkatërrua nga memoria');</script>";
+        }        
 
         public function getId() {
             return $this->id;
