@@ -10,6 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="icon" href="foto/logo.png" type="image/png">
     <script>
+        
         const songs = [
         {name: 'Love Galore', listens: 29800},
         {name: 'Space Bound', listens: 10200},
@@ -520,65 +521,38 @@
 
     if($_SERVER["REQUEST_METHOD"]==="POST" && isset($_POST['sort'])){
         $sortOption = $_POST['sort'];
-
+        
+        // Create a copy of the array for sorting
+        $sortedSongs = $songObjects;
+    
         switch($sortOption){
             case 'sort_title_asc': 
-                $titles = [];
-                foreach($songObjects as $key =>$song){
-                    $titles[$key]= $song->getTitle();
-                }
-                ksort($titles);
-                $sorted = [];
-                foreach($titles as $key=> $_){
-                   $sorted[$key] = $songObjects[$key];
-                }
-                $songObjects = $sorted;
+                usort($sortedSongs, function($a, $b) {
+                    return strcmp($a->getTitle(), $b->getTitle());
+                });
                 break;
-
+    
             case 'sort_title_desc':
-                $titles = [];
-                foreach($songObjects as $key=>$song){
-                    $titles[$key] = $song->getTitle();
-                }
-                krsort($titles);
-                $sorted = [];
-                foreach ($titles as $key => $_) {       // $_  - ketu nuk na intereson value
-                    $sorted[$key] = $songObjects[$key];
-                }
-                $songObjects = $sorted;
+                usort($sortedSongs, function($a, $b) {
+                    return strcmp($b->getTitle(), $a->getTitle());
+                });
                 break;
-
+    
             case 'sort_plays_asc':
-                $plays = array();
-                foreach ($songObjects as $key => $song) {
-                    $plays[$key] = $song->getPlays();
-                }
-                // perdor asort per te sortuar sipas degjimeve (nga e ulet ne te larte)
-                asort($plays);
-                $sorted = [];
-                foreach ($plays as $key => $_) {
-                    $sorted[$key] = $songObjects[$key];
-                }
-                $songObjects = $sorted;
+                usort($sortedSongs, function($a, $b) {
+                    return $a->getPlays() - $b->getPlays();
+                });
                 break;
-
+    
             case 'sort_plays_desc':
-                $plays = array();
-                foreach ($songObjects as $key => $song) {
-                    $plays[$key] = $song->getPlays();
-                }
-                // perdor arsort per te sortuar sipas degjimeve (nga e larte ne te ulet)
-                arsort($plays);
-                $sorted = [];
-                foreach ($plays as $key => $_) {
-                    $sorted[$key] = $songObjects[$key];
-                }
-                $songObjects = $sorted;
+                usort($sortedSongs, function($a, $b) {
+                    return $b->getPlays() - $a->getPlays();
+                });
                 break;
-
+    
             case 'reset':
-                // rikrijimi i objekteve prej vargjeve origjinale
-                $songObjects = array_map(function(array $s) {
+                // Reset to original order
+                $sortedSongs = array_map(function(array $s) {
                     return new Song(
                         $s['artist'],
                         $s['title'],
@@ -590,40 +564,42 @@
                 }, $originalSongs);
                 break;
         }
+        
+        // Update the main array with sorted results
+        $songObjects = $sortedSongs;
     }
     ?>
-    <?php // Krijo HTML per te gjitha kenget
-        foreach ($songsForDisplay as $song) {
-            $formattedPlays = ($song['plays'] >= 1000) ? 
-                number_format($song['plays']/1000, 1) . 'K' : 
-                $song['plays'];
-            
-            echo '
-            <div class="song fade-up">
-                <div class="song-img">
-                    <img src="'.$song['image'].'" alt="'.$song['title'].'">
+    <?php // Display all songs from the Song objects
+    foreach ($songObjects as $song) {
+        $formattedPlays = ($song->getPlays() >= 1000) ? 
+            number_format($song->getPlays()/1000, 1) . 'K' : 
+            $song->getPlays();
+        
+        echo '
+        <div class="song fade-up">
+            <div class="song-img">
+                <img src="'.$song->getImage().'" alt="'.$song->getTitle().'">
+            </div>
+            <div class="song-details">
+                <div class="song-details-content">
+                    <div class="song-name">'.$song->getTitle().'</div>
+                    <div class="artist-name">'.$song->getArtist().'</div>
                 </div>
-                <div class="song-details">
-                    <div class="song-details-content">
-                        <div class="song-name">'.$song['title'].'</div>
-                        <div class="artist-name">'.$song['artist'].'</div>
+                <div class="music-player">
+                    <div class="play-song mouse">
+                        <img src="foto/play.png" alt="play" data-song="'.$song->getId().'">
+                        <audio data-audio="'.$song->getId().'">
+                            <source src="'.$song->getAudio().'" type="audio/mp3">
+                        </audio>
                     </div>
-                    <div class="music-player">
-                        <div class="play-song mouse">
-                            <img src="foto/play.png" alt="play" data-song="'.$song['id'].'">
-                            <audio data-audio="'.$song['id'].'">
-                                <source src="'.$song['audio'].'" type="audio/mp3">
-                            </audio>
-                        </div>
-                        <div class="download-song mouse">
-                            <a href="'.$song['audio'].'" download="'.$song['title'].' - '.explode(' ', $song['artist'])[0].'">'.$formattedPlays.'<img src="foto/download.png" alt="download"></a>
-                        </div>
+                    <div class="download-song mouse">
+                        <a href="'.$song->getAudio().'" download="'.$song->getTitle().' - '.explode(' ', $song->getArtist())[0].'">'.$formattedPlays.'<img src="foto/download.png" alt="download"></a>
                     </div>
                 </div>
-            </div>';
-        }
-
-        ?>
+            </div>
+        </div>';
+    }
+?>
      </div>
 </div>
 </div>
