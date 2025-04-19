@@ -299,7 +299,7 @@
             <source src="video1.mp4" type="video/mp4">
             Shfletuesi juaj nuk e mbështet videon.
           </video>        
-          <h2>Rreth Illyric</h2>
+          <a href="arrays.php">Rreth Illyric</a>
           <p>Illyric është një artiste e mirënjohur për performancat e saj live dhe albumet e suksesshme. Me shumë vite eksperiencë në skenë, ajo ka fituar zemrat e miliona fansave anembanë botës.</p>
         </div>
 
