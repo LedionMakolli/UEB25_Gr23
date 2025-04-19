@@ -266,43 +266,43 @@
     ctx.stroke();
 });
 
-const button = document.querySelector("button");
-const form = document.getElementById("contact-form");
+// const button = document.querySelector("button");
+// const form = document.getElementById("contact-form");
 
-button.addEventListener("click", function (event) {
-    event.preventDefault();
+// button.addEventListener("click", function (event) {
+//     event.preventDefault();
 
-    try {
-        const name = document.getElementById("name").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const message = document.getElementById("message").value.trim();
-        const music = document.querySelector("input[name='music']:checked");
-        const agreeTerms = document.getElementById("check").checked;
+//     try {
+//         const name = document.getElementById("name").value.trim();
+// //        const email = document.getElementById("email").value.trim();
+//         const message = document.getElementById("message").value.trim();
+//         const music = document.querySelector("input[name='music']:checked");
+//         const agreeTerms = document.getElementById("check").checked;
 
-        if (!name || !email || !message || !music || !agreeTerms) {
-            throw new Error("Ju lutem plotësoni të gjitha fushat e kërkuara!");
-        }
+//         if (!name || !email || !message || !music || !agreeTerms) {
+//             throw new Error("Ju lutem plotësoni të gjitha fushat e kërkuara!");
+//         }
 
-        if (name.length < 6) {
-            throw new Error("Emri dhe mbiemri duhet të kenë të paktën 6 karaktere!");
-        }
+//         if (name.length < 6) {
+//             throw new Error("Emri dhe mbiemri duhet të kenë të paktën 6 karaktere!");
+//         }
 
-        if (!email.includes("@")) {
-            throw new Error("Ju lutem shkruani një email të vlefshëm që përmban '@'!");
-        }
+//   //      if (!email.includes("@")) {
+//     //        throw new Error("Ju lutem shkruani një email të vlefshëm që përmban '@'!");
+//       //  }
 
-        alert("Kontakti është kryer me sukses!");
+//         alert("Kontakti është kryer me sukses!");
 
-        $("#contact-form").slideUp(500, function () {
-            form.reset();
-            $(this)
-                .fadeIn(500)
-                .animate({ opacity: 0.5 }, 500)
-                .animate({ opacity: 1 }, 500);
-        });
-    } catch (error) {
-        alert(error.message);
-    }
+//         $("#contact-form").slideUp(500, function () {
+//             form.reset();
+//             $(this)
+//                 .fadeIn(500)
+//                 .animate({ opacity: 0.5 }, 500)
+//                 .animate({ opacity: 1 }, 500);
+//         });
+//     } catch (error) {
+//         alert(error.message);
+//     }
 });
 
 <?php
