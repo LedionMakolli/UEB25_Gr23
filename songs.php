@@ -516,7 +516,19 @@
             }
             $songsForDisplay = $sortedSongs;
             break;
-            
+
+            case 'sort_title_desc':
+                $titles = array();
+                foreach($songsForDisplay as $key=>$song){
+                    $titles[$key] = $song['title'];
+                }
+                krsort($titles);
+                $sortedSongs = array();
+                foreach ($titles as $key => $title) {
+                    $sortedSongs[$key] = $songsForDisplay[$key];
+                }
+                $songsForDisplay = $sortedSongs;
+                break;
         }
     }
         // Krijo HTML per te gjitha kenget
