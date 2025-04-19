@@ -563,7 +563,8 @@
                             break;
         }
     }
-        // Krijo HTML per te gjitha kenget
+    ?>
+    <?php // Krijo HTML per te gjitha kenget
         foreach ($songsForDisplay as $song) {
             $formattedPlays = ($song['plays'] >= 1000) ? 
                 number_format($song['plays']/1000, 1) . 'K' : 
