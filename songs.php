@@ -557,6 +557,10 @@
                         }
                         $songsForDisplay = $sortedSongs;
                         break;
+
+                        case 'reset':
+                            $songsForDisplay = $originalSongs;
+                            break;
         }
     }
         // Krijo HTML per te gjitha kenget
