@@ -602,7 +602,7 @@
             echo '
             <div class="song fade-up">
                 <div class="song-img">
-                    <img src="'.$song['image'].'" alt="'.$song->getTitle().'">
+                    <img src="'.$song->getImage().'" alt="'.$song->getTitle().'">
                 </div>
                 <div class="song-details">
                     <div class="song-details-content">
