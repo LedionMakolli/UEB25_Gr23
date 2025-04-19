@@ -362,7 +362,9 @@
           </tbody>
         </table>
       </div>
-
+<?php
+$BILETA_CMIMI = 100;
+?>
       <div class="popup" id="ticket-popup">
         <div class="popup-content">
           <span class="close" onclick="closePopup()">&times;</span>
@@ -374,14 +376,15 @@
             <input type="text" id="account-number" placeholder="Numri i llogarise" name="account-number" required>
             <input type="text" id="card-expiry" placeholder="Data e skadimit" name="expiry-date" required>
             <input type="number" id="ticket-quantity" value="1" min="1" placeholder="Sasia"  required>
-            <input type="text" id="amount" value="100€" readonly>
+            <input type="text" id="amount" data-cmimi="<?php echo $BILETA_CMIMI;?> " value="<?php echo $BILETA_CMIMI; ?>€" readonly>
             <button type="submit" name="submit">Paguaj</button>
             <button type="button" onclick="closePopup()">Anulo</button>
           </form>
         </div>
       </div>
 
-<?php
+<?php 
+
 if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['submit'])){
 $firstname = trim($_POST["first-name"]);
 $regexName = "/^[a-zA-ZçëÇË\s\-']{2,}$/u";
@@ -477,7 +480,19 @@ if(!preg_match($expiryDateRegex, $expiryDate)){
             document.getElementById('ticket-popup').style.display = 'none';
             document.getElementById('buy-button').disabled = true;
         }
+
         
+    const quantityInput = document.getElementById('ticket-quantity');
+    const amountInput = document.getElementById('amount');
+    const biletaCmimi = parseFloat(amountInput.dataset.cmimi);
+
+    quantityInput.addEventListener('input', function () {
+        const quantity = parseInt(this.value) || 1;
+        const total = biletaCmimi * quantity;
+        amountInput.value = total + "€";
+    });
+
+
     
   //       function payTicket(event) {
   //           event.preventDefault();
