@@ -11,17 +11,17 @@
     <link rel="icon" href="foto/logo.png" type="image/png">
     <script>
         
-        const songs = [
-        {name: 'Love Galore', listens: 29800},
-        {name: 'Space Bound', listens: 10200},
-        {name: 'Heartles', listens: 37300},
-        {name: 'H.O.L.L.A', listens: 2000},
-        {name: 'Starlight Interlude', listens: 21100},
-        {name: 'One Last Time', listens: 7800},
-        {name: 'Mathematics', listens: 963},
-        {name: 'Ms. Jackson', listens: 43500},
-        {name: 'Temperature', listens: 9200},
-    ];
+        <?php $songs = [
+    ['name' => 'Love Galore', 'listens' => 29800],
+    ['name' => 'Space Bound', 'listens' => 10200],
+    ['name' => 'Heartles', 'listens' => 37300],
+    ['name' => 'H.O.L.L.A', 'listens' => 2000],
+    ['name' => 'Starlight Interlude', 'listens' => 21100],
+    ['name' => 'One Last Time', 'listens' => 7800],
+    ['name' => 'Mathematics', 'listens' => 963],
+    ['name' => 'Ms. Jackson', 'listens' => 43500],
+    ['name' => 'Temperature', 'listens' => 9200],
+];?>
 
     function filterSongs(callback){
         return songs.filter(callback);
