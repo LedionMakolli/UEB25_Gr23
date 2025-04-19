@@ -361,6 +361,32 @@
         .sort-dropdown-btn:hover {
             background-color: #0056b3;
         }
+        .sort-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.1);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+        
+        .sort-dropdown-content button {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+        }
+
         
         </style>
 </head>
