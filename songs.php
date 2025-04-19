@@ -499,6 +499,18 @@
             'id' => 'temperature'
         ]
     ];
+    $originalSongs = $songsForDisplay;
+
+    if($_SERVER["REQUEST_METHOD"]==="POST" && isset($_POST['sort'])){
+        $sortOption = $_POST['sort'];
+
+        switch($sortOption){
+            case 'sort_title_asc': $titles = array();
+            foreach($songsForDisplay as $key =>$song){
+                $titles[$key]= $song[$title];
+            }
+        }
+    }
         // Krijo HTML per te gjitha kenget
         foreach ($songsForDisplay as $song) {
             $formattedPlays = ($song['plays'] >= 1000) ? 
