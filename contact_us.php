@@ -175,7 +175,7 @@
                 <canvas id="canvas-icon" width="30" height="30"></canvas>
                 <mark>Contact Us</mark>
             </h2>
-            <form id="contact-form" action="mailto:illyric@musicwebsite.com" method="post" enctype="text/plain" autocomplete="on">
+            <form id="contact-form" method="POST" enctype="text/plain" autocomplete="on">
                 <label for="name">Emri dhe Mbiemri:</label>
                 <input 
                     type="text" 
@@ -308,7 +308,7 @@ button.addEventListener("click", function (event) {
 <?php
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
-        $name = trim($_POST['name'] ?? "");
+        $name = ucwords(trim($_POST['name'] ?? ''));
         $email = trim($_POST['email'] ?? "");
         $message = trim($_POST['message'] ?? "");
         $genre = $_POST['genre'] ?? null;
@@ -337,7 +337,7 @@ button.addEventListener("click", function (event) {
     }
 
     
-    class User {
+    class ContactUsUsers {
         private $name;
         private $email;
         private $message;
