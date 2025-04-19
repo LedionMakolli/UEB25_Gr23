@@ -233,7 +233,7 @@ html{
                 <div class="service-image">
                     <img src="foto/tour.jpg" alt="Shkrim Tekstesh">
                 </div>
-                <a href="tickets.html" target="_blank">
+                <a href="tickets.php" target="_blank">
                 <button  class="toggle-btn">Tickets →</button>
                 </a>
                 </div>
