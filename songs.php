@@ -423,6 +423,10 @@
 <div class="center">
 <div id="songs-container">
         <?php 
+
+        require_once __DIR__ . 'artist.php';
+        require_once __DIR__ . 'song.php';
+
         //Array PHP per kenget 
 
         $songsForDisplay = [
@@ -500,6 +504,19 @@
         ]
     ];
     $originalSongs = $songsForDisplay;
+
+        // krijimi i kengeve si objekte
+        $songObjects = [
+            new Song(
+                'Illyric Ft. Sza',
+                'Love Galore',
+                29800,
+                'foto/sza.jpg',
+                'songs/SZA - Love Galore (Lyrics) ft. Travis Scott.mp3',
+                'lovegalore'
+            ),
+        ];
+    
 
     if($_SERVER["REQUEST_METHOD"]==="POST" && isset($_POST['sort'])){
         $sortOption = $_POST['sort'];
