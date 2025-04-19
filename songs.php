@@ -507,8 +507,16 @@
         switch($sortOption){
             case 'sort_title_asc': $titles = array();
             foreach($songsForDisplay as $key =>$song){
-                $titles[$key]= $song[$title];
+                $titles[$key]= $song['title'];
             }
+            ksort($titles);
+            $sortedSongs = array();
+            foreach($titles as $key=>$title){
+               $sortedSongs[$key] = $songsForDisplay[$key];
+            }
+            $songsForDisplay = $sortedSongs;
+            break;
+            
         }
     }
         // Krijo HTML per te gjitha kenget
