@@ -279,6 +279,9 @@ class Client {
         $this->rating = $rating;
         $this->imageSrc = $imageSrc;
     }
+    public function __destruct() {
+      echo "<script>console.log('Client with name " . $this->name . " u shkatërrua nga memoria');</script>";
+  }   
     public function setImageSrc($newImageSrc) {
       $this->imageSrc=$newImageSrc;
     }
