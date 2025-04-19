@@ -25,4 +25,9 @@ class Song extends Artist {
         $this->id    = $id;
     }
 
+    public function getTitle(): string   { return $this->title; }
+    public function getPlays(): int      { return $this->plays; }
+    public function getImage(): string   { return $this->image; }
+    public function getAudio(): string   { return $this->audio; }
+    public function getId(): string      { return $this->id; }
 }
