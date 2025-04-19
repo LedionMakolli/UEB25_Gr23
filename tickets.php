@@ -402,6 +402,7 @@ if(!preg_match($regexName, $lastname)){
 }
 
 $email = trim($_POST["email"]);
+$email = str_replace(" ", "", $email); 
 $emailRegex= "/^[a-zA-Z0-9.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
 
 if(!preg_match($emailRegex, $email)){
