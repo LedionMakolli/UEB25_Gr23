@@ -5,11 +5,26 @@
  $tourViti=2025;
  $tiketaCmimi=100;
 
+ 
 var_dump($djEmri);
 echo"</br>";
 var_dump($tiketaCmimi);
 echo"</br>";
  
+$bashkepunimet = [
+    "Ariana Grande" => [
+        "One Last Time" => [123120023],
+        "One Last Time" => [873123123],
+        "One Last Time" => [903123123]
+    ], "Ed Sheeran" => [
+        "Shape of you" =>[1123123],
+        "Galway girl" =>[1123123],
+        "Photograph" =>[1123123]          
+    ], "Majku" => [
+        "Dashni" => [123123]
+    ]
+];
+
 function infoTiketa($tiketaCmimi){
     return "Cmimi i biletes per koncertin eshte $tiketaCmimi euro";
 }
@@ -25,17 +40,11 @@ if($cmimiTotal !== 0){
     echo"<p>Cmimi total per $quantity bileta eshte $cmimiTotal euro</p>";
  }
 
- $NameSingers = [
-    'Love Galore',
-    'Space Bound',
-    'Heartles',
-    'H.O.L.L.A',
-    'Starlight Interlude',
-    'One Last Time',
-    'Mathematics',
-    'Ms. Jackson',
-    'Temperature'
-];
+    $rankimet = [
+        "Ariana Grande" => 1,
+        "Ed Sheeran" => 2,
+        "Majku" => 3
+    ];
 
     $concerte = [
         ['vendi' => 'Tirana', 'data' => '15 Janar 2025'],
