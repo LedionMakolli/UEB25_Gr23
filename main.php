@@ -38,7 +38,7 @@
                 </button>
               </a>
               
-              <a href="aboutus.html">
+              <a href="aboutus.php">
                 See More
                 <span><i class="ri-arrow-right-line"></i></span>
               </a>
