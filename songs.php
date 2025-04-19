@@ -505,82 +505,18 @@
     ];
     $originalSongs = $songsForDisplay;
 
-        // krijimi i kengeve si objekte
-        $songObjects = [
-            new Song(
-                'Illyric Ft. Sza',
-                'Love Galore',
-                29800,
-                'foto/sza.jpg',
-                'songs/SZA - Love Galore (Lyrics) ft. Travis Scott.mp3',
-                'lovegalore'
-            ),
-            new Song(
-                'Illyric Ft. Eminem',
-                'Space Bound',
-                10200,
-                'foto/eminem.jpeg',
-                'songs/Eminem - Space Bound (Lyrics).mp3',
-                'spacebound'
-            ),
-            new Song(
-                'Illyric Ft. Kanye West',
-                'Heartles',
-                37300,
-                'foto/kanye.jpeg',
-                'songs/Kanye West - Heartless (HD).mp3',
-                'heartless'
-            ),
-            new Song(
-                'Illyric Ft. Busta Rhymes',
-                'H.O.L.L.A',
-                2000,
-                'foto/bustarhymes.jpeg',
-                'songs/Busta Rhymes - H.O.L.L.A.mp3',
-                'holla'
-            ),
-            new Song(
-                'Illyric Ft. The Weeknd',
-                'Starlight Interlude',
-                21100,
-                'foto/weeknd.png',
-                'songs/The Weeknd & Lana Del Rey - Stargirl Interlude (Lyrics).mp3',
-                'stargirlinterlude'
-            ),
-            new Song(
-                'Illyric Ft. LP',
-                'One Last Time',
-                7800,
-                'foto/lp.jpeg',
-                'songs/LP - One Last Time (Lyrics).mp3',
-                'onelasttime'
-            ),
-            new Song(
-                'Illyric Ft. Mos Def',
-                'Mathematics',
-                963,
-                'foto/mosdef.jpeg',
-                'songs/Mos Def - Mathematics.mp3',
-                'mathematics'
-            ),
-            new Song(
-                'Illyric Ft. Outkast',
-                'Ms. Jackson',
-                43500,
-                'foto/outkast.jpeg',
-                'songs/Outkast - Ms. Jackson (W.Lyrics).mp3',
-                'msjackson'
-            ),
-            new Song(
-                'Illyric Ft. Sean Paul',
-                'Temperature',
-                9200,
-                'foto/seanpaul.jpeg',
-                'songs/Temperature-Sean Paul.mp3',
-                'temperature'
-            ),
-        ];
-    
+    // shndrrimi i vargjeve ne objekte te klases Song
+    $songObjects = array_map(function(array $s) {
+        return new Song(
+            $s['artist'],
+            $s['title'],
+            $s['plays'],
+            $s['image'],
+            $s['audio'],
+            $s['id']
+        );
+    }, $songsForDisplay);
+
 
     if($_SERVER["REQUEST_METHOD"]==="POST" && isset($_POST['sort'])){
         $sortOption = $_POST['sort'];
