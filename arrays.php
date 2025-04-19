@@ -46,6 +46,23 @@ if($cmimiTotal !== 0){
         "Majku" => 3
     ];
 
+    $concerte = [
+        ['vendi' => 'Tirana', 'data' => '15 Janar 2025'],
+        ['vendi' => 'Prishtina', 'data' => '20 Janar 2025'],
+        ['vendi' => 'Shkupi', 'data' => '25 Janar 2025'],
+        ['vendi' => 'Berlin', 'data' => '30 Janar 2025'],
+        ['vendi' => 'Paris', 'data' => '5 Shkurt 2025'],
+        ['vendi' => 'Pragë', 'data' => '10 Shkurt 2025'],
+        ['vendi' => 'Londër', 'data' => '15 Shkurt 2025'],
+        ['vendi' => 'Vienna', 'data' => '20 Shkurt 2025'],
+        ['vendi' => 'Budapest', 'data' => '25 Shkurt 2025']
+    ];
+
+    
+    echo '<pre>';
+    var_dump($concerte);
+    echo '</pre>';
+
 
     $udhetimet = ["New York","Berlin","Amsterdan"];
     echo "</br>";
