@@ -305,6 +305,27 @@ button.addEventListener("click", function (event) {
     }
 });
 
+$namePattern = "/^[a-zA-ZëËçÇšŠžŽ\s]+$/";
+
+
+$emailPattern = "/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/";
+
+
+$messagePattern = "/^.{1,500}$/";
+
+
+$name = $_POST['name']; 
+$email = $_POST['email']; 
+$message = $_POST['message']; 
+
+if (preg_match($namePattern, $name) && preg_match($emailPattern, $email) && preg_match($messagePattern, $message)) {
+   
+    echo "Forma u dërgua me sukses!";
+} else {
+    
+    echo "Gabim: Kontrolloni informacionin e futur!";
+}
+
     </script>
 </body>
 </html>
