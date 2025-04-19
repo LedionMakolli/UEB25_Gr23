@@ -424,8 +424,8 @@
 <div id="songs-container">
         <?php 
 
-        require_once __DIR__ . 'artist.php';
-        require_once __DIR__ . 'song.php';
+        require_once __DIR__ . '/artist.php';
+        require_once __DIR__ . '/song.php'; 
 
         //Array PHP per kenget 
 

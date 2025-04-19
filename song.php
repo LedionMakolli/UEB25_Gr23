@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . 'artist.php';
+require_once __DIR__ . '/artist.php';
 
 class Song extends Artist {
     private string $title;
