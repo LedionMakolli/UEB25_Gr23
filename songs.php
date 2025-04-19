@@ -356,14 +356,14 @@
         //Array PHP per kenget 
 
         $songsForDisplay = [
-            [
+        [
                 'title' => 'Love Galore', 
                 'plays' => 29800, 
                 'artist' => 'Illyric Ft. Sza', 
                 'image' => 'foto/sza.jpg', 
                 'audio' => 'songs/SZA - Love Galore (Lyrics) ft. Travis Scott.mp3',
                 'id' => 'lovegalore'
-            ],
+        ],
         [
             'title' => 'Space Bound', 
             'plays' => 10200, 
