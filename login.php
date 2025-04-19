@@ -207,6 +207,9 @@
         public function verifyPassword($inputPassword) {
             return password_verify($inputPassword, $this->password);
         }
+        public function returnDataforUser() {
+            echo "User with ID : " . $this->id . " has email: " . $this->email . " and has been created at " . $this->created_at;
+        }   
     }
     ?>
 </body>
