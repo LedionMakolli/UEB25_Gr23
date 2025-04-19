@@ -387,6 +387,25 @@
             font-size: 0.9rem;
         }
 
+        .sort-dropdown-content button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .sort-dropdown:hover .sort-dropdown-content {
+            display: block;
+        }
+        
+        .sort-dropdown:hover .sort-dropdown-btn {
+            background-color: #0056b3;
+        }
+        
+        .dropdown-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .sort-dropdown:hover .dropdown-icon {
+            transform: rotate(180deg);
+        }
         
         </style>
 </head>
