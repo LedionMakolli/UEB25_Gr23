@@ -91,6 +91,13 @@
             background: rgb(49, 156, 199);
             transform: scale(1.02);
         }
+        .error-message {
+            color: #dc3545;
+            font-size: 0.8rem;
+            margin-top: -0.5rem;
+            margin-bottom: 0.5rem;
+            display: none;
+        }
     </style>
 </head>
 <body>
