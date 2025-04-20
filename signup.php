@@ -177,6 +177,21 @@
                 return true;
             }
         }
+
+        function validatePassword() {
+            const password = document.getElementById("password").value.trim();
+            const errorElement = document.getElementById("password-error");
+            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            
+            if (!regex.test(password)) {
+                errorElement.textContent = "Fjalëkalimi duhet të ketë së paku 8 karaktere, përfshirë shkronja të mëdha, të vogla, numra dhe karaktere speciale";
+                errorElement.style.display = "block";
+                return false;
+            } else {
+                errorElement.style.display = "none";
+                return true;
+            }
+        }
     </script>
 </body>
 </html>
