@@ -99,37 +99,43 @@
     <section class="signup-container">
         <div class="signup-form">
             <h2>Regjistrohu</h2>
-            <form id="signup-form">
+            <form id="signup-form" method="POST">
                 <label for="fullname">Emri i plotë:</label>
                 <input 
                     type="text" 
                     id="fullname" 
+                    name="fullname"
                     placeholder="Shkruani emrin tuaj të plotë" 
                     required>
+                <div id="fullname-error" class="error-message"></div>
 
                 <label for="email">Email:</label>
                 <input 
                     type="email" 
                     id="email" 
+                    name="email"
                     placeholder="Shkruani email-in tuaj" 
                     required 
                     autocomplete="email">
+                <div id="email-error" class="error-message"></div>
                 
                 <label for="password">Fjalëkalimi:</label>
                 <input 
                     type="password" 
                     id="password" 
+                    name="password"
                     placeholder="Shkruani fjalëkalimin tuaj" 
-                    required 
-                    minlength="6">
+                    required>
+                <div id="password-error" class="error-message"></div>
                 
                 <label for="confirm-password">Konfirmo Fjalëkalimin:</label>
                 <input 
                     type="password" 
                     id="confirm-password" 
+                    name="confirm-password"
                     placeholder="Përsërit fjalëkalimin" 
-                    required 
-                    minlength="6">
+                    required>
+                <div id="confirm-password-error" class="error-message"></div>
                 
                 <button type="submit">Regjistrohu</button>
             </form>
@@ -142,28 +148,21 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        document.getElementById("signup-form").addEventListener("submit", function(event) {
-            event.preventDefault();
-            
+        function validateFullname() {
             const fullname = document.getElementById("fullname").value.trim();
-            const email = document.getElementById("email").value.trim();
-            const password = document.getElementById("password").value.trim();
-            const confirmPassword = document.getElementById("confirm-password").value.trim();
-
-            if (!fullname || !email || !password || !confirmPassword) {
-                alert("Ju lutem plotesoni te gjitha fushat!");
-                return;
-            }
-
-            if (password !== confirmPassword) {
-                alert("Fjalekalimet nuk përputhen!");
-                return;
-            }
-
-            alert("Regjistrimi u krye me sukses!");
+            const errorElement = document.getElementById("fullname-error");
+            const regex = /^[a-zA-ZëËçÇ\s]{3,50}$/;
             
-            this.reset();
-        });
+            if (!regex.test(fullname)) {
+                errorElement.textContent = "Emri duhet të përmbajë vetëm shkronja (3-50 karaktere)";
+                errorElement.style.display = "block";
+                return false;
+            } else {
+                errorElement.style.display = "none";
+                return true;
+            }
+        }
+
     </script>
 </body>
 </html>
