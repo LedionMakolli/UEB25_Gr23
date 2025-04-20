@@ -188,30 +188,26 @@
             $errors = [];
             $success = false;
 
-            // Përpunimi i formës nëse është dërguar
+            // perpunimi i formes nese eshte derguar
             if ($_SERVER["REQUEST_METHOD"] === "POST") {
-                // Marrja dhe pastrimi i të dhënave
-                $name = ucwords(trim($_POST['name'] ?? ''));
-                $email = trim($_POST['email'] ?? "");
+                // marrja dhe pastrimi i te dhenave
+                $name = trim($_POST['name'] ?? '');
+                $email = str_replace(' ', '', trim($_POST['email'] ?? ""));
                 $message = trim($_POST['message'] ?? "");
                 $music = $_POST['music'] ?? null;
                 $termsAccepted = isset($_POST['terms']);
-                
-                // Validimi i të dhënave
-                if (empty($name) || strlen($name) < 6) {
-                    $errors['name'] = "Emri dhe mbiemri duhet të kenë të paktën 6 karaktere";
+
+                // validimi i te dhenave me RegEx
+                if (!preg_match("/^[a-zA-ZëËçÇ\s]{6,50}$/", $name)) {
+                    $errors['name'] = "Emri duhet të përmbajë vetëm shkronja (6-50 karaktere)";
                 }
                 
-                if (empty($email)) {
-                    $errors['email'] = "Email adresa është e detyrueshme";
-                } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                if (!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email)) {
                     $errors['email'] = "Email adresa nuk është valide";
                 }
                 
-                if (empty($message)) {
-                    $errors['message'] = "Mesazhi është i detyrueshëm";
-                } elseif (strlen($message) > 500) {
-                    $errors['message'] = "Mesazhi nuk duhet të kalojë 500 karaktere";
+                if (!preg_match("/^[\w\s.,!?()-]{1,500}$/", $message)) {
+                    $errors['message'] = "Mesazhi përmban karaktere të palejuara ose është më i gjatë se 500 karaktere";
                 }
                 
                 if (empty($music)) {
@@ -222,12 +218,16 @@
                     $errors['terms'] = "Ju duhet të pranoni kushtet dhe termat";
                 }
                 
-                // Nëse nuk ka gabime
+                // nese nuk ka gabime
                 if (empty($errors)) {
                     $success = true;
                     
-                    // Këtu mund të shtohej kodi për dërgimin e email-it ose ruajtjen e të dhënave
-                    // Për demonstrim, do të shfaqim vetëm një mesazh suksesi
+                    // formatimi i emrit (shkronja e pare e madhe)
+                    $name = preg_replace_callback(
+                        '/\b\w/',
+                        function($matches) { return strtoupper($matches[0]); },
+                        strtolower($name)
+                    );
                 }
             }
             ?>
