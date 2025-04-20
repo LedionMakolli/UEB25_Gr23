@@ -160,7 +160,7 @@
         document.getElementById("email").addEventListener("input", validateEmail);
         document.getElementById("password").addEventListener("input", validatePassword);
         document.getElementById("confirm-password").addEventListener("input", validateConfirmPassword);
-        
+
         function validateFullname() {
             const fullname = document.getElementById("fullname").value.trim();
             const errorElement = document.getElementById("fullname-error");
@@ -220,6 +220,20 @@
                 return true;
             }
         }
+
+        document.getElementById("signup-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const isFullnameValid = validateFullname();
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+            const isConfirmPasswordValid = validateConfirmPassword();
+
+            if (isFullnameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid) {
+                // submit form permes AJAX ose proceed
+                this.submit();
+            }
+        });
     </script>
 
 <?php
