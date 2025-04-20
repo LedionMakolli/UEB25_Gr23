@@ -75,6 +75,11 @@
             transition: border-color 0.3s ease, box-shadow 0.3s ease, outline 0.3s ease;
         }
 
+        .contact-and-extra input.error,
+        .contact-and-extra textarea.error {
+            border-color: #dc3545;
+        }
+
         .contact-and-extra input:focus,
         .contact-and-extra textarea:focus {
             border-color: #4bad52;
@@ -151,15 +156,21 @@
             font-family: "Poppins";
         }
 
-        canvas {
-            display: inline-block;
-            margin-right: 10px;
-            border: 3px solid #000;
-            border-radius: 4px;
+        .error-message {
+            color: #dc3545;
+            font-size: 0.8rem;
+            margin-top: -0.5rem;
+            margin-bottom: 0.5rem;
         }
 
-        h2 mark {
-            display: inline;
+        .success-message {
+            color: #28a745;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            background-color: #d4edda;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -168,52 +179,64 @@
 
     <section class="contact-and-extra">
         <div class="form-container">
-            <h2>
-                <mark>Contact Us</mark>
-            </h2>
+            <h2><mark>Contact Us</mark></h2>
             
             <?php
+            // Definimi i variablave dhe gabimeve
+            $name = $email = $message = $music = '';
+            $termsAccepted = false;
+            $errors = [];
+            $success = false;
+
+            // Përpunimi i formës nëse është dërguar
             if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                // Marrja dhe pastrimi i të dhënave
                 $name = ucwords(trim($_POST['name'] ?? ''));
                 $email = trim($_POST['email'] ?? "");
                 $message = trim($_POST['message'] ?? "");
                 $music = $_POST['music'] ?? null;
                 $termsAccepted = isset($_POST['terms']);
                 
-                $errors = [];
-                
+                // Validimi i të dhënave
                 if (empty($name) || strlen($name) < 6) {
-                    $errors[] = "Emri dhe mbiemri duhet të kenë të paktën 6 karaktere!";
+                    $errors['name'] = "Emri dhe mbiemri duhet të kenë të paktën 6 karaktere";
                 }
                 
-                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $errors[] = "Email adresa nuk është valide!";
+                if (empty($email)) {
+                    $errors['email'] = "Email adresa është e detyrueshme";
+                } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $errors['email'] = "Email adresa nuk është valide";
                 }
                 
-                if (empty($message) || strlen($message) > 500) {
-                    $errors[] = "Mesazhi duhet të jetë deri në 500 karaktere!";
+                if (empty($message)) {
+                    $errors['message'] = "Mesazhi është i detyrueshëm";
+                } elseif (strlen($message) > 500) {
+                    $errors['message'] = "Mesazhi nuk duhet të kalojë 500 karaktere";
                 }
                 
-                if (!$music) {
-                    $errors[] = "Ju lutemi zgjidhni një zhanër!";
+                if (empty($music)) {
+                    $errors['music'] = "Ju lutemi zgjidhni një zhanër";
                 }
                 
                 if (!$termsAccepted) {
-                    $errors[] = "Ju duhet të pranoni kushtet dhe termat!";
+                    $errors['terms'] = "Ju duhet të pranoni kushtet dhe termat";
                 }
                 
+                // Nëse nuk ka gabime
                 if (empty($errors)) {
-                    echo '<div class="success-message" style="color: green; margin-bottom: 20px;">Forma u dërgua me sukses!</div>';
+                    $success = true;
                     
-                } else {
-                    echo '<div class="error-message" style="color: red; margin-bottom: 20px;">';
-                    foreach ($errors as $error) {
-                        echo "<p>$error</p>";
-                    }
-                    echo '</div>';
+                    // Këtu mund të shtohej kodi për dërgimin e email-it ose ruajtjen e të dhënave
+                    // Për demonstrim, do të shfaqim vetëm një mesazh suksesi
                 }
             }
             ?>
+            
+            <?php if ($success): ?>
+                <div class="success-message">
+                    Faleminderit për mesazhin tuaj! Do të ju kontaktojmë sa më shpejt të jetë e mundur.
+                </div>
+            <?php endif; ?>
             
             <form id="contact-form" method="POST" autocomplete="on">
                 <label for="name">Emri dhe Mbiemri:</label>
@@ -221,46 +244,59 @@
                     type="text" 
                     id="name" 
                     name="name"
-                    class="required" 
+                    class="<?php echo isset($errors['name']) ? 'error' : ''; ?>" 
                     placeholder="Shkruani emrin dhe mbiemrin tuaj" 
                     required 
                     pattern=".{6,}" 
                     title="Emri dhe mbiemri duhet të kenë të paktën 6 karaktere." 
                     autocomplete="name"
-                    value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>">
+                    value="<?php echo htmlspecialchars($name); ?>">
+                <?php if (isset($errors['name'])): ?>
+                    <div class="error-message"><?php echo $errors['name']; ?></div>
+                <?php endif; ?>
                 
                 <label for="email">Email:</label>
                 <input 
                     type="email" 
                     id="email" 
                     name="email"
-                    class="required" 
+                    class="<?php echo isset($errors['email']) ? 'error' : ''; ?>" 
                     placeholder="Shkruani email-in tuaj" 
                     required 
                     autocomplete="email"
-                    value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
+                    value="<?php echo htmlspecialchars($email); ?>">
+                <?php if (isset($errors['email'])): ?>
+                    <div class="error-message"><?php echo $errors['email']; ?></div>
+                <?php endif; ?>
                 
                 <div class="message-section">
                     <label for="message">Mesazhi juaj:</label>
                     <textarea 
                         id="message" 
                         name="message"
+                        class="<?php echo isset($errors['message']) ? 'error' : ''; ?>"
                         placeholder="Shkruani mesazhin tuaj..." 
                         rows="3" 
                         required 
                         maxlength="500" 
                         title="Mesazhi nuk duhet të kalojë 500 karaktere."
-                        autocomplete="off"><?php echo isset($_POST['message']) ? htmlspecialchars($_POST['message']) : ''; ?></textarea>
+                        autocomplete="off"><?php echo htmlspecialchars($message); ?></textarea>
+                    <?php if (isset($errors['message'])): ?>
+                        <div class="error-message"><?php echo $errors['message']; ?></div>
+                    <?php endif; ?>
                 </div>
                 
                 <div class="music-preference">
                     <p class="zhanri" style="color: var(--primary-color-dark);">Zgjedhni zhanrin që keni interesim në të:</p>
                     <div class="radio-group-horizontal">
-                        <label><input type="radio" name="music" value="rnb" <?php echo (isset($_POST['music']) && $_POST['music'] === 'rnb') ? 'checked' : ''; ?> required> R&B</label>
-                        <label><input type="radio" name="music" value="pop" <?php echo (isset($_POST['music']) && $_POST['music'] === 'pop') ? 'checked' : ''; ?>> Pop</label>
-                        <label><input type="radio" name="music" value="hiphop" <?php echo (isset($_POST['music']) && $_POST['music'] === 'hiphop') ? 'checked' : ''; ?>> HipHop</label>
-                        <label><input type="radio" name="music" value="rock" <?php echo (isset($_POST['music']) && $_POST['music'] === 'rock') ? 'checked' : ''; ?>> Rock</label>
+                        <label><input type="radio" name="music" value="rnb" <?php echo ($music === 'rnb') ? 'checked' : ''; ?> required> R&B</label>
+                        <label><input type="radio" name="music" value="pop" <?php echo ($music === 'pop') ? 'checked' : ''; ?>> Pop</label>
+                        <label><input type="radio" name="music" value="hiphop" <?php echo ($music === 'hiphop') ? 'checked' : ''; ?>> HipHop</label>
+                        <label><input type="radio" name="music" value="rock" <?php echo ($music === 'rock') ? 'checked' : ''; ?>> Rock</label>
                     </div>
+                    <?php if (isset($errors['music'])): ?>
+                        <div class="error-message"><?php echo $errors['music']; ?></div>
+                    <?php endif; ?>
                 </div>
                 <br>
                 <div class="checkbox-group">
@@ -269,9 +305,12 @@
                         type="checkbox" 
                         id="check" 
                         name="terms"
-                        <?php echo (isset($_POST['terms'])) ? 'checked' : ''; ?>
+                        <?php echo $termsAccepted ? 'checked' : ''; ?>
                         required 
                         title="Duhet të pajtoheni me kushtet dhe termat për të vazhduar.">
+                    <?php if (isset($errors['terms'])): ?>
+                        <div class="error-message"><?php echo $errors['terms']; ?></div>
+                    <?php endif; ?>
                 </div>
             
                 <button type="submit">Dërgo</button>
@@ -282,7 +321,5 @@
     <footer>
         <?php include 'footer.php'; ?>
     </footer>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </body>
 </html>
