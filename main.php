@@ -31,7 +31,7 @@
               Mirë se vini në platformën time – platforma ku talenti yt muzikor bëhet realitet! Krijo, ndaje dhe promovo zërin tënd ndërsa lidhesh me një komunitet artistësh pasionantë. Zëri yt është unik – bëhu ylli i radhës
             </p>
             <div class="header__btns">
-              <a href="contact_us.html" style="text-decoration: none;">
+              <a href="contact_us.php" style="text-decoration: none;">
                 <button class="btn1">
                   Get Started
                   <span><i class="ri-arrow-right-line"></i></span>
@@ -67,7 +67,7 @@
             <div class="genre__image">
               <img src="foto/r&b.jpg" alt="genre" />
               <div class="genre__link">
-                <a href="songs.html"><i class="ri-arrow-right-up-line"></i></a>
+                <a href="songs.php"><i class="ri-arrow-right-up-line"></i></a>
               </div>
             </div>
             <h4>R&B</h4>
@@ -76,7 +76,7 @@
             <div class="genre__image">
               <img src="foto/pop.jpg" alt="genre" />
               <div class="genre__link">
-                <a href="songs.html"><i class="ri-arrow-right-up-line"></i></a>
+                <a href="songs.php"><i class="ri-arrow-right-up-line"></i></a>
               </div>
             </div>
             <h4>POP</h4>
@@ -85,7 +85,7 @@
             <div class="genre__image">
               <img src="foto/hiphop.jpg" alt="genre" />
               <div class="genre__link">
-                <a href="songs.html"><i class="ri-arrow-right-up-line"></i></a>
+                <a href="songs.php"><i class="ri-arrow-right-up-line"></i></a>
               </div>
             </div>
             <h4>HIP HOP</h4>
@@ -94,7 +94,7 @@
             <div class="genre__image">
               <img src="foto/rock.jpg" alt="genre" />
               <div class="genre__link">
-                <a href="songs.html"><i class="ri-arrow-right-up-line"></i></a>
+                <a href="songs.php"><i class="ri-arrow-right-up-line"></i></a>
               </div>
             </div>
             <h4>ROCK</h4>
