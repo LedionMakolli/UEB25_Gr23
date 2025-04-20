@@ -275,6 +275,7 @@
 
 
         }
+        
 
         .timeline {
             list-style: none;
