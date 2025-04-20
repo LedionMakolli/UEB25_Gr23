@@ -169,7 +169,7 @@
     <?php
     class User {
         private $id;
-        protected $email;
+        private $email;
         private $password;
         public $created_at;
         
