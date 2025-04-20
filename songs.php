@@ -564,38 +564,65 @@
 
     if($_SERVER["REQUEST_METHOD"]==="POST" && isset($_POST['sort'])){
         $sortOption = $_POST['sort'];
-        
-        // Create a copy of the array for sorting
-        $sortedSongs = $songObjects;
-    
+
         switch($sortOption){
             case 'sort_title_asc': 
-                usort($sortedSongs, function($a, $b) {
-                    return strcmp($a->getTitle(), $b->getTitle());
-                });
+                $titles = [];
+                foreach($songObjects as $key =>$song){
+                    $titles[$key]= $song->getTitle();
+                }
+                ksort($titles);
+                $sorted = [];
+                foreach($titles as $key=> $_){
+                   $sorted[$key] = $songObjects[$key];
+                }
+                $songObjects = $sorted;
                 break;
-    
+
             case 'sort_title_desc':
-                usort($sortedSongs, function($a, $b) {
-                    return strcmp($b->getTitle(), $a->getTitle());
-                });
+                $titles = [];
+                foreach($songObjects as $key=>$song){
+                    $titles[$key] = $song->getTitle();
+                }
+                krsort($titles);
+                $sorted = [];
+                foreach ($titles as $key => $_) {       // $_  - ketu nuk na intereson value
+                    $sorted[$key] = $songObjects[$key];
+                }
+                $songObjects = $sorted;
                 break;
-    
+
             case 'sort_plays_asc':
-                usort($sortedSongs, function($a, $b) {
-                    return $a->getPlays() - $b->getPlays();
-                });
+                $plays = array();
+                foreach ($songObjects as $key => $song) {
+                    $plays[$key] = $song->getPlays();
+                }
+                // perdor asort per te sortuar sipas degjimeve (nga e ulet ne te larte)
+                asort($plays);
+                $sorted = [];
+                foreach ($plays as $key => $_) {
+                    $sorted[$key] = $songObjects[$key];
+                }
+                $songObjects = $sorted;
                 break;
-    
+
             case 'sort_plays_desc':
-                usort($sortedSongs, function($a, $b) {
-                    return $b->getPlays() - $a->getPlays();
-                });
+                $plays = array();
+                foreach ($songObjects as $key => $song) {
+                    $plays[$key] = $song->getPlays();
+                }
+                // perdor arsort per te sortuar sipas degjimeve (nga e larte ne te ulet)
+                arsort($plays);
+                $sorted = [];
+                foreach ($plays as $key => $_) {
+                    $sorted[$key] = $songObjects[$key];
+                }
+                $songObjects = $sorted;
                 break;
-    
+
             case 'reset':
-                // Reset to original order
-                $sortedSongs = array_map(function(array $s) {
+                // rikrijimi i objekteve prej vargjeve origjinale
+                $songObjects = array_map(function(array $s) {
                     return new Song(
                         $s['artist'],
                         $s['title'],
@@ -607,42 +634,48 @@
                 }, $originalSongs);
                 break;
         }
-        
-        // Update the main array with sorted results
-        $songObjects = $sortedSongs;
     }
     ?>
-    <?php // Display all songs from the Song objects
-    foreach ($songObjects as $song) {
-        $formattedPlays = ($song->getPlays() >= 1000) ? 
-            number_format($song->getPlays()/1000, 1) . 'K' : 
-            $song->getPlays();
-        
-        echo '
-        <div class="song fade-up">
-            <div class="song-img">
-                <img src="'.$song->getImage().'" alt="'.$song->getTitle().'">
-            </div>
-            <div class="song-details">
-                <div class="song-details-content">
-                    <div class="song-name">'.$song->getTitle().'</div>
-                    <div class="artist-name">'.$song->getName().'</div>
-                </div>
-                <div class="music-player">
-                    <div class="play-song mouse">
-                        <img src="foto/play.png" alt="play" data-song="'.$song->getId().'">
-                        <audio data-audio="'.$song->getId().'">
-                            <source src="'.$song->getAudio().'" type="audio/mp3">
-                        </audio>
-                    </div>
-                    <div class="download-song mouse">
-                        <a href="'.$song->getAudio().'" download="'.$song->getTitle().' - '.explode(' ', $song->getName())[0].'">'.$formattedPlays.'<img src="foto/download.png" alt="download"></a>
-                    </div>
-                </div>
-            </div>
-        </div>';
-    }
+
+<?php foreach ($songObjects as $song): 
+    $plays = $song->getPlays();
+    $formattedPlays = $plays >= 1000
+        ? number_format($plays/1000, 1).'K'
+        : $plays;
 ?>
+    <div class="song fade-up">
+        <div class="song-img">
+            <img src="<?= $song->getImage() ?>" alt="<?= $song->getTitle() ?>">
+        </div>
+        <div class="song-details">
+            <div class="song-details-content">
+                <div class="song-name"><?= $song->getTitle() ?></div>
+                <div class="artist-name"><?= $song->getName() ?></div>
+            </div>
+            <div class="music-player">
+                <div class="play-song mouse">
+                    <img 
+                        src="foto/play.png" 
+                        alt="play" 
+                        data-song="<?= $song->getId() ?>"
+                    >
+                    <audio data-audio="<?= $song->getId() ?>">
+                        <source src="<?= $song->getAudio() ?>" type="audio/mp3">
+                    </audio>
+                </div>
+                <div class="download-song mouse">
+                    <a 
+                        href="<?= $song->getAudio() ?>" 
+                        download="<?= $song->getTitle() ?> - <?= explode(' ', $song->getName())[0] ?>"
+                    >
+                        <?= $formattedPlays ?><img src="foto/download.png" alt="download">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
+
      </div>
 </div>
 </div>
