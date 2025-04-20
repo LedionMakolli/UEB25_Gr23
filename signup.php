@@ -273,11 +273,6 @@
         }
 
         if (empty($errors)) {
-            // process registration (hash password, save to database, ...)
-            // psh:
-            // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            // Save $fullname, $email, $hashedPassword to database
-
             echo "<script>alert('Regjistrimi u krye me sukses!'); window.location.href='login.php';</script>";
         } else {
             echo "<script>alert('" . implode("\n", $errors) . "');</script>";

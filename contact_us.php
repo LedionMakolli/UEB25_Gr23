@@ -221,7 +221,6 @@
                 // nese nuk ka gabime
                 if (empty($errors)) {
                     $success = true;
-                    
                     // formatimi i emrit (shkronja e pare e madhe)
                     $name = preg_replace_callback(
                         '/\b\w/',
