@@ -374,7 +374,7 @@ $BILETA_CMIMI = 100;
             <input type="text" id="last-name" placeholder="Mbiemri" name="last-name" required>
             <input type="email" id="email" placeholder="Email" name="email" required>
             <input type="text" id="account-number" placeholder="Numri i llogarise" name="account-number" required>
-            <input type="text" id="card-expiry" placeholder="Data e skadimit" name="expiry-date" required>
+            <input type="text" id="card-expiry" placeholder="Data e skadimit: mm/yy" name="expiry-date" required>
             <input type="number" id="ticket-quantity" value="1" min="1" placeholder="Sasia"  required>
             <input type="text" id="amount" data-cmimi="<?php echo $BILETA_CMIMI;?> " value="<?php echo $BILETA_CMIMI; ?>€" readonly>
             <button type="submit" name="submit">Paguaj</button>
