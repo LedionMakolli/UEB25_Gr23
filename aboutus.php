@@ -754,7 +754,6 @@ if (isset($_GET['showPopup']) && $_GET['showPopup'] === 'true' && isset($_GET['p
                     </ul>
                 </div>
             <?php endif; ?>
-            
             <form id="ticket-form" method="post">
                 <input type="text" id="first-name" name="first_name" placeholder="Emri" value="<?php echo htmlspecialchars($formData['first_name'] ?? ''); ?>" required>
                 <input type="text" id="last-name" name="last_name" placeholder="Mbiemri" value="<?php echo htmlspecialchars($formData['last_name'] ?? ''); ?>" required>
@@ -765,7 +764,7 @@ if (isset($_GET['showPopup']) && $_GET['showPopup'] === 'true' && isset($_GET['p
                 <input type="text" id="amount" name="amount" value="<?php echo htmlspecialchars($selectedAmount ?? $formData['amount'] ?? '0'); ?>€" readonly>
                 <input type="hidden" name="submit_payment" value="1">
                 <button type="submit">Paguaj</button>
-                <button type="button" onclick="closePopup()">Anulo</button>
+                <a href="#" onclick="closePopup(); return false;" class="button-style">Anulo</a>
             </form>
         <?php endif; ?>
     </div>
@@ -775,18 +774,21 @@ if (isset($_GET['showPopup']) && $_GET['showPopup'] === 'true' && isset($_GET['p
 <script>
     
     
-    // Function to close popup - modified version
+    
+   
+
+    <footer>
+        <?php include 'footer.php'; ?>
+    </footer>
+</script>
+
+<script>
     function closePopup() {
-        // Remove the popup-related parameters from URL
         const url = new URL(window.location.href);
         url.searchParams.delete('showPopup');
         url.searchParams.delete('planIndex');
         window.location.href = url.toString();
     }
-
-    <footer>
-        <?php include 'footer.php'; ?>
-    </footer>
 </script>
 </body>
 
