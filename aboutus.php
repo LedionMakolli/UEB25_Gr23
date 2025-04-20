@@ -774,9 +774,16 @@ if (isset($_GET['showPopup']) && $_GET['showPopup'] === 'true' && isset($_GET['p
 
 <script>
     
+    
+    // Function to close popup - modified version
     function closePopup() {
-        window.location.href = window.location.pathname + '?planType=<?php echo $selectedPlanType; ?>#pricing';
+        // Remove the popup-related parameters from URL
+        const url = new URL(window.location.href);
+        url.searchParams.delete('showPopup');
+        url.searchParams.delete('planIndex');
+        window.location.href = url.toString();
     }
+
     <footer>
         <?php include 'footer.php'; ?>
     </footer>
