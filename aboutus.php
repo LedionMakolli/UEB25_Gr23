@@ -257,24 +257,6 @@
             color: var(--text-light);
             margin-top: 10px;
         }
-        .pricing-button{
-            display: inline-block;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 4px;
-    
-    
-    background-color: #4CAF50; /* Primary green */
-    color: white;
-    
-    
-    font-size: 16px;
-    font-weight: 600;
-    text-align: center;
-    text-decoration: none
-
-
-        }
         
 
         .timeline {
@@ -629,166 +611,202 @@
 
     
 
-    <?php
-// Define pricing plans as numerical arrays
-$monthlyPrices = array(0, 29, 199, 299);
-$yearlyPrices = array(0, 299, 1999, 2999);
-
-// Plan features array
-$planFeatures = array(
-    array(
-        "Dëgjoni hite të pabesueshme",
-        "Muzika ime është e diponueshme falas",
-        "Për ju, mundësite jane të pafundme"
-    ),
-    array(
-        "Qasje ekskluzive në publikime të reja muzikore",
-        "Prioritet për rezervime në evente",
-        "Një playlist i personalizuar në muaj"
-    ),
-    array(
-        "Feedback i personalizuar për kompozim muzikor",
-        "Qasje në tutorials për kompozim muzikor",
-        "Katër playlist-a të personalizuar në muaj"
-    ),
-    array(
-        "Kompozim muzikor i personalizuar",
-        "Zbritje deri në 30% për biletat VIP",
-        "Pafund playlist-a të personalizuar"
-    )
-);
-
-
-$planTitles = array(
-    "Shijo Muziken falas",
-    "Plani Bazik",
-    "Plani i Biznesit",
-    "Plani i Ndërmarrjes"
-);
-
-
-$selectedPlanType = isset($_GET['planType']) && $_GET['planType'] === 'monthly' ? 'monthly' : 'yearly';
-
-
-$showPopup = false;
-$formData = [];
-$paymentSuccess = false;
-$errors = [];
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_payment'])) {
-    
-    $formData = [
-        'first_name' => $_POST['first_name'] ?? '',
-        'last_name' => $_POST['last_name'] ?? '',
-        'email' => $_POST['email'] ?? '',
-        'account_number' => $_POST['account_number'] ?? '',
-        'plan_name' => $_POST['plan_name'] ?? '',
-        'plan_type' => $_POST['plan_type'] ?? '',
-        'amount' => $_POST['amount'] ?? ''
-    ];
-    
-   
-    if (empty($formData['first_name'])) $errors[] = 'Emri është i detyrueshëm';
-    if (empty($formData['last_name'])) $errors[] = 'Mbiemri është i detyrueshëm';
-    if (empty($formData['email']) || !filter_var($formData['email'], FILTER_VALIDATE_EMAIL)) $errors[] = 'Email i pavlefshëm';
-    if (empty($formData['account_number'])) $errors[] = 'Numri i llogarisë është i detyrueshëm';
-    
-    if (empty($errors)) {
-        $paymentSuccess = true;
-        
-    }
-}
-
-
-if (isset($_GET['showPopup']) && $_GET['showPopup'] === 'true' && isset($_GET['planIndex'])) {
-    $planIndex = (int)$_GET['planIndex'];
-    if ($planIndex >= 0 && $planIndex < count($planTitles)) {
-        $showPopup = true;
-        $selectedPlan = $planTitles[$planIndex];
-        $selectedAmount = $selectedPlanType === 'monthly' ? $monthlyPrices[$planIndex] : $yearlyPrices[$planIndex];
-    }
-}
-?>
-
 <div class="pricing-container" id="pricing">
-    <h1>Plani i çmimeve</h1>
-    <p style="color: var(--text-light);">Zgjedhni planin më të përshtatshëm për ju</p>
-    <br>
-    <div class="toggle-buttons">
-        <a href="?planType=monthly" class="monthly <?php echo $selectedPlanType === 'monthly' ? 'active' : ''; ?>">Mujore</a>
-        <a href="?planType=yearly" class="yearly <?php echo $selectedPlanType === 'yearly' ? 'active' : ''; ?>">Vjetore</a>
-    </div>
-    <div class="pricing-plans">
+        <h1>Plani i &ccedil;mimeve</h1>
+        <p style="color: var(--text-light);">Zgjedhni planin më të përshtatshëm për ju</p>
+        <br>
+        <div class="toggle-buttons">
+            <button class="monthly">Mujore</button>
+            <button class="yearly active">Vjetore</button>
+        </div>
+        <div class="pricing-plans">
 
-        <?php for ($i = 0; $i < count($planTitles); $i++): ?>
-        <div class="pricing-plan">
-            <h2><?php echo $planTitles[$i]; ?></h2>
-            <p class="price">
-                <?php 
-                $currentPrice = $selectedPlanType === 'monthly' ? $monthlyPrices[$i] : $yearlyPrices[$i];
-                $comparePrice = $selectedPlanType === 'monthly' ? $yearlyPrices[$i] : $monthlyPrices[$i];
-                echo $currentPrice . '&euro; <span>' . $comparePrice . '&euro;</span>';
-                ?>
-            </p>
-            <ul>
-                <?php foreach ($planFeatures[$i] as $feature): ?>
-                <li><?php echo $feature; ?></li>
-                <?php endforeach; ?>
-            </ul>
-            <div>
-                <?php if ($i === 0): ?>
-                    <button>Dëgjo Falas</button>
-                <?php else: ?>
-                    <a href="?planType=<?php echo $selectedPlanType; ?>&showPopup=true&planIndex=<?php echo $i; ?>#pricing" class="pricing-button">Paguaj Tani</a>
-                <?php endif; ?>
+            <!-- Pricing plan 0 -->
+
+            <div class="pricing-plan">
+                <h2>Shijo Muziken falas</h2>
+                <p class="price"> 0&euro; <span>0&euro;</span></p>
+                <ul>
+                    <li>Dëgjoni hite të pabesueshme</li>
+                    <li>Muzika ime është e diponueshme falas</li>
+                    <li>Për ju, mundësite jane të pafundme</li>
+                </ul>
+                <div>
+                    <button>Degjo Falas</button>
+                </div>
+            </div>
+
+            <!-- Pricing plan 1 -->
+            <div class="pricing-plan">
+                <h2>Plani Bazik</h2>
+                <p class="price">29&euro; <span>299&euro;</span></p>
+                <ul>
+                    <li>Qasje ekskluzive në publikime të reja muzikore</li>
+                    <li>Prioritet për rezervime në evente</li>
+                    <li>Një playlist i personalizuar në muaj</li>
+                </ul>
+                <button>Paguaj Tani</button>
+            </div>
+
+            <!-- Pricing plan 2 -->
+
+            <div class="pricing-plan">
+                <h2>Plani i Biznesit</h2>
+                <p class="price">199&euro; <span>1999&euro;</span></p>
+                <ul>
+                    <li>Feedback i personalizuar për kompozim muzikor</li>
+                    <li>Qasje në tutorials për kompozim muzikor</li>
+                    <li>Kat&euml;r playlist-a të personalizuar në muaj</li>
+                </ul>
+                <button>Paguaj Tani</button>
+            </div>
+
+            <!-- Pricing plan 3 -->
+
+            <div class="pricing-plan">
+                <h2>Plani i Ndërmarrjes</h2>
+                <p class="price">299&euro; <span>2999&euro;</span></p>
+                <ul>
+                    <li>Kompozim muzikor i personalizuar</li>
+                    <li>Zbritje deri në 30% për biletat VIP</li>
+                    <li>Pafund playlist-a të personalizuar</li>
+                </ul>
+                <button>Paguaj Tani</button>
             </div>
         </div>
-        <?php endfor; ?>
-
     </div>
-</div>
 
-<?php if ($showPopup || ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_payment']))): ?>
-<div class="popup" id="ticket-popup" style="display: block;">
-    <div class="popup-content">
-        <span class="close" onclick="closePopup()">&times;</span>
-        
-        <?php if ($paymentSuccess): ?>
-            <h3>Faleminderit për blerjen!</h3>
-            <p>Pagesa për planin <strong><?php echo htmlspecialchars($formData['plan_name']); ?> (<?php echo $formData['plan_type'] === 'monthly' ? 'Mujore' : 'Vjetore'; ?>)</strong> 
-            në shumën <strong><?php echo htmlspecialchars($formData['amount']); ?></strong> u krye me sukses.</p>
-            <p>Do të merrni një email konfirmimi në <strong><?php echo htmlspecialchars($formData['email']); ?></strong>.</p>
-            <button onclick="closePopup()">Mbylle</button>
-        
-        <?php else: ?>
+    <div class="popup" id="ticket-popup" style="display: none;">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
             <h3>Plotësoni të dhënat për pagesën e planit të zgjedhur</h3>
-            <p><strong><?php echo htmlspecialchars($selectedPlan ?? $formData['plan_name']); ?> (<?php echo ($selectedPlanType ?? $formData['plan_type']) === 'monthly' ? 'Mujore' : 'Vjetore'; ?>)</strong></p>
-            
-            <?php if (!empty($errors)): ?>
-                <div class="error-message">
-                    <ul>
-                        <?php foreach ($errors as $error): ?>
-                            <li><?php echo $error; ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-            <?php endif; ?>
-            <form id="ticket-form" method="post">
-                <input type="text" id="first-name" name="first_name" placeholder="Emri" value="<?php echo htmlspecialchars($formData['first_name'] ?? ''); ?>" required>
-                <input type="text" id="last-name" name="last_name" placeholder="Mbiemri" value="<?php echo htmlspecialchars($formData['last_name'] ?? ''); ?>" required>
-                <input type="email" id="email" name="email" placeholder="Email" value="<?php echo htmlspecialchars($formData['email'] ?? ''); ?>" required>
-                <input type="text" id="account-number" name="account_number" placeholder="Numri i llogarisë" value="<?php echo htmlspecialchars($formData['account_number'] ?? ''); ?>" required>
-                <input type="hidden" name="plan_name" value="<?php echo htmlspecialchars($selectedPlan ?? $formData['plan_name'] ?? ''); ?>">
-                <input type="hidden" name="plan_type" value="<?php echo htmlspecialchars($selectedPlanType ?? $formData['plan_type'] ?? ''); ?>">
-                <input type="text" id="amount" name="amount" value="<?php echo htmlspecialchars($selectedAmount ?? $formData['amount'] ?? '0'); ?>€" readonly>
-                <input type="hidden" name="submit_payment" value="1">
+            <p id="pricing-type"></p>
+            <form id="ticket-form">
+                <input type="text" id="first-name" placeholder="Emri" required>
+                <input type="text" id="last-name" placeholder="Mbiemri" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="text" id="account-number" placeholder="Numri i llogarisë" required>
+                <input type="text" id="amount" value="0€" readonly>
                 <button type="submit">Paguaj</button>
-                <a href="#" onclick="closePopup(); return false;" class="button-style">Anulo</a>
+                <button type="button">Anulo</button>
             </form>
-        <?php endif; ?>
+        </div>
     </div>
-</div>
-<?php endif; ?>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+            })
+            .catch(error => console.error('Gabim gjatë ngarkimit të navbar-it:', error));
+
+        document.getElementById('toggleTable').addEventListener('click', function() {
+            var table = document.getElementById('artistTable');
+            var button = document.getElementById('toggleTable');
+            if (table.style.opacity === '0' || table.style.display === 'none') {
+                table.style.display = 'table';
+                setTimeout(function() {
+                    table.style.opacity = '1';
+                    table.style.maxHeight = '500px';
+                }, 10);
+                button.style.position = 'relative';
+                button.style.marginBottom = '20px';
+            } else {
+                table.style.opacity = '0';
+                table.style.maxHeight = '0';
+                setTimeout(function() {
+                    table.style.display = 'none';
+                }, 1000);
+            }
+        });
+    </script>
+
+
+    <script>
+        // per pricing (popup)
+        $(document).ready(function() {
+            const prices = {
+                monthly: ['0€', '29€', '199€', '299€'],
+                yearly: ['0€', '299€', '1999€', '2999€']
+            };
+
+            let selectedPlanType = 'yearly'; // default
+
+
+            $('.pricing-plan').each(function(index) {
+                $(this).find('.price').html(`${prices[selectedPlanType][index]} <span>${prices[selectedPlanType === 'monthly' ? 'yearly' : 'monthly'][index]}</span>`);
+            });
+
+            $('.toggle-buttons button').on('click', function() {
+                $('.toggle-buttons button').removeClass('active');
+                $(this).addClass('active');
+
+                selectedPlanType = $(this).hasClass('monthly') ? 'monthly' : 'yearly';
+                $('.pricing-plan').each(function(index) {
+                    $(this).find('.price').html(`${prices[selectedPlanType][index]} <span>${prices[selectedPlanType === 'monthly' ? 'yearly' : 'monthly'][index]}</span>`);
+                });
+            });
+
+
+            $('.pricing-plan button').on('click', function() {
+                const planIndex = $(this).closest('.pricing-plan').index();
+                const planName = $(this).closest('.pricing-plan').find('h2').text();
+                const amount = getPlanAmount(planIndex, selectedPlanType);
+
+                openPaymentPopup(planName, amount, selectedPlanType);
+            });
+
+
+            function getPlanAmount(planIndex, planType) {
+                let amount;
+                switch (planType) {
+                    case 'monthly':
+                        amount = prices.monthly[planIndex];
+                        break;
+                    case 'yearly':
+                        amount = prices.yearly[planIndex];
+                        break;
+                    default:
+                        amount = '0€';
+                        break;
+                }
+                return amount;
+            }
+
+
+            function openPaymentPopup(planName, amount, planType) {
+                $('#amount').val(amount);
+                $('#ticket-popup').attr('data-plan', `${planName} (${planType === 'monthly' ? 'Mujore' : 'Vjetore'})`);
+                $('#ticket-popup').show();
+            }
+
+            $('#ticket-popup .close, #ticket-popup button[type="button"]').on('click', function() {
+                $('#ticket-popup').hide();
+            });
+
+            $('#ticket-form').on('submit', function(event) {
+                event.preventDefault();
+
+                const firstName = $('#first-name').val();
+                const lastName = $('#last-name').val();
+                const email = $('#email').val();
+                const accountNumber = $('#account-number').val();
+                const amount = $('#amount').val();
+                const selectedPlan = $('#ticket-popup').attr('data-plan');
+
+                if (firstName && lastName && email && accountNumber) {
+                    alert(`Pagesa e suksesshme për planin: ${selectedPlan}\nEmri: ${firstName} ${lastName}\nEmail: ${email}\nShuma: ${amount}`);
+                    $('#ticket-popup').hide();
+                } else {
+                    alert('Ju lutem plotësoni të gjitha fushat!');
+                }
+            });
+        });
+    </script>
 
 <script>
     
@@ -801,13 +819,7 @@ if (isset($_GET['showPopup']) && $_GET['showPopup'] === 'true' && isset($_GET['p
     </footer>
 </script>
 
-<script>
-    function closePopup() {
-        const url = new URL(window.location.href);
-        url.searchParams.delete('showPopup');
-        url.searchParams.delete('planIndex');
-        window.location.href = url.toString();
-    }
+
 </script>
 </body>
 
