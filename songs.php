@@ -872,12 +872,29 @@
         });
     }
 
+    // filtrimi i artisteve qe fillojne me 'M' - funksioni
+    function filterArtistsByLetter(letter = 'M') {
+        const filteredSongs = filterSongs(song => song.name[0].toUpperCase() === letter);
+        const resultContainer = document.getElementById('filtered-artists');
+        
+        const ul = document.createElement('ul');
+        
+        filteredSongs.forEach(song => {
+            const li = document.createElement('li');
+            li.textContent = `${song.name}`;
+            ul.appendChild(li);
+        });
+        
+        resultContainer.appendChild(ul);
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
         calculateAverage();
         filterByThreshold(20000); 
         findMostPopular();
         extenededNumberManipulations();
         displayTop5Songs();
+        filterArtistsByLetter('M');
     })
 
     $('#add-static-song').click(function (){
