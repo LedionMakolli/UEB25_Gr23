@@ -257,6 +257,24 @@
             color: var(--text-light);
             margin-top: 10px;
         }
+        .pricing-button{
+            display: inline-block;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    
+    
+    background-color: #4CAF50; /* Primary green */
+    color: white;
+    
+    
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none
+
+
+        }
 
         .timeline {
             list-style: none;
@@ -639,7 +657,7 @@ $planFeatures = array(
     )
 );
 
-// Plan titles
+
 $planTitles = array(
     "Shijo Muziken falas",
     "Plani Bazik",
