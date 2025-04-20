@@ -853,11 +853,31 @@
         });
     }
 
+    // shfaqja e top 5 kengeve - funksioni
+    function displayTop5Songs() {
+        const sortedSongs = [...songs].sort((a, b) => b.listens - a.listens);
+        const top5 = sortedSongs.slice(0, 5);
+        const top5List = document.getElementById('top5-songs-list');
+        
+        top5List.innerHTML = '';
+        
+        top5.forEach((song, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span class="song-rank">${index + 1}.</span>
+                <span class="song-info">${song.name}</span>
+                <span class="song-listens">${song.listens.toLocaleString()} dëgjime</span>
+            `;
+            top5List.appendChild(li);
+        });
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
         calculateAverage();
         filterByThreshold(20000); 
         findMostPopular();
         extenededNumberManipulations();
+        displayTop5Songs();
     })
 
     $('#add-static-song').click(function (){
