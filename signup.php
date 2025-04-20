@@ -192,6 +192,21 @@
                 return true;
             }
         }
+
+        function validateConfirmPassword() {
+            const password = document.getElementById("password").value.trim();
+            const confirmPassword = document.getElementById("confirm-password").value.trim();
+            const errorElement = document.getElementById("confirm-password-error");
+            
+            if (password !== confirmPassword) {
+                errorElement.textContent = "Fjalëkalimet nuk përputhen";
+                errorElement.style.display = "block";
+                return false;
+            } else {
+                errorElement.style.display = "none";
+                return true;
+            }
+        }
     </script>
 </body>
 </html>
