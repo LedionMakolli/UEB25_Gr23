@@ -163,6 +163,20 @@
             }
         }
 
+        function validateEmail() {
+            const email = document.getElementById("email").value.trim();
+            const errorElement = document.getElementById("email-error");
+            const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            
+            if (!regex.test(email)) {
+                errorElement.textContent = "Email adresa nuk është valide";
+                errorElement.style.display = "block";
+                return false;
+            } else {
+                errorElement.style.display = "none";
+                return true;
+            }
+        }
     </script>
 </body>
 </html>
