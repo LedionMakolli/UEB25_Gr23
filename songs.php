@@ -10,7 +10,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="icon" href="foto/logo.png" type="image/png">
     <script>
-        
         <?php $songs = [
     ['name' => 'Love Galore', 'listens' => 29800],
     ['name' => 'Space Bound', 'listens' => 10200],
@@ -407,7 +406,6 @@
         .sort-dropdown:hover .dropdown-icon {
             transform: rotate(180deg);
         }
-        
         </style>
 </head>
 <body>
@@ -583,7 +581,7 @@
             <div class="song-details">
                 <div class="song-details-content">
                     <div class="song-name">'.$song->getTitle().'</div>
-                    <div class="artist-name">'.$song->getArtist().'</div>
+                    <div class="artist-name">'.$song->getName().'</div>
                 </div>
                 <div class="music-player">
                     <div class="play-song mouse">
@@ -593,7 +591,7 @@
                         </audio>
                     </div>
                     <div class="download-song mouse">
-                        <a href="'.$song->getAudio().'" download="'.$song->getTitle().' - '.explode(' ', $song->getArtist())[0].'">'.$formattedPlays.'<img src="foto/download.png" alt="download"></a>
+                        <a href="'.$song->getAudio().'" download="'.$song->getTitle().' - '.explode(' ', $song->getName())[0].'">'.$formattedPlays.'<img src="foto/download.png" alt="download"></a>
                     </div>
                 </div>
             </div>
@@ -649,6 +647,14 @@
                     </div>
                 </div>
 
+<!-- top 5 kenget -->
+<div class="top-songs-container">
+    <h3>Top 5 Këngët Më Të Dëgjuara</h3>
+    <ul class="top-songs-list" id="top5-songs-list">
+        <!-- kenget shtohen me js -->
+    </ul>
+</div>
+
 <div class="buttonat-form">
     <h3>Funksionet Add, Get, Set, Remove</h3>
     <div class="form-funksione">
@@ -680,6 +686,12 @@
             <div id="most-popular"></div>
         </div>
 
+        <!-- artistet e filtruar -->
+        <div>
+            <label>Artistë që fillojnë me 'M':</label>
+            <div id="filtered-artists"></div>
+        </div>
+
     </form>
 </div>
 
@@ -708,9 +720,10 @@
     
 </main>
 <script>
+    // Të dhënat PHP të kaluara në JavaScript
+    const songs = <?php echo json_encode($songs); ?>;
 
     // funksioin per play/pause
-
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.getElementById('song-form');
         const songsContainer = document.getElementById('songs-container');
@@ -744,7 +757,6 @@
         }
 
         // shtim i kenges permes formes
-
         form.addEventListener('submit', function(e){
             e.preventDefault();
 
@@ -791,7 +803,6 @@
             handlePlayPause();
         });
 
-
         handlePlayPause();
     });
     
@@ -801,7 +812,7 @@
         document.getElementById('average-listens').textContent = ` ${average.toFixed(2)}`;
     }
 
-        function filterByThreshold(threshold) {
+    function filterByThreshold(threshold) {
         const filteredSongs = filterSongs(song => song.listens > threshold);
         const resultContainer = document.getElementById('filtered-songs');
         
