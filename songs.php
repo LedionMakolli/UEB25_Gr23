@@ -565,7 +565,7 @@
     if($_SERVER["REQUEST_METHOD"]==="POST" && isset($_POST['sort'])){
         $sortOption = $_POST['sort'];
 
-        switch($sortOption){
+        switch($sortOption){    
             case 'sort_title_asc': 
                 $titles = [];
                 foreach($songObjects as $key =>$song){
@@ -660,8 +660,6 @@
         echo "</ul>";
     }
     
-    // Shembull thirrje
-
     ?>
 
 <?php foreach ($songObjects as $song): 
