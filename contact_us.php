@@ -164,65 +164,112 @@
     </style>
 </head>
 <body>
-    <!-- <div id="nav-placeholder"></div>
-    <script src="nav.js"></script> -->
-
     <?php include 'nav.php'; ?>
 
     <section class="contact-and-extra">
         <div class="form-container">
             <h2>
-                <canvas id="canvas-icon" width="30" height="30"></canvas>
                 <mark>Contact Us</mark>
             </h2>
-            <form id="contact-form" method="POST" enctype="text/plain" autocomplete="on">
+            
+            <?php
+            if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                $name = ucwords(trim($_POST['name'] ?? ''));
+                $email = trim($_POST['email'] ?? "");
+                $message = trim($_POST['message'] ?? "");
+                $music = $_POST['music'] ?? null;
+                $termsAccepted = isset($_POST['terms']);
+                
+                $errors = [];
+                
+                if (empty($name) || strlen($name) < 6) {
+                    $errors[] = "Emri dhe mbiemri duhet të kenë të paktën 6 karaktere!";
+                }
+                
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $errors[] = "Email adresa nuk është valide!";
+                }
+                
+                if (empty($message) || strlen($message) > 500) {
+                    $errors[] = "Mesazhi duhet të jetë deri në 500 karaktere!";
+                }
+                
+                if (!$music) {
+                    $errors[] = "Ju lutemi zgjidhni një zhanër!";
+                }
+                
+                if (!$termsAccepted) {
+                    $errors[] = "Ju duhet të pranoni kushtet dhe termat!";
+                }
+                
+                if (empty($errors)) {
+                    echo '<div class="success-message" style="color: green; margin-bottom: 20px;">Forma u dërgua me sukses!</div>';
+                    
+                } else {
+                    echo '<div class="error-message" style="color: red; margin-bottom: 20px;">';
+                    foreach ($errors as $error) {
+                        echo "<p>$error</p>";
+                    }
+                    echo '</div>';
+                }
+            }
+            ?>
+            
+            <form id="contact-form" method="POST" autocomplete="on">
                 <label for="name">Emri dhe Mbiemri:</label>
                 <input 
                     type="text" 
                     id="name" 
+                    name="name"
                     class="required" 
                     placeholder="Shkruani emrin dhe mbiemrin tuaj" 
                     required 
                     pattern=".{6,}" 
                     title="Emri dhe mbiemri duhet të kenë të paktën 6 karaktere." 
-                    autocomplete="name">
+                    autocomplete="name"
+                    value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>">
                 
                 <label for="email">Email:</label>
                 <input 
                     type="email" 
                     id="email" 
+                    name="email"
                     class="required" 
                     placeholder="Shkruani email-in tuaj" 
                     required 
-                    autocomplete="email">
+                    autocomplete="email"
+                    value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
                 
                 <div class="message-section">
                     <label for="message">Mesazhi juaj:</label>
                     <textarea 
                         id="message" 
+                        name="message"
                         placeholder="Shkruani mesazhin tuaj..." 
                         rows="3" 
                         required 
                         maxlength="500" 
                         title="Mesazhi nuk duhet të kalojë 500 karaktere."
-                        autocomplete="off"></textarea>
+                        autocomplete="off"><?php echo isset($_POST['message']) ? htmlspecialchars($_POST['message']) : ''; ?></textarea>
                 </div>
                 
                 <div class="music-preference">
                     <p class="zhanri" style="color: var(--primary-color-dark);">Zgjedhni zhanrin që keni interesim në të:</p>
                     <div class="radio-group-horizontal">
-                        <label><input type="radio" name="music" value="rnb" required> R&B</label>
-                        <label><input type="radio" name="music" value="pop"> Pop</label>
-                        <label><input type="radio" name="music" value="hiphop"> HipHop</label>
-                        <label><input type="radio" name="music" value="rock"> Rock</label>
+                        <label><input type="radio" name="music" value="rnb" <?php echo (isset($_POST['music']) && $_POST['music'] === 'rnb') ? 'checked' : ''; ?> required> R&B</label>
+                        <label><input type="radio" name="music" value="pop" <?php echo (isset($_POST['music']) && $_POST['music'] === 'pop') ? 'checked' : ''; ?>> Pop</label>
+                        <label><input type="radio" name="music" value="hiphop" <?php echo (isset($_POST['music']) && $_POST['music'] === 'hiphop') ? 'checked' : ''; ?>> HipHop</label>
+                        <label><input type="radio" name="music" value="rock" <?php echo (isset($_POST['music']) && $_POST['music'] === 'rock') ? 'checked' : ''; ?>> Rock</label>
                     </div>
                 </div>
-            <br>
+                <br>
                 <div class="checkbox-group">
                     <label for="check"><pre id="tekst">Pranoj kushtet&termat</pre></label>
                     <input 
                         type="checkbox" 
                         id="check" 
+                        name="terms"
+                        <?php echo (isset($_POST['terms'])) ? 'checked' : ''; ?>
                         required 
                         title="Duhet të pajtoheni me kushtet dhe termat për të vazhduar.">
                 </div>
@@ -232,153 +279,10 @@
         </div>
     </section>
 
-    <!-- <footer>
-        <div id="footer"></div>
-    </footer>
-    <script src="footer.js"></script> -->
-
     <footer>
         <?php include 'footer.php'; ?>
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-    const canvas = document.getElementById("canvas-icon");
-    const ctx = canvas.getContext("2d");
-
-    ctx.fillStyle = "#fff";
-    ctx.beginPath();
-    ctx.moveTo(5, 5);
-    ctx.lineTo(25, 5);
-    ctx.lineTo(15, 15);
-    ctx.closePath();
-    ctx.fill();
-
-    ctx.strokeStyle = "#000";
-    ctx.lineWidth = 2;
-    ctx.strokeRect(5, 5, 20, 15);
-
-    ctx.beginPath();
-    ctx.moveTo(5, 5);
-    ctx.lineTo(15, 15);
-    ctx.lineTo(25, 5);
-    ctx.stroke();
-});
-
-// const button = document.querySelector("button");
-// const form = document.getElementById("contact-form");
-
-// button.addEventListener("click", function (event) {
-//     event.preventDefault();
-
-//     try {
-//         const name = document.getElementById("name").value.trim();
-// //        const email = document.getElementById("email").value.trim();
-//         const message = document.getElementById("message").value.trim();
-//         const music = document.querySelector("input[name='music']:checked");
-//         const agreeTerms = document.getElementById("check").checked;
-
-//         if (!name || !email || !message || !music || !agreeTerms) {
-//             throw new Error("Ju lutem plotësoni të gjitha fushat e kërkuara!");
-//         }
-
-//         if (name.length < 6) {
-//             throw new Error("Emri dhe mbiemri duhet të kenë të paktën 6 karaktere!");
-//         }
-
-//   //      if (!email.includes("@")) {
-//     //        throw new Error("Ju lutem shkruani një email të vlefshëm që përmban '@'!");
-//       //  }
-
-//         alert("Kontakti është kryer me sukses!");
-
-//         $("#contact-form").slideUp(500, function () {
-//             form.reset();
-//             $(this)
-//                 .fadeIn(500)
-//                 .animate({ opacity: 0.5 }, 500)
-//                 .animate({ opacity: 1 }, 500);
-//         });
-//     } catch (error) {
-//         alert(error.message);
-//     }
-});
-
-<?php
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        
-        $name = ucwords(trim($_POST['name'] ?? ''));
-        $email = trim($_POST['email'] ?? "");
-        $message = trim($_POST['message'] ?? "");
-        $genre = $_POST['genre'] ?? null;
-        $termsAccepted = isset($_POST['terms']);
-
-       
-        $namePattern = "/^[a-zA-ZëËçÇšŠžŽ\s]+$/";
-        $emailPattern = "/^[^0-9][a-zA-Z_\.\-0-9]{2,}@[a-zA-Z]{4,8}\.[a-z]{2,5}$/";
-        $messagePattern = "/^.{1,500}$/";
-
-        
-        if (!preg_match($namePattern, $name)) {
-            echo "<script>alert('Emri dhe Mbiemri nuk është valide!');</script>";
-        } elseif (!preg_match($emailPattern, $email)) {
-            echo "<script>alert('Email adresa nuk është valide!');</script>";
-        } elseif (!preg_match($messagePattern, $message)) {
-            echo "<script>alert('Mesazhi duhet të jetë deri në 500 karaktere!');</script>";
-        } elseif (!$genre) {
-            echo "<script>alert('Ju lutemi zgjidhni një zhanër!');</script>";
-        } elseif (!$termsAccepted) {
-            echo "<script>alert('Ju duhet të pranoni kushtet dhe termat!');</script>";
-        } else {
-            
-            echo "<script>alert('Forma u dërgua me sukses!');</script>";
-        }
-    }
-
-    
-    class ContactUsUsers {
-        private $name;
-        private $email;
-        private $message;
-        private $genre;
-        private $created_at;
-
-        public function __construct($name, $email, $message, $genre) {
-            $this->name = $name;
-            $this->email = $email;
-            $this->message = $message;
-            $this->genre = $genre;
-            $this->created_at = date('Y-m-d H:i:s');
-        }
-
-        public function getName() {
-            return $this->name;
-        }
-
-        public function getEmail() {
-            return $this->email;
-        }
-
-        public function getMessage() {
-            return $this->message;
-        }
-
-        public function getGenre() {
-            return $this->genre;
-        }
-
-        public function getCreatedAt() {
-            return $this->created_at;
-        }
-    }
-    ?>
-
-    </script>
 </body>
 </html>
-
-
-
-
-
