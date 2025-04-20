@@ -410,10 +410,12 @@ if(!preg_match($emailRegex, $email)){
 }
 
 $cardName=trim($_POST["account-number"]);
-$cardNameRegex = "/^[0-9]{16}$/";
+$cardNameRegex = "/^([0-9]{4}\-){3}[0-9]{4}$/";
 
 if(!preg_match($cardNameRegex, $cardName)){
-echo "<script>alert('Numri i gjirollogarise nuk eshte i vlefshem')</script>";
+  echo "<script>alert('Numri i gjirollogarise nuk eshte i vlefshem')</script>";
+ } else {
+  $cleanCardNumber = str_replace("-", "", $cardName);
 }
 
 $expiryDate = trim($_POST["expiry-date"]);
