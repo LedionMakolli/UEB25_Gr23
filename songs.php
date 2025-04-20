@@ -759,7 +759,7 @@
     
 </main>
 <script>
-    // Të dhënat PHP të kaluara në JavaScript
+    // te dhenat ne PHP te shnderruara ne JavaScript array
     const songs = <?php echo json_encode($songs); ?>;
 
     // funksioin per play/pause
