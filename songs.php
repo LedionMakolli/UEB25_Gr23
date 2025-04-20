@@ -18,7 +18,7 @@
     ['name' => 'Starlight Interlude', 'listens' => 21100],
     ['name' => 'One Last Time', 'listens' => 7800],
     ['name' => 'Mathematics', 'listens' => 963],
-    ['name' => 'Ms. Jackson', 'listens' => 43500],
+    ['name' => 'Ms. Jackson', 'listens' => 43500],  
     ['name' => 'Temperature', 'listens' => 9200],
 ];?>
 
@@ -635,6 +635,33 @@
                 break;
         }
     }
+
+    $namesOnly = [
+        'Love Galore',
+        'Space Bound',
+        'Heartles',
+        'H.O.L.L.A',
+        'Starlight Interlude',
+        'One Last Time',
+        'Mathematics',
+        'Ms. Jackson',
+        'Temperature'
+    ];
+    
+    function filterArtistsByLetter($names, $letter = 'M') {
+        $filtered = array_filter($names, function($name) use ($letter) {
+            return strtoupper($name[0]) === strtoupper($letter);
+        });
+    
+        echo "<ul>";
+        foreach ($filtered as $name) {
+            echo "<li>$name</li>";
+        }
+        echo "</ul>";
+    }
+    
+    // Shembull thirrje
+
     ?>
 
 <?php foreach ($songObjects as $song): 
@@ -761,7 +788,10 @@
         <!-- artistet e filtruar -->
         <div>
             <label>Artistë që fillojnë me 'M':</label>
-            <div id="filtered-artists"></div>
+            <div id="filtered-artists"><?php
+            filterArtistsByLetter($namesOnly, 'M');
+            ?>
+            </div>
         </div>
 
     </form>
@@ -929,28 +959,11 @@
         });
     }
 
-    // filtrimi i artisteve qe fillojne me 'M' - funksioni
-    function filterArtistsByLetter(letter = 'M') {
-        const filteredSongs = filterSongs(song => song.name[0].toUpperCase() === letter);
-        const resultContainer = document.getElementById('filtered-artists');
-        
-        const ul = document.createElement('ul');
-        
-        filteredSongs.forEach(song => {
-            const li = document.createElement('li');
-            li.textContent = `${song.name}`;
-            ul.appendChild(li);
-        });
-        
-        resultContainer.appendChild(ul);
-    }
-
     window.addEventListener('DOMContentLoaded', () => {
         calculateAverage();
         findMostPopular();
         extenededNumberManipulations();
         displayTop5Songs();
-        filterArtistsByLetter('M');
     })
 
     $('#add-static-song').click(function (){
