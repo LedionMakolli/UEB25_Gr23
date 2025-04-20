@@ -719,12 +719,6 @@
             <div id="average-listens"></div>
         </div>
 
-        <!-- filter  -->
-        <div>
-            <label> Filtirmi mbi 20,000 degjime:</label>
-            <div id="filtered-songs"></div>
-        </div>
-
         <!-- reduce -->
         <div>
             <label>Kenga më e dëgjuar eshte:</label>
@@ -857,21 +851,6 @@
         document.getElementById('average-listens').textContent = ` ${average.toFixed(2)}`;
     }
 
-    function filterByThreshold(threshold) {
-        const filteredSongs = filterSongs(song => song.listens > threshold);
-        const resultContainer = document.getElementById('filtered-songs');
-        
-        const ol = document.createElement('ol');
-        
-        filteredSongs.forEach( song => {
-            const li = document.createElement('li');
-            li.textContent = `${song.name} (${song.listens} dëgjime)`;
-            ol.appendChild(li);
-        });
-        
-        resultContainer.appendChild(ol);
-    }
-
     function findMostPopular() {
         const mostPopular = findSong((currentBest, song) => song.listens > currentBest.listens);
         document.getElementById('most-popular').textContent = ` ${mostPopular.name} (${mostPopular.listens} dëgjime)`;
@@ -935,7 +914,6 @@
 
     window.addEventListener('DOMContentLoaded', () => {
         calculateAverage();
-        filterByThreshold(20000); 
         findMostPopular();
         extenededNumberManipulations();
         displayTop5Songs();
