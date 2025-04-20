@@ -234,6 +234,11 @@
                 this.submit();
             }
         });
+
+        document.getElementById("password").addEventListener("input", function() {
+            validatePassword();
+            validateConfirmPassword(); 
+        });
     </script>
 
 <?php
