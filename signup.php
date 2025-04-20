@@ -155,6 +155,12 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
+        // real-time validation
+        document.getElementById("fullname").addEventListener("input", validateFullname);
+        document.getElementById("email").addEventListener("input", validateEmail);
+        document.getElementById("password").addEventListener("input", validatePassword);
+        document.getElementById("confirm-password").addEventListener("input", validateConfirmPassword);
+        
         function validateFullname() {
             const fullname = document.getElementById("fullname").value.trim();
             const errorElement = document.getElementById("fullname-error");
