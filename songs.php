@@ -406,6 +406,51 @@
         .sort-dropdown:hover .dropdown-icon {
             transform: rotate(180deg);
         }
+        /* top songs */
+        .top-songs-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 1000px;
+            color: white;
+        }
+
+        .top-songs-container h3 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #007BFF;
+        }
+
+        .top-songs-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .top-songs-list li {
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .top-songs-list li:last-child {
+            border-bottom: none;
+        }
+
+        .song-rank {
+            font-weight: bold;
+            color: #007BFF;
+        }
+
+        .song-info {
+            flex-grow: 1;
+            margin-left: 15px;
+        }
+
+        .song-listens {
+            color: #c0c0c0;
+        }
         </style>
 </head>
 <body>
