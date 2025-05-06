@@ -1,0 +1,276 @@
+:root {
+    --font-family: 'Poppins', sans-serif;
+    --primary-color: #223439;
+    --primary-color-dark: #1b1f24;
+    --secondary-color: #a9fb50;
+    --text-dark: #333333;
+    --text-light: #7496aa;
+    --white: #ffffff;
+    --max-width: 1200px;
+    --gradient-1: linear-gradient(to bottom, var(--primary-color), #1d2127);
+    --gradient-2: linear-gradient(to bottom, #317fec, #35e4df);
+  }
+
+  body {
+    font-family: 'Poppins';
+    margin: 0;
+    padding: 0;
+    background-color: #223439;
+  }
+  header {
+  position: relative;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+  font-size: 40px;
+  overflow: hidden;
+  background-attachment: fixed;
+  }
+
+  header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('../foto/rave.jpg');
+      background-repeat: repeat;
+      background-size: auto;
+      background-position: center;
+      filter: blur(5px);
+      z-index: -1;
+  }
+
+  .main-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .sidebar {
+    flex: 1 1 25%;
+    max-width: 25%;
+    background-color: #e8f5e9;
+    padding: 20px;
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+
+  .sidebar video {
+    width: 100%;
+    max-height: 100%;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    object-fit: cover;
+  }
+
+  .sidebar h2 {
+    font-size: 1.5rem;
+    color: #223439;
+  }
+
+  .sidebar p {
+    line-height: 1.6;
+    color: #555;
+  }
+
+  .concert-table {
+    flex: 1 1 70%;
+    max-width: 70%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .concert-table th, .concert-table td {
+    padding: 15px;
+    text-align: left;
+  }
+  .concert-table th {
+    background-color: #1b1f24; 
+    color: white;
+    text-transform: uppercase;
+  }
+
+  .concert-table tr {
+    background-color: #e8f5e9;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  .concert-table tr:hover {
+    background-color: #b3deb6;
+    transform: translateY(-2px);
+  }
+
+  .concert-table td {
+    border-bottom: 1px solid #ddd;
+  }
+  .concert-table button {
+    background-color: #223439;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+
+  .concert-table button:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color-dark);
+    transition: 0.3s ease;
+  }
+
+  .ticket-container {
+    margin: 40px 200px;
+    text-align: center;
+  }
+
+  .ticket {
+    position: relative;
+    width: 90%; 
+    max-width: 1200px;
+    height: auto;
+    aspect-ratio: 3 / 1; 
+    background-image: url('../foto/ticket.jpg'); 
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+  }
+
+  .ticket .dynamic-text {
+    position: absolute;
+    color: rgb(66, 154, 212);
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .ticket p {
+  position: absolute;
+  bottom: 40%;
+  left: 17%;
+  transform: translateX(-50%); 
+  font-size: 60px;
+  font-family: ui-rounded;
+  font-weight: bold;
+  word-wrap: break-word;
+  max-width: 300px;
+  color: rgb(11, 58, 99);
+}
+
+  .ticket .music{
+    position: relative;
+    right: 15%;
+  }
+  .ticket .concert{
+    display: block;
+  }
+
+  .ticket .location {
+        top: 50% ;
+        left: 7%;
+        font-size: 1.8rem;
+        font-family: ui-rounded;
+      }
+
+  .ticket .date {
+    top: 70%;
+    left: 7%;
+    font-size: 1.5rem;
+    font-family: ui-rounded;
+  }
+
+.ticket .other-info{
+  top:90%;
+  left:7%;
+  font-size:1.2rem;
+  font-family: ui-rounded;
+}
+
+.ticket button{
+  position:absolute;
+  bottom: 10%;
+  left: 68%;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+.ticket button:hover{
+  background-color:var(--secondary-color);
+  color: var(--primary-color-dark);
+  transition: 0.3s ease;
+}
+
+.popup{
+  display:none;
+  position: fixed;
+  z-index: 1;
+  left:0;
+  top:0;
+  width: 100%;
+  height: 100%;
+  background-color:rgba(0, 0, 0, 0.4) ;
+  justify-content: center;
+  align-items: center;
+
+}
+.popup-content{
+  background-color: white;
+  padding:70px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+   }
+
+.popup-content form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup input{
+  width: 100%;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+}
+
+.popup button{
+  flex:1;
+  padding: 10px 20px;
+  background-color: #223439;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.popup button:hover{
+  background-color:#218838;
+}
+
+.close{
+  position: absolute;
+  top:10px;
+  right: 10px;
+  cursor: pointer;
+  font-size:20px;
+}
