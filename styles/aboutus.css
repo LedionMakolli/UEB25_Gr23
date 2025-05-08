@@ -259,7 +259,7 @@ tr:hover td {
     width: 2px;
     left: 50%;
     border: 2px solid transparent;
-    border-image: url('foto/concert.jpg') 30 stretch;
+    border-image: url('../foto/concert.jpg') 30 stretch;
     transform: translateX(-50%);
 }
 

@@ -12,12 +12,7 @@
 
   </head>
   <body>
-    
-    <!-- <div id="nav-placeholder"></div>
-    <script src="nav.js"></script> -->
-
     <?php include 'nav.php'; ?>
-
 
     <header class="header" id="home">
         <div class="section__container header__container">
@@ -147,44 +142,8 @@
     </div>
   </section>
 
-  <script>
-    // drag & drop
+ <script src="javascript/draganddrop.js"></script>
 
-        const featureList = document.getElementById("feature-list");
-        let draggedItem = null;
-
-        featureList.addEventListener("dragstart", (event) => {
-          draggedItem = event.target.closest(".feature__card");
-          event.target.style.opacity = 0.5;
-        })
-
-        featureList.addEventListener("dragover", (event) => {
-          event.preventDefault();
-        })
-
-        featureList.addEventListener("drop", (event) => {
-         event.preventDefault();
-         
-         let targetCard = event.target.closest(".feature__card");
-         if(targetCard && draggedItem !== event.target){
-          const draggedIndex = Array.from(featureList.children).indexOf(draggedItem);
-          const targetIndex = Array.from(featureList.children).indexOf(event.target);
-
-          if(draggedIndex < targetIndex){
-            featureList.insertBefore(draggedItem, targetCard.nextSibling);
-          }else{
-            featureList.insertBefore(draggedItem,targetCard);
-          }
-         }
-         draggedItem.style.opacity = 1;
-        });
-
-        featureList.addEventListener("dragend", (event) => {
-          if(draggedItem){
-            draggedItem.style.opacity = 1;
-          }
-        });
-  </script>
      
   <section class="client__container">
     <h2 class="section__header">Komente nga klientët</h2>
@@ -198,72 +157,7 @@
           </div>
       </div>
     </section>
-<!-- <script>
-  function Client(name, position, comment, rating, imageSrc) {
-          this.name = name;
-          this.position = position;
-          this.comment = comment;
-          this.rating = rating;
-          this.imageSrc = imageSrc;
-        }
 
-        const client1 = new Client(
-          "Luan", 
-          "Trajner Fitnesi", 
-          "Sesionet e mia të stërvitjes kanë arritur nivele të reja intensiteti dhe motivimi, falë ritmeve energjike dhe këngëve fuqizuese që Illyric ka bërë.", 
-          5, 
-          "foto/gymtrainer.jpg"
-        );
-
-        const client2 = new Client(
-          "Sara", 
-          "Menaxhere Marketingu", 
-          "Në mes të orarit tim të ngarkuar, meloditë qetësuese të Illyric ofrojnë një shpëtim të nevojshëm, duke më lejuar të relaksohem dhe të rimarr energji.", 
-          5, 
-          "foto/marketingmanager.jpg"
-        );
-        
-        const client3 = new Client(
-          "Vjollca", 
-          "Edukatore", 
-          "Duke shfrytëzuar meloditë qetësuese të Illyric, krijoj një ambient të qetë mësimor në klasën time dhe nxis suksesin akademik mes studentëve të mi.", 
-          5, 
-          "foto/teacher.jpg"
-        );
-        const client4 = new Client(
-          "Arti", 
-          "Artist", 
-          "Si krijues muzike, gjithmonë befasohem nga krijimtaria dhe inovacioni që Illyric sjell në dispozicion, duke inspiruar përpjekjet e mia artistike.", 
-          5, 
-          "foto/rapper.jpg"
-        );
-        function renderClient(client) {
-          return `
-            <div class="swiper-slide">
-              <div class="client__card">
-                <div class="client__ratings">
-                  ${'<span><i class="ri-star-fill"></i></span>'.repeat(client.rating)}
-                </div>
-                <p>${client.comment}</p>
-                <div class="client__details">
-                  <img src="${client.imageSrc}" alt="client" />
-                  <div>
-                    <h4>${client.name}</h4>
-                    <h5>${client.position}</h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-          `;
-        }
-        const swiperWrapper = document.querySelector('.swiper-wrapper');
-        swiperWrapper.innerHTML = `
-          ${renderClient(client1)}
-          ${renderClient(client2)}
-          ${renderClient(client3)}
-          ${renderClient(client4)}
-        `; -->
-<!-- </script> -->
 <?php
 class Client {
     protected $name;
@@ -350,14 +244,6 @@ foreach ($clients as $client) {
 
 echo "<div class='swiper-wrapper'>$swiperContent</div>";
 ?>
-
-
-
-  <!-- <footer>
-    <div id="footer"></div>
-</footer>
-<script src="footer.js"></script> -->
-
     <footer>
       <?php include 'footer.php'; ?>
     </footer>
