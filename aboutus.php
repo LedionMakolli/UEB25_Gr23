@@ -24,7 +24,7 @@
         <header class="masthead">
             <div class="video-backgournd">
                 <video autoplay loop muted playsinline>
-                    <source src="vid_abus.mp4" type="video/mp4">
+                    <source src="videos/vid_abus.mp4" type="video/mp4">
                 </video>
             </div>
             <div class="container">

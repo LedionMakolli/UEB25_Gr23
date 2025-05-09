@@ -16,7 +16,7 @@
     
         <div class="sidebar">
           <video autoplay muted loop playsinline>
-            <source src="video1.mp4" type="video/mp4">
+            <source src="videos/video1.mp4" type="video/mp4">
             Shfletuesi juaj nuk e mbështet videon.
           </video>        
           <a href="arrays.php">Rreth Illyric</a>
