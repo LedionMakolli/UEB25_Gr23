@@ -77,3 +77,31 @@
                 }
             });
         });
+
+
+        fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+            })
+            .catch(error => console.error('Gabim gjatë ngarkimit të navbar-it:', error));
+
+        document.getElementById('toggleTable').addEventListener('click', function() {
+            var table = document.getElementById('artistTable');
+            var button = document.getElementById('toggleTable');
+            if (table.style.opacity === '0' || table.style.display === 'none') {
+                table.style.display = 'table';
+                setTimeout(function() {
+                    table.style.opacity = '1';
+                    table.style.maxHeight = '500px';
+                }, 10);
+                button.style.position = 'relative';
+                button.style.marginBottom = '20px';
+            } else {
+                table.style.opacity = '0';
+                table.style.maxHeight = '0';
+                setTimeout(function() {
+                    table.style.display = 'none';
+                }, 1000);
+            }
+        });
