@@ -10,61 +10,14 @@
     <link rel="icon" href="foto/logo.png" type="image/png">
 </head>
 <body>
-    <?php include 'nav.php'; ?>
+    <?php 
+    include 'nav.php'; 
+    include 'php-files/contactus_process.php'
+    ?>
 
     <section class="contact-and-extra">
         <div class="form-container">
             <h2><mark>Contact Us</mark></h2>
-            
-            <?php
-            // Definimi i variablave dhe gabimeve
-            $name = $email = $message = $music = '';
-            $termsAccepted = false;
-            $errors = [];
-            $success = false;
-
-            // perpunimi i formes nese eshte derguar
-            if ($_SERVER["REQUEST_METHOD"] === "POST") {
-                // marrja dhe pastrimi i te dhenave
-                $name = trim($_POST['name'] ?? '');
-                $email = str_replace(' ', '', trim($_POST['email'] ?? ""));
-                $message = trim($_POST['message'] ?? "");
-                $music = $_POST['music'] ?? null;
-                $termsAccepted = isset($_POST['terms']);
-
-                // validimi i te dhenave me RegEx
-                if (!preg_match("/^[a-zA-ZëËçÇ\s]{6,50}$/", $name)) {
-                    $errors['name'] = "Emri duhet të përmbajë vetëm shkronja (6-50 karaktere)";
-                }
-                
-                if (!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email)) {
-                    $errors['email'] = "Email adresa nuk është valide";
-                }
-                
-                if (!preg_match("/^[\w\s.,!?()-]{1,500}$/", $message)) {
-                    $errors['message'] = "Mesazhi përmban karaktere të palejuara ose është më i gjatë se 500 karaktere";
-                }
-                
-                if (empty($music)) {
-                    $errors['music'] = "Ju lutemi zgjidhni një zhanër";
-                }
-                
-                if (!$termsAccepted) {
-                    $errors['terms'] = "Ju duhet të pranoni kushtet dhe termat";
-                }
-                
-                // nese nuk ka gabime
-                if (empty($errors)) {
-                    $success = true;
-                    // formatimi i emrit (shkronja e pare e madhe)
-                    $name = preg_replace_callback(
-                        '/\b\w/',
-                        function($matches) { return strtoupper($matches[0]); },
-                        strtolower($name)
-                    );
-                }
-            }
-            ?>
             
             <?php if ($success): ?>
                 <div class="success-message">
