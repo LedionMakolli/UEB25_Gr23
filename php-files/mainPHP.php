@@ -83,6 +83,4 @@ foreach ($clients as $client) {
     $swiperContent .= $client->renderClient();
 }
 
-// echo "<div class='swiper-wrapper'>$swiperContent</div>";
-
 ?>
