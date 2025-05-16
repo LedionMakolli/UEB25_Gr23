@@ -1,5 +1,5 @@
 <?php
-require_once 'php-files/db.php'; // lidhja me db
+require_once("db.php"); // lidhja me db
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $fullname = trim($_POST["fullname"] ?? "");
@@ -9,7 +9,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $errors = [];
 
-    // Validation
     if (strlen($fullname) < 3 || strlen($fullname) > 100) {
         $errors[] = "Emri i plotë duhet të jetë 3-100 karaktere.";
     }

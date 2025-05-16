@@ -1,5 +1,5 @@
 <?php
-// Në fillim të file-it siguro session-in
+// nav.php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -9,6 +9,14 @@ if (session_status() === PHP_SESSION_NONE) {
     <div class="nav__logo">
       <a href="main.php" class="logo">ILLYRIC</a>
     </div>
+
+    <!-- ← DISPLAY USER FULLNAME HERE -->
+    <?php if (!empty($_SESSION['fullname'])): ?>
+      <div class="nav__user" style="margin-left:1rem; color:#fff; font-weight:500;">
+        <?= htmlspecialchars($_SESSION['fullname']) ?>
+      </div>
+    <?php endif; ?>
+
     <div class="nav__menu__btn" id="menu-btn">
       <span><i class="ri-menu-line"></i></span>
     </div>
@@ -28,8 +36,7 @@ if (session_status() === PHP_SESSION_NONE) {
   </div>
 
   <div class="nav__btns">
-    <?php if (isset($_SESSION['user_id'])): ?>
-      <!-- Nëse je i kyçur shfaq Log Out -->
+    <?php if (!empty($_SESSION['user_id'])): ?>
       <button
         class="btn2"
         onclick="window.location.href='php-files/logout.php'"
@@ -38,7 +45,6 @@ if (session_status() === PHP_SESSION_NONE) {
         Log Out
       </button>
     <?php else: ?>
-      <!-- Nëse nuk je i kyçur shfaq Log In -->
       <button
         class="btn2"
         onclick="window.location.href='login.php'"
