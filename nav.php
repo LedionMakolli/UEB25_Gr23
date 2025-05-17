@@ -34,8 +34,8 @@ if (session_status() === PHP_SESSION_NONE) {
   </ul>
 
   <div class="nav__btns">
-    <button class="btn1" onclick="window.location.href='contact_us.php'">
-      Contact Us
+    <button class="btn1" onclick="window.location.href='rate_us.php'">
+      Rate Us
     </button>
   </div>
 
