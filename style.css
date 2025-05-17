@@ -784,4 +784,18 @@ abbr {
   text-decoration: none;
 }
 
+#remove-last-song{
+  width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background-color: #ff4444;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 /**/

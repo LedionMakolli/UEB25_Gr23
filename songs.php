@@ -12,7 +12,6 @@ $volume = isset($_COOKIE['volume']) ? (float) $_COOKIE['volume'] : 0.7; // defau
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Songs</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="styles/songs.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -346,6 +345,10 @@ if (!empty($_SESSION['user_id']) && isset($_GET['play'])) {
 
         <button type="submit">Shto kengen</button>
     </form>
+    <button id="remove-last-song" type="button"
+    style="width:100%; padding:12px; margin-top:10px; background:#ff4444; color:white; border:none; border-radius:15px; font-weight:bold; cursor:pointer;">
+    Hiq Këngën e Fundit
+</button>
 </div>
 
 <div class="sort-dropdown">
@@ -374,15 +377,6 @@ if (!empty($_SESSION['user_id']) && isset($_GET['play'])) {
     </ul>
 </div>
 
-<div class="buttonat-form">
-    <h3>Funksionet Add, Get, Set, Remove</h3>
-    <div class="form-funksione">
-        <button id="add-static-song">Shto Këngë Statike</button>
-        <button id="get-first-song">Merr Këngën e Parë</button>
-        <button id="set-first-song">Ndrysho Këngën e Parë</button>
-        <button id="remove-last-song">Hiq Këngën e Fundit</button>
-    </div>
-</div>
 
 <div class="buttonat-form">
     <h3>Te dhenat shtesë</h3>
@@ -598,18 +592,6 @@ document.addEventListener('DOMContentLoaded', () => {
         extenededNumberManipulations();
         displayTop5Songs();
     })
-
-    $('#add-static-song').click(function (){
-        $('#songs-container').append('<div class="song"><div class="song-name">New Song</div><div class="artist-name">Unknown Artist</div></div>');
-    });
-
-    $('#get-first-song').click(function (){
-        alert($('.song:first .song-name').text());
-    });
-
-    $('#set-first-song').click(function(){
-        $('.song:first .song-name').text('Updated Song Nmae');
-    });
 
     $('#remove-last-song').click(function () {
         $('.song:last').remove();
