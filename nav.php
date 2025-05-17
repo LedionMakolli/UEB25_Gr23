@@ -2,6 +2,10 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+if (!isset($_SESSION['songs_plays'])) {
+    $_SESSION['songs_plays'] = 0;
+}
+
 ?>
 <nav class="nav_fixed">
   <div class="nav__header">
@@ -23,12 +27,14 @@ if (session_status() === PHP_SESSION_NONE) {
   <ul class="nav__links" id="nav-links">
     <li><a href="main.php">Home</a></li>
     <li>
-      <?php if (!empty($_SESSION['user_id'])): ?>
-        <a href="songs.php">Songs</a>
-      <?php else: ?>
-        <a href="#" onclick="alert('Ju lutemi kyçuni për të dëgjuar këngët tona!');">Songs</a>
-      <?php endif; ?>
-    </li>
+  <?php if (!empty($_SESSION['user_id'])): ?>
+    <a href="songs.php?play=1">Songs</a>
+  <?php else: ?>
+    <a href="#" onclick="alert('Ju lutemi kyçuni për të dëgjuar këngët tona!');">Songs</a>
+  <?php endif; ?>
+  </li>
+
+
     <li><a href="aboutus.php">About Us</a></li>
     <li><a href="blog.php">Blog</a></li>
   </ul>
@@ -58,4 +64,16 @@ if (session_status() === PHP_SESSION_NONE) {
       </button>
     <?php endif; ?>
   </div>
+  <script>
+  function incrementSongs() {
+    fetch('php-files/increment_songs.php')
+      .then(response => response.json())
+      .then(data => {
+        alert("Keni dëgjuar këngë " + data.plays + " herë.");
+        window.location.href = 'songs.php';
+      })
+      .catch(err => console.error(err));
+  }
+</script>
+
 </nav>

@@ -46,6 +46,20 @@
     <script src="nav.js"></script> -->
 
     <?php include 'nav.php'; ?>
+    <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!empty($_SESSION['user_id']) && isset($_GET['play'])) {
+    $_SESSION['songs_plays'] = ($_SESSION['songs_plays'] ?? 0) + 1;
+}
+?>
+<?php if (!empty($_SESSION['user_id']) && isset($_SESSION['songs_plays'])): ?>
+  <div style="text-align:center; margin: 1rem auto; color: #a9fb50; font-weight: 500;">
+    Keni dëgjuar këngë <?= $_SESSION['songs_plays'] ?> herë.
+  </div>
+<?php endif; ?>
 
     <main id="songs-one">
 
