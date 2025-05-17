@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+
+$volume = isset($_COOKIE['volume']) ? (float) $_COOKIE['volume'] : 0.7; // default 70%
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,6 +69,13 @@ if (!empty($_SESSION['user_id']) && isset($_GET['play'])) {
 <?php endif; ?>
 
     <main id="songs-one">
+
+
+    <!-- ======================   SLIDER I VOLUMIT   ====================== -->
+<div id="volume-control" style="text-align:center; margin: 2rem auto;">
+    <label for="volume" style="color: #fff;">🔊 Volumi Global: <span id="volume-value"><?= round($volume * 100) ?></span>%</label>
+    <input type="range" id="volume" min="0" max="100" value="<?= round($volume * 100) ?>" />
+</div>
 
 
 <!-- CONTENT -->
@@ -422,6 +436,25 @@ if (!empty($_SESSION['user_id']) && isset($_GET['play'])) {
     
 </main>
 <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const volumeSlider = document.getElementById('volume');
+    const volumeValue = document.getElementById('volume-value');
+    const audios = document.querySelectorAll('audio');
+
+    function applyVolume(val) {
+        const vol = val / 100;
+        audios.forEach(audio => audio.volume = vol);
+        volumeValue.textContent = val;
+        document.cookie = "volume=" + vol + "; path=/; max-age=31536000";
+    }
+
+    volumeSlider.addEventListener('input', e => {
+        applyVolume(e.target.value);
+    });
+
+    // vendosim volumin në audio kur faqja hapet
+    applyVolume(volumeSlider.value);
+});
     // te dhenat ne PHP te shnderruara ne JavaScript array
     const songs = <?php echo json_encode($songs); ?>;
 
