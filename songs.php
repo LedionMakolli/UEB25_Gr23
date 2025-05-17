@@ -57,7 +57,7 @@ if (!empty($_SESSION['user_id']) && isset($_GET['play'])) {
 ?>
 <?php if (!empty($_SESSION['user_id']) && isset($_SESSION['songs_plays'])): ?>
   <div style="text-align:center; margin: 1rem auto; color: #a9fb50; font-weight: 500;">
-    Keni dëgjuar këngë <?= $_SESSION['songs_plays'] ?> herë.
+    Keni vizituar faqen e këngëve <?= $_SESSION['songs_plays'] ?> herë.
   </div>
 <?php endif; ?>
 
