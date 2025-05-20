@@ -1,6 +1,6 @@
 <?php
 require_once("db.php");
-require_once("custom_error_handler.php");
+require_once("../custom_error_handler.php");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $fullname = trim($_POST["fullname"] ?? "");
