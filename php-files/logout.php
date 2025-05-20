@@ -10,3 +10,8 @@ session_destroy();
 
 header('Location: /UEB25_Gr23/login.php');
 exit;
+
+?>
+
+
+

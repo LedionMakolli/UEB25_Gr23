@@ -1,5 +1,6 @@
 <?php
-require_once("db.php"); // lidhja me db
+require_once("db.php");
+require_once("custom_error_handler.php");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $fullname = trim($_POST["fullname"] ?? "");
@@ -22,25 +23,42 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $errors[] = "Fjalëkalimet nuk përputhen.";
     }
 
-    if (empty($errors)) {
-        $check = mysqli_prepare($conn, "SELECT id FROM users WHERE email = ?");
-        mysqli_stmt_bind_param($check, "s", $email);
-        mysqli_stmt_execute($check);
-        mysqli_stmt_store_result($check);
+    try {
+        if (empty($errors)) {
+            $check = mysqli_prepare($conn, "SELECT id FROM users WHERE email = ?");
+            if (!$check) throw new Exception("Gabim gjatë përgatitjes së query për email.");
 
-        if (mysqli_stmt_num_rows($check) > 0) {
-            $errors[] = "Ky email është i regjistruar tashmë!";
-        } else {
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            mysqli_stmt_bind_param($check, "s", $email);
+            mysqli_stmt_execute($check);
+            mysqli_stmt_store_result($check);
 
-            $stmt = mysqli_prepare($conn, "INSERT INTO users (fullname, email, password) VALUES (?, ?, ?)");
-            mysqli_stmt_bind_param($stmt, "sss", $fullname, $email, $hashedPassword);
-            if (mysqli_stmt_execute($stmt)) {
-                echo "<script>alert('Regjistrimi u krye me sukses!'); window.location.href='login.php';</script>";
-                exit;
-            } else {
-                $errors[] = "Gabim gjatë regjistrimit: " . mysqli_error($conn);
+            if (mysqli_stmt_num_rows($check) > 0) {
+                throw new Exception("Ky email është i regjistruar tashmë!");
             }
+
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $stmt = mysqli_prepare($conn, "INSERT INTO users (fullname, email, password) VALUES (?, ?, ?)");
+
+            if (!$stmt) throw new Exception("Gabim gjatë përgatitjes së query për regjistrim.");
+
+            mysqli_stmt_bind_param($stmt, "sss", $fullname, $email, $hashedPassword);
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Gabim gjatë ekzekutimit të query.");
+            }
+
+            $logFile = __DIR__ . "/users.txt";
+            $timestamp = date("Y-m-d H:i:s");
+            $logText = "$fullname | $email | $timestamp\n";
+
+            if (!file_put_contents($logFile, $logText, FILE_APPEND)) {
+                throw new Exception("Gabim gjatë ruajtjes në fajll.");
+            }
+
+            echo "<script>alert('Regjistrimi u krye me sukses!'); window.location.href='login.php';</script>";
+            exit;
         }
+    } catch (Exception $e) {
+        $errors[] = $e->getMessage();
     }
 }
+?>
