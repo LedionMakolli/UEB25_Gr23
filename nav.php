@@ -37,13 +37,24 @@ if (!isset($_SESSION['songs_plays'])) {
 
     <li><a href="aboutus.php">About Us</a></li>
     <li><a href="blog.php">Blog</a></li>
+    <?php if (!empty($_SESSION['role']) && $_SESSION['role'] === 'staff'): ?>
+        <li><a href="php-files/read_users.php">Klientët</a></li>
+    <?php endif; ?>
+
   </ul>
 
   <div class="nav__btns">
+  <?php if (!empty($_SESSION['role']) && $_SESSION['role'] === 'staff'): ?>
+    <button class="btn1" disabled style="opacity: 0.5; cursor: not-allowed;">
+      Rate Us
+    </button>
+  <?php else: ?>
     <button class="btn1" onclick="window.location.href='rate_us.php'">
       Rate Us
     </button>
-  </div>
+  <?php endif; ?>
+</div>
+
 
   <div class="nav__btns">
     <?php if (!empty($_SESSION['user_id'])): ?>
