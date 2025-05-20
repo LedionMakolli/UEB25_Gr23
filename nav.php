@@ -38,7 +38,7 @@ if (!isset($_SESSION['songs_plays'])) {
     <li><a href="aboutus.php">About Us</a></li>
     <li><a href="blog.php">Blog</a></li>
     <?php if (!empty($_SESSION['role']) && $_SESSION['role'] === 'staff'): ?>
-        <li><a href="php-files/read_users.php">Klientët</a></li>
+        <li><a href="php-files/read_users.php">Users</a></li>
     <?php endif; ?>
 
   </ul>
