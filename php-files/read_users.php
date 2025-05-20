@@ -1,5 +1,5 @@
 <?php
-require_once("../custom_error_handler.php");
+require_once("custom_error_handler.php");
 
 $filename = "users.txt";
 

@@ -1,5 +1,7 @@
 <?php
 
+require_once("custom_error_handler.php");
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
