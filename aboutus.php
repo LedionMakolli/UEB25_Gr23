@@ -90,45 +90,7 @@
 
         <div class="div2"></div>
 
-
-
-        <!-- historiku -->
-        <section class="page-section" id=about>
-            <div class="container">
-                <ul class="timeline">
-                    <li>
-                        <div class="timeline-pannel">
-                            <h4>2010</h4>
-                            <h4 class="subheading">Fillimi i Karrierës</h4>
-                            <p>Unë fillova karrierën time si një producente në vitin 2010, duke krijuar hite për artistët e njohur të kohës.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="timeline-pannel">
-                            <h4>2015</h4>
-                            <h4 class="subheading">Bashkëpunimi me artistët Ndërkombëta</h4>
-                            <p>Fillova të bashkëpunoj me disa prej artistëve më të njohur ndërkombëtar, duke sjellë një ndikim të ri në industrinë muzikorë.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="timeline-pannel">
-                            <h4>2020</h4>
-                            <h4 class="subheading">Hitet që ndryshuan muzikën</h4>
-                            <p>Me një stil të ri dhe eksperimente të suksesshme, krijova disa nga hitet më të njohura që morën çmime të shumta.</p>
-                    </li>
-                    <li>
-                        <div class="timeline-pannel">
-                            <h4>2022</h4>
-                            <h4 class="subheading">Turnet Ndërkombëtare</h4>
-                            <p>Në 2022, nisa nje turne botëror, duke vizituar disa nga qytet më të mëdha të muzikës globale, duke sjellë performanca të paharrueshme, si për mua, ashtu edhe për publikun.</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-
-        <!-- Top Kengetaret -->
+    <!-- Top Kengetaret -->
         <section class="Top-Kengetaret">
             <h3 class="section__header">Top K&euml;ng&euml;tar&euml;t</h3>
             <div class="table-container">
@@ -173,47 +135,9 @@
         </section>
     </section>
 
-    <br><br>
+    <br><br> 
 
-    <section>
-        <h3 class="section__header">Top 3 Këngët e Muajit</h3>
-        <div class="list-container">
-            <ol>
-                <li>
-                    Space Bound
-                    <ul>
-                        <li>Artist: Illyric ft. Eminem</li>
-                    </ul>
-                </li>
-                <li>
-                    Stargirl Interlude
-                    <ul>
-                        <li>Artist: Illyric ft. The Weeknd</li>
-                    </ul>
-                </li>
-                <li>
-                    Temperature
-                    <ul>
-                        <li>Artist: Illyric ft. Sean Paul</li>
-                    </ul>
-                </li>
-            </ol>
-        </div>
-    </section>
-
-    <br><br>
-
-   
-
-
-    <!-- <footer>
-    <div id="footer"></div>
-</footer>
-<script src="footer.js"></script> -->
-
-    
-
-<div class="pricing-container" id="pricing">
+<div class="pricing-container" id="pricing" style="display: block;">
         <h1>Plani i &ccedil;mimeve</h1>
         <p style="color: var(--text-light);">Zgjedhni planin më të përshtatshëm për ju</p>
         <br>
@@ -246,32 +170,6 @@
                     <li>Qasje ekskluzive në publikime të reja muzikore</li>
                     <li>Prioritet për rezervime në evente</li>
                     <li>Një playlist i personalizuar në muaj</li>
-                </ul>
-                <button>Paguaj Tani</button>
-            </div>
-
-            <!-- Pricing plan 2 -->
-
-            <div class="pricing-plan">
-                <h2>Plani i Biznesit</h2>
-                <p class="price">199&euro; <span>1999&euro;</span></p>
-                <ul>
-                    <li>Feedback i personalizuar për kompozim muzikor</li>
-                    <li>Qasje në tutorials për kompozim muzikor</li>
-                    <li>Kat&euml;r playlist-a të personalizuar në muaj</li>
-                </ul>
-                <button>Paguaj Tani</button>
-            </div>
-
-            <!-- Pricing plan 3 -->
-
-            <div class="pricing-plan">
-                <h2>Plani i Ndërmarrjes</h2>
-                <p class="price">299&euro; <span>2999&euro;</span></p>
-                <ul>
-                    <li>Kompozim muzikor i personalizuar</li>
-                    <li>Zbritje deri në 30% për biletat VIP</li>
-                    <li>Pafund playlist-a të personalizuar</li>
                 </ul>
                 <button>Paguaj Tani</button>
             </div>

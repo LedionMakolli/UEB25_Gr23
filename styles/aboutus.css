@@ -10,21 +10,6 @@ body {
     padding-top: 80px;
 }
 
-table {
-    width: 80%;
-    margin-top: 20px;
-    border-collapse: collapse;
-    border-radius: 1rem;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    margin-left: auto;
-    margin-right: auto;
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    display: none;
-    transition: opacity 1s ease, max-height 1s ease;
-}
-
 th,
 td {
     padding: 12px;
@@ -91,13 +76,6 @@ tr:hover td {
     max-width: 1200px;
     margin-top: 40px;
 }
-
-.Top-Kengetaret {
-    margin-top: 100px;
-}
-
-
-
 
 .popup {
     position: fixed;
@@ -228,10 +206,6 @@ tr:hover td {
     margin-bottom: 230px;
 }
 
-.section__header {
-    font-weight: bold;
-}
-
 #services h4 {
     font-size: 1.5rem;
     font-weight: bold;
@@ -308,56 +282,6 @@ tr:hover td {
     transition: 0.3s ease;
 }
 
-.list-container {
-    padding: 20px;
-    background-color: #1b1f24;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.list-container ol {
-    padding-left: 20px;
-    list-style: none;
-    margin: 0;
-    counter-reset: list-counter;
-}
-
-.list-container ol>li {
-    position: relative;
-    font-size: 18px;
-    margin-bottom: 15px;
-    padding-left: 40px;
-    font-weight: bold;
-    color: white;
-}
-
-.list-container ol>li::before {
-    content: counter(list-counter) ".";
-    counter-increment: list-counter;
-    position: absolute;
-    left: 0;
-    top: 0;
-    font-size: 24px;
-    font-weight: bold;
-    color: #4CAF50;
-}
-
-.list-container ul {
-    margin-top: 8px;
-    padding-left: 20px;
-    list-style-type: disc;
-    font-size: 16px;
-    color: #555;
-}
-
-.list-container ul li {
-    font-weight: normal;
-    line-height: 1.6;
-}
-
 .row {
     text-align: center;
     justify-content: center;
@@ -375,9 +299,6 @@ tr:hover td {
     word-wrap: break-word;
 }
 
-#artistTable {
-    border-spacing: 10px;
-}
 
 .div2 {
     width: 100%;

@@ -90,9 +90,6 @@ $BILETA_CMIMI = 100;
           <span class="close" onclick="closePopup()">&times;</span>
           <h3>Plotesoni të dhënat për blerjen e biletës</h3>
           <form id="ticket-form" method="POST" action="">
-            <input type="text" id="first-name" placeholder="Emri" name="first-name" required>
-            <input type="text" id="last-name" placeholder="Mbiemri" name="last-name" required>
-            <input type="email" id="email" placeholder="Email" name="email" required>
             <input type="text" id="account-number" placeholder="Numri i llogarise" name="account-number" required>
             <input type="text" id="card-expiry" placeholder="Data e skadimit: mm/yy" name="expiry-date" required>
             <input type="number" id="ticket-quantity" value="1" min="1" placeholder="Sasia"  required>
