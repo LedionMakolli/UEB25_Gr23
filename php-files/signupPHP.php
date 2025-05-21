@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 throw new Exception("Gabim gjatë ekzekutimit të query.");
             }
 
-            $logFile = "/users.txt";
+            $logFile = __DIR__ . "/users.txt";
             $timestamp = date("Y-m-d H:i:s");
             $logText = "$fullname | $email | $timestamp\n";
 
