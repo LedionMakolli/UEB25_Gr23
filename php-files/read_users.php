@@ -8,12 +8,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'staff') {
 }
 require_once("custom_error_handler.php");
 
-if (isset($_GET['theme'])) {
-    $theme = $_GET['theme'] === 'dark' ? 'dark' : 'light';
-    setcookie('theme', $theme, time() + 86400 * 30, "/");
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
-}
 $theme = $_COOKIE['theme'] ?? 'light';
 $bgColor = $theme === 'dark' ? '#333333' : '#f2f2f2';
 ?>
@@ -46,17 +40,20 @@ $bgColor = $theme === 'dark' ? '#333333' : '#f2f2f2';
             text-align: center;
             margin-bottom: 20px;
         }
-        .theme-toggle a {
+        .theme-toggle button {
+            padding: 10px 20px;
             margin: 0 10px;
-            text-decoration: none;
+            border: none;
+            cursor: pointer;
             font-weight: bold;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
     <div class="theme-toggle">
-        <a href="?theme=light">Light background</a> |
-        <a href="?theme=dark">Dark background</a>
+        <button onclick="setTheme('light')">Light background</button>
+        <button onclick="setTheme('dark')">Dark background</button>
     </div>
 
     <h2>Përdoruesit e Regjistruar</h2>
@@ -99,5 +96,12 @@ $bgColor = $theme === 'dark' ? '#333333' : '#f2f2f2';
         echo "<p style='color:red;'>Fajlli <b>users.txt</b> nuk ekziston.</p>";
     }
     ?>
+
+    <script>
+    function setTheme(theme) {
+        fetch("set_theme.php?theme=" + theme)
+            .then(() => location.reload());
+    }
+    </script>
 </body>
 </html>
