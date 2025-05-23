@@ -49,11 +49,12 @@ if (isset($_POST['kerko'])) {
       $found = true;
     }
     echo "<p>
-            <b>ID:</b> {$outId}  <br>
-            <b>Emri:</b> ".htmlspecialchars($outName)." <br>
-            <b>Email:</b> ".htmlspecialchars($outEmail)." <br>
-            <b>Regjistruar:</b> {$outTs}
-          </p>";
+        <b>ID:</b> " . htmlspecialchars($outId) . "<br>
+        <b>Emri:</b> " . htmlspecialchars($outName) . "<br>
+        <b>Email:</b> " . htmlspecialchars($outEmail) . "<br>
+        <b>Regjistruar:</b> " . htmlspecialchars($outTs) . "
+      </p>";
+
   }
   if (!$found) {
     echo "<p style='color:red;'>Nuk u gjet asnjë rezultat.</p>";
