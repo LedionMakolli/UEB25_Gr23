@@ -99,9 +99,9 @@ $(function(){
         pw   = $('#txtPassword').val();
     if(!full||!mail||!pw) return alert('Plotëso të gjitha fushat');
     $.post('action_s.php',{
-      ruaj:     'ruaj',
+      ruaj: 'ruaj',
       fullname: full,
-      email:    mail,
+      email: mail,
       password: pw
     }, function(data){
       $('#div_r').html(data);
