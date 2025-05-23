@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'staff') {
 require_once ("db.php");             
 require_once ("custom_error_handler.php");
 
-$theme   = $_COOKIE['theme'] ?? 'light';
+$theme = $_COOKIE['theme'] ?? 'light';
 $bgColor = $theme === 'dark' ? '#333333' : '#f2f2f2';
 ?>
 <!DOCTYPE html>
@@ -65,69 +65,88 @@ $bgColor = $theme === 'dark' ? '#333333' : '#f2f2f2';
 
   <div id="div_r"></div>
 
-  <script>
-  function setTheme(theme) {
-    document.cookie = "theme="+theme+";path=/;max-age="+(86400*30);
-    location.reload();
-  }
+<script>
+$(function(){
+  $('#manage-btn').click(function(){
+    $('#manage-container').toggle();
+    $('#div_r').empty();
+  });
 
-  $(function(){
-    $('#manage-btn').click(function(){
-      $('#manage-container').toggle();
-      $('#div_r').empty();
-    });
+  $('#btnKERKO').click(function(){
+    var id = $('#txtID').val().trim();
+    var name  = $('#txtEmri').val().trim();
+    var email = $('#txtEmail').val().trim();
 
-    $('#btnKERKO').click(function(){
-      var id = $('#txtID').val().trim();
-      if(!id) return alert('Fut ID për kërkim');
-      $.post('action_s.php',
-        { kerko: 'kerko',
-             id: id },
-        function(data){ $('#div_r').html(data); }
-      );
-    });
-
-    $('#btnRUAJ').click(function(){
-      var full = $('#txtEmri').val().trim(),
-          mail = $('#txtEmail').val().trim(),
-          pw   = $('#txtPassword').val();
-      if(!full||!mail||!pw) return alert('Plotëso të gjitha fushat');
-      $.post('action_s.php',
-        { ruaj: 'ruaj', 
-            fullname: full,
-             email: mail, 
-             password: pw },
-        function(data){ $('#div_r').html(data); }
-      );
-    });
-
-    $('#btnEDITO').click(function(){
-      var id   = $('#txtID').val().trim(),
-          full = $('#txtEmri').val().trim(),
-          mail = $('#txtEmail').val().trim(),
-          pw   = $('#txtPassword').val();
-      if(!id||!full||!mail) return alert('Plotëso ID, fullname & email');
-      $.post('action_s.php',
-        { edito: 'edito', 
-            id: id, 
-            fullname: full, 
-            email: mail, 
-            password: pw },
-        function(data){ $('#div_r').html(data); }
-      );
-    });
-
-    $('#btnFSHI').click(function(){
-      var id = $('#txtID').val().trim();
-      if(!id) return alert('Fut ID për fshirje');
-      if(!confirm('Fshi user #'+id+'?')) return;
-      $.post('action_s.php',
-        { fshi: 'fshi', 
-            id: id },
-        function(data){ $('#div_r').html(data); }
-      );
+    if(!id && !name && !email) {
+      return alert('Fut ID, Emër ose Email për kërkim');
+    }
+    $.post('action_s.php', {
+      kerko: 'kerko',
+      id: id,
+      fullname: name,
+      email: email
+    }, function(data){
+      $('#div_r').html(data);
     });
   });
-  </script>
+
+    $('#btnRUAJ').click(function(){
+   if ($('#txtID').val().trim() !== '') {
+     return alert('Lëre fushën ID bosh kur po krijon user të ri (AUTO_INCREMENT).');
+   }
+    var full = $('#txtEmri').val().trim(),
+        mail = $('#txtEmail').val().trim(),
+        pw   = $('#txtPassword').val();
+    if(!full||!mail||!pw) return alert('Plotëso të gjitha fushat');
+    $.post('action_s.php',{
+      ruaj:     'ruaj',
+      fullname: full,
+      email:    mail,
+      password: pw
+    }, function(data){
+      $('#div_r').html(data);
+    });
+  });
+
+  $('#btnEDITO').click(function(){
+    var id    = $('#txtID').val().trim();
+    var full  = $('#txtEmri').val().trim();
+    var mail  = $('#txtEmail').val().trim();
+    var pw    = $('#txtPassword').val();
+
+    if(!id||!full||!mail) return alert('Plotëso ID, fullname & email');
+    $.post('action_s.php',{
+      edito: 'edito',
+      id: id,
+      fullname: full,
+      email: mail,
+      password: pw
+    }, function(data){
+      $('#div_r').html(data);
+    });
+  });
+
+  $('#btnFSHI').click(function(){
+    var id   = $('#txtID').val().trim();
+    var name = $('#txtEmri').val().trim();
+
+    if(!id||!name) return alert('Plotëso ID dhe Emrin për fshirje');
+    if(!confirm('Fshi user #'+id+' ('+name+')?')) return;
+    $.post('action_s.php',{
+      fshi:     'fshi',
+      id:       id,
+      fullname: name
+    }, function(data){
+      $('#div_r').html(data);
+    });
+  });
+});
+</script>
+<script>
+    function setTheme(theme) {
+        fetch("set_theme.php?theme=" + theme)
+            .then(() => location.reload());
+    }
+</script>
 </body>
 </html>
