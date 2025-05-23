@@ -36,12 +36,15 @@ if (isset($_POST['kerko'])) {
         echo "<p style='color:red;'>Fut ID, Emër ose Email për kërkim.</p>";
         exit;
     }
-
+    $params_ref = [];
+    foreach ($params as $key => &$value) {
+         $params_ref[$key] = &$value; 
+    }
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, $types, ...$params);
+    mysqli_stmt_bind_param($stmt, $types, ...$params_ref);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_bind_result($stmt, $outId, $outName, $outEmail, $outTs);
-
+    unset($value);
     $found = false;
     while (mysqli_stmt_fetch($stmt)) {
         if (!$found) {
@@ -71,7 +74,8 @@ if (isset($_POST['ruaj'])) {
         echo "<p style='color:red;'>Plotëso të gjitha fushat.</p>";
         exit;
     }
-    $hash = password_hash($pw, PASSWORD_DEFAULT);
+    $hash=enkriptoFjalkalimin($pw);
+
     $stmt = mysqli_prepare($conn,
         "INSERT INTO users(fullname,email,password) VALUES(?,?,?)"
     );
@@ -168,3 +172,10 @@ if (isset($_POST['fshi'])) {
 }
 
 echo "<p style='color:red;'>Veprim i panjohur.</p>";
+
+function enkriptoFjalkalimin(string &$pw) {
+    $pw = password_hash($pw, PASSWORD_DEFAULT);
+    return $pw;
+}
+
+?>

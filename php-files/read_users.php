@@ -20,6 +20,12 @@ $bgColor = $theme === 'dark' ? '#333333' : '#f2f2f2';
 </head>
 <body style="background: <?= $bgColor ?>;">
 
+  <div class="back-container" style="position: absolute; top: 10px; left: 10px; z-index: 1000;">
+    <button class="back-btn" style="background-color: #0056b3; color: #fff; border: 1px solid #ccc; padding: 6px 12px; font-size: 14px; border-radius: 6px; cursor: pointer; transition: background-color 0.2s, box-shadow 0.2s;" onclick="window.location.href = '../main.php'">
+       &larr; Back
+    </button>
+  </div>
+
   <div class="theme-toggle">
     <button onclick="setTheme('light')">Light</button>
     <button onclick="setTheme('dark')">Dark</button>

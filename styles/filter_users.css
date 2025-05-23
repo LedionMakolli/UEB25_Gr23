@@ -110,3 +110,25 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
 }
+.back-container1 {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+}
+
+.back-btn1 {
+  background-color: #0056b3;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.back-btn1:hover {
+  background-color: #e6e6e6;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
