@@ -92,31 +92,56 @@ if (isset($_POST['edito'])) {
     $email = trim($_POST['email'] ?? '');
     $pw = $_POST['password'] ?? '';
 
-    if (!$id || !$name || !$email) {
-        echo "<p style='color:red;'>Plotëso ID, fullname & email.</p>";
+    if (!$id) {
+        echo "<p style='color:red;'>ID është e detyrueshme për përditësim.</p>";
         exit;
     }
 
+    $sql = "UPDATE users SET ";
+    $fields = [];
+    $types = '';
+    $params = [];
+
+    if ($name !== '') {
+        $fields[] = "fullname = ?";
+        $types .= 's';
+        $params[] = $name;
+    }
+
+    if ($email !== '') {
+        $fields[] = "email = ?";
+        $types .= 's';
+        $params[] = $email;
+    }
+
     if ($pw !== '') {
-        $hash = password_hash($pw, PASSWORD_DEFAULT);
-        $stmt = mysqli_prepare($conn,
-            "UPDATE users SET fullname=?,email=?,password=? WHERE id=?"
-        );
-        mysqli_stmt_bind_param($stmt, 'sssi', $name, $email, $hash, $id);
-    } else {
-        $stmt = mysqli_prepare($conn,
-            "UPDATE users SET fullname=?,email=? WHERE id=?"
-        );
-        mysqli_stmt_bind_param($stmt, 'ssi', $name, $email, $id);
+        $fields[] = "password = ?";
+        $types .= 's';
+        $params[] = password_hash($pw, PASSWORD_DEFAULT);
     }
+
+    if (empty($fields)) {
+        echo "<p style='color:red;'>S’ka të dhëna për përditësim.</p>";
+        exit;
+    }
+
+    $sql .= implode(", ", $fields) . " WHERE id = ?";
+    $types .= 'i';
+    $params[] = $id;
+
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, $types, ...$params);
+
     if (mysqli_stmt_execute($stmt)) {
-        echo "<p style='color:lime;'>User #{$id} u përditësua.</p>";
+        echo "<p style='color:lime;'>User #{$id} u përditësua me sukses.</p>";
     } else {
-        echo "<p style='color:red;'>Gabim në përditësim.</p>";
+        echo "<p style='color:red;'>Gabim gjatë përditësimit.</p>";
     }
+
     mysqli_stmt_close($stmt);
     exit;
 }
+
 
 if (isset($_POST['fshi'])) {
     $id = intval($_POST['id'] ?? 0);
