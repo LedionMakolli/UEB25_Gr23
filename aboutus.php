@@ -11,8 +11,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
     <link rel="icon" href="foto/logo.png" type="image/png">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        .pricing-plan a {
+        display: block;
+        width: 100%;
+        padding: 0.75rem;
+        border: none;
+        background-color: #4CAF50;
+        color: #fff;
+        font-weight: 600;
+        font-family: 'Poppins', sans-serif;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-align: center;
+        font-size: small;
+        }
+    </style>
 </head>
-
 <body>
     <!-- Header -->
     <!-- <div id="nav-placeholder"></div>
@@ -158,7 +174,11 @@
                     <li>Për ju, mundësite jane të pafundme</li>
                 </ul>
                 <div>
-                    <button>Degjo Falas</button>
+                     <?php if (!empty($_SESSION['user_id'])): ?>
+                     <a href="songs.php">Shiko Muziken</a>
+                    <?php else: ?>
+                     <a href="#" onclick="alert('Ju lutemi kyçuni për të shijuar muzikën!')">Shiko Muziken</a>
+                     <?php endif; ?>
                 </div>
             </div>
 
@@ -171,32 +191,52 @@
                     <li>Prioritet për rezervime në evente</li>
                     <li>Një playlist i personalizuar në muaj</li>
                 </ul>
-                <button>Paguaj Tani</button>
+                 <?php if (!empty($_SESSION['user_id'])): ?>
+                <!-- heqim onclick; përdorim data-atribute për JS -->
+                <button class="pay-now" data-plan="Plani Bazik" data-amount="29">
+                    Paguaj Tani
+                </button>
+                <?php else: ?>
+                <button onclick="alertAndRefresh()">
+                    Paguaj Tani
+                </button>
+                <?php endif; ?>
             </div>
         </div>
     </div>
+    <script>
+    function alertAndRefresh() {
+        alert('Ju lutemi kyçuni për të blerë planin!');
+        location.reload(); // Rifreskon faqen pasi alert mbyllet
+    }
+    </script>
 
-    <div class="popup" id="ticket-popup" style="display: none;">
-        <div class="popup-content">
-            <span class="close" onclick="closePopup()">&times;</span>
-            <h3>Plotësoni të dhënat për pagesën e planit të zgjedhur</h3>
-            <p id="pricing-type"></p>
-            <form id="ticket-form">
-                <input type="text" id="first-name" placeholder="Emri" required>
-                <input type="text" id="last-name" placeholder="Mbiemri" required>
-                <input type="email" id="email" placeholder="Email" required>
-                <input type="text" id="account-number" placeholder="Numri i llogarisë" required>
-                <input type="text" id="amount" value="0€" readonly>
-                <button type="submit">Paguaj</button>
-                <button type="button">Anulo</button>
-            </form>
-        </div>
+   <div class="popup" id="ticket-popup" style="display: none;">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h3>Plotësoni të dhënat për pagesën e planit të zgjedhur</h3>
+        <p id="pricing-type"></p>
+
+        <!-- Këtu vendos formën me action -->
+        <form id="payment-form" method="POST" action="php-files/aboutus_payment.php">
+            <input type="text" name="card_number" placeholder="Kartela e bankes" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" id="amount" name="amount" placeholder="Shuma (€)" readonly >
+            <button type="submit">Paguaj</button>
+            <button type="button" onclick="closePopup()">Anulo</button>
+        </form>
     </div>
-
-
+</div>
+<?php
+if (isset($_GET['success']) && $_GET['success'] == 1) {
+    echo "<script>alert('Pagesa u krye me sukses!');</script>";
+}
+?>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script>
+  window.isLoggedIn = <?= empty($_SESSION['user_id']) ? 'false' : 'true' ?>;
+</script>
 <script src="javascript/aboutus.js"></script>
 
 
