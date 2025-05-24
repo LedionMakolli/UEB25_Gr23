@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tour Tickets</title>
     <link rel="icon" href="foto/logo.png" type="image/png">
+    <link rel="stylesheet" href="../UEB25_Gr23/styles/chat.css">
     <link rel="stylesheet" href="styles/tickets.css">
 </head>
 <body>
