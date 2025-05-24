@@ -204,6 +204,20 @@
             </div>
         </div>
     </div>
+
+    <div id="chatButton">💬</div>
+  <div id="chatPanel">
+    <div id="chatHeader">
+      <span>Chat with Illyric</span>
+      <div id="closeChat">✖️</div>
+    </div>
+    <div id="chatBody"></div>
+    <form id="inputForm">
+      <input type="text" id="messageInput" placeholder="Type a message..." autocomplete="off" required />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
     <script>
     function alertAndRefresh() {
         alert('Ju lutemi kyçuni për të blerë planin!');
