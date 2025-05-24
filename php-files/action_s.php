@@ -155,21 +155,22 @@ if (isset($_POST['fshi'])) {
         echo "<p style='color:red;'>Fut ID dhe Emrin për fshirje.</p>";
         exit;
     }
+
     $stmt = mysqli_prepare($conn,
-        "DELETE FROM users WHERE id=? AND fullname=?"
+        "DELETE FROM users WHERE id=? AND fullname LIKE ?"
     );
-    mysqli_stmt_bind_param($stmt, 'is', $id, $name);
+    $name_like = "%{$name}%"; 
+    mysqli_stmt_bind_param($stmt, 'is', $id, $name_like);
     mysqli_stmt_execute($stmt);
     if (mysqli_stmt_affected_rows($stmt) > 0) {
-        echo "<p style='color:lime;'>User #{$id} ("
-            . htmlspecialchars($name) . ") u fshi.</p>";
+        echo "<p style='color:lime;'>User #{$id} (" . htmlspecialchars($name) . ") u fshi.</p>";
     } else {
-        echo "<p style='color:red;'>Nuk u gjet user me ID={$id} dhe emër “"
-             . htmlspecialchars($name) . "”.</p>";
+        echo "<p style='color:red;'>Nuk u gjet user me ID={$id} dhe emër “" . htmlspecialchars($name) . "”.</p>";
     }
     mysqli_stmt_close($stmt);
     exit;
 }
+
 
 echo "<p style='color:red;'>Veprim i panjohur.</p>";
 

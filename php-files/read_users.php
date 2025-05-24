@@ -97,6 +97,9 @@ $(document).ready(function(){
       },
       success: function(data){
         $('#div_r').html(data);
+        $('#txtID').val('');
+        $('#txtEmri').val('');
+        $('#txtEmail').val('');
       }
     });
   });
@@ -105,9 +108,9 @@ $(document).ready(function(){
     if ($('#txtID').val().trim() !== '') {
       return alert('Lëre fushën ID bosh kur po krijon user të ri (AUTO_INCREMENT).');
     }
-    var full = $('#txtEmri').val().trim(),
-        mail = $('#txtEmail').val().trim(),
-        pw   = $('#txtPassword').val();
+    var full = $('#txtEmri').val().trim();
+    var mail = $('#txtEmail').val().trim();
+    var pw = $('#txtPassword').val();
     if(!full || !mail || !pw) return alert('Plotëso të gjitha fushat');
     $.ajax({
       url: "action_s.php",
@@ -120,6 +123,9 @@ $(document).ready(function(){
       },
       success: function(data){
         $('#div_r').html(data);
+        $('#txtEmri').val('');
+        $('#txtEmail').val('');
+        $('#txtPassword').val('');
       }
     });
   });
@@ -143,6 +149,10 @@ $(document).ready(function(){
       },
       success: function(data){
         $('#div_r').html(data);
+        $('#txtID').val('');
+        $('#txtEmri').val('');
+        $('#txtEmail').val('');
+        $('#txtPassword').val('');
       }
     });
   });
@@ -163,6 +173,8 @@ $(document).ready(function(){
       },
       success: function(data){
         $('#div_r').html(data);
+        $('#txtEmri').val('');
+        $('#txtID').val('');
       }
     });
   });
