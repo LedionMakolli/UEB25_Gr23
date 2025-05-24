@@ -14,3 +14,16 @@ CREATE TABLE payments (
   amount VARCHAR(20) DEFAULT NULL,
   payment_date DATETIME NOT NULL,
 ) 
+
+CREATE TABLE tickets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    location VARCHAR(100),
+    date VARCHAR(50),
+    account_number VARCHAR(20),
+    expiry_date VARCHAR(10),
+    quantity INT,
+    total_amount DECIMAL(10,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users (id)
+);
