@@ -1,3 +1,18 @@
+<?php
+session_start();
+
+if (isset($_GET['payment_success']) && $_GET['payment_success'] == 1) {
+    echo '<script>alert("Pagesa u krye me sukses!");</script>';
+}
+
+if (isset($_GET['payment_error']) && !empty($_SESSION['payment_errors'])) {
+    echo '<script>alert("Gabimet:\\n\\n' . implode("\\n", $_SESSION['payment_errors']) . '");</script>';
+    unset($_SESSION['payment_errors']);
+}
+
+$form_data = $_SESSION['form_data'] ?? [];
+unset($_SESSION['form_data']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -208,7 +223,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
 <script src="javascript/aboutus.js"></script>
 
 
-    <footer>
+    <footer style="width: 100%;">
       <?php include 'footer.php'; ?>
     </footer>
 
