@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="styles/tickets.css">
 </head>
 <body>
+      <?php
+     if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+     include('php-files/Tickets.php');
+
+    $logged_in_user_id = $_SESSION['user_id'] ?? null;
+    $logged_in_fullname = $_SESSION['fullname'] ?? 'Guest'; 
+    $logged_in_email = $_SESSION['email'] ?? ''; 
+    ?>
     <header>
         <h1>Koncertet</h1>
       </header>
@@ -106,17 +116,22 @@ $BILETA_CMIMI = 100;
           <span class="close" onclick="closePopup()">&times;</span>
           <h3>Plotesoni të dhënat për blerjen e biletës</h3>
           <form id="ticket-form" method="POST" action="">
+             <input type="hidden" name="user_id" value="<?php echo $logged_in_user_id; ?>">
+                <?php if ($logged_in_email): ?>
+                    <p>Email: <strong><?php echo htmlspecialchars($logged_in_email); ?></strong></p>
+                <?php endif; ?>
             <input type="text" id="account-number" placeholder="Numri i llogarise" name="account-number" required>
             <input type="text" id="card-expiry" placeholder="Data e skadimit: mm/yy" name="expiry-date" required>
-            <input type="number" id="ticket-quantity" value="1" min="1" placeholder="Sasia"  required>
-            <input type="text" id="amount" data-cmimi="<?php echo $BILETA_CMIMI;?> " value="<?php echo $BILETA_CMIMI; ?>€" readonly>
+            <input type="hidden" name="concert_location" id="hidden-location">
+            <input type="hidden" name="concert_date" id="hidden-date">
+            <input type="number" id="ticket-quantity" value="1" min="1" placeholder="Sasia"  name="quantity" required>
+            <input type="text" id="amount" data-cmimi="<?php echo $BILETA_CMIMI;?> " value="<?php echo $BILETA_CMIMI; ?>€" name="total_price" readonly>
             <button type="submit" name="submit">Paguaj</button>
             <button type="button" onclick="closePopup()">Anulo</button>
           </form>
         </div>
       </div>
 
-<?php include('php-files/Tickets.php') ?>
    <div class="ticket-container">
         <div class="ticket">
             <p id="ticket-music">
@@ -130,8 +145,12 @@ $BILETA_CMIMI = 100;
       </div>
 
 
-<script src="javascript/tickets.js"></script>
+<    <script>
+        function updateTicket(location, dateString) {
+            document.getElementById('ticket-location').innerText = location;
+            document.getElementById('ticket-date').innerText = dateString;
 
+<<<<<<< Updated upstream
 <script>
     const chatButton = document.getElementById('chatButton');
     const chatPanel = document.getElementById('chatPanel');
@@ -188,7 +207,40 @@ $BILETA_CMIMI = 100;
       return div;
     }
   </script>
+=======
+>>>>>>> Stashed changes
 
-</body>
+            document.querySelector('.ticket').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('buy-button').disabled = false;
 
-</html>
+            
+            document.getElementById('hidden-location').value = location;
+            document.getElementById('hidden-date').value = dateString;
+
+        function showPopup() {
+            <?php if (!$logged_in_user_id): ?>
+                alert('Ju lutemi kyçuni për të blerë bileta.');
+                window.location.href = 'login.php'; 
+                return;
+            <?php endif; ?>
+            document.getElementById('ticket-popup').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.getElementById('ticket-popup').style.display = 'none';
+            document.getElementById('buy-button').disabled = true;
+        }
+
+  const quantityInput = document.getElementById('ticket-quantity');
+const amountInput = document.getElementById('amount');
+const biletaCmimi = parseFloat(amountInput.dataset.cmimi);
+
+quantityInput.addEventListener('input', function () {
+    const quantity = parseInt(this.value) || 1;
+    const total = biletaCmimi * quantity;
+    amountInput.value = total + "€";
+});
+      
+    </script>
+ </body>
+ </html>
