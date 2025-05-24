@@ -72,7 +72,7 @@ $bgColor = $theme === 'dark' ? '#333333' : '#f2f2f2';
   <div id="div_r"></div>
 
 <script>
-$(function(){
+$(document).ready(function(){
   $('#manage-btn').click(function(){
     $('#manage-container').toggle();
     $('#div_r').empty();
