@@ -23,14 +23,12 @@
             });
 
 
-            $('.pricing-plan button').on('click', function() {
-                const planIndex = $(this).closest('.pricing-plan').index();
-                const planName = $(this).closest('.pricing-plan').find('h2').text();
-                const amount = getPlanAmount(planIndex, selectedPlanType);
-
+           $('.pay-now').on('click', function () {
+                const planName  = $(this).data('plan');
+                const amountVal = $(this).data('amount');
+                const amount    = selectedPlanType === 'monthly' ? prices.monthly[1] : prices.yearly[1];
                 openPaymentPopup(planName, amount, selectedPlanType);
             });
-
 
             function getPlanAmount(planIndex, planType) {
                 let amount;
@@ -49,12 +47,14 @@
             }
 
 
-            function openPaymentPopup(planName, amount, planType) {
-                $('#amount').val(amount);
-                $('#ticket-popup').attr('data-plan', `${planName} (${planType === 'monthly' ? 'Mujore' : 'Vjetore'})`);
-                $('#ticket-popup').show();
+           function openPaymentPopup(planName, amount, planType) {
+                setTimeout(function() {
+                    $('#amount').val(amount);
+                    $('#ticket-popup').attr('data-plan', `${planName} (${planType === 'monthly' ? 'Mujore' : 'Vjetore'})`);
+                    $('#ticket-popup').show();
+                }, 1000); 
             }
-
+            
             $('#ticket-popup .close, #ticket-popup button[type="button"]').on('click', function() {
                 $('#ticket-popup').hide();
             });

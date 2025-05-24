@@ -1,8 +1,46 @@
 <?php
 session_start();
-
+require_once __DIR__ . '/php-files/db.php'; 
 
 $volume = isset($_COOKIE['volume']) ? (float) $_COOKIE['volume'] : 0.7; // default 70%
+
+$email = $_SESSION['user_email'];
+
+// -----------------------------------------------------------
+// 1. Merr pagesën më të fundit për këtë email
+// -----------------------------------------------------------
+$sql  = "SELECT amount, payment_date
+         FROM payments
+         WHERE email = ?
+         ORDER BY payment_date DESC
+         LIMIT 1";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$res  = $stmt->get_result();
+
+$hasPaid = false;
+
+if ($row = $res->fetch_assoc()) {
+    // -------------------------------------------------------
+    // 2. Përgatis të dhënat
+    // -------------------------------------------------------
+    $amount        = floatval( preg_replace('/[^\d.]/', '', $row['amount']) ); // "29€" => 29
+    $paymentDate   = new DateTime($row['payment_date']);
+    $now           = new DateTime();
+    $diff          = $paymentDate->diff($now);
+
+    // -------------------------------------------------------
+    // 3. Logjika e vlefshmërisë
+    // -------------------------------------------------------
+    if ($amount == 29 && $diff->m < 1 && $diff->y == 0) {       // < 1 muaj
+        $hasPaid = true;
+    } elseif ($amount == 299 && $diff->y < 1) {                  // < 1 vit
+        $hasPaid = true;
+    }
+}
+
+$stmt->close();
 
 ?>
 <!DOCTYPE html>
@@ -18,7 +56,7 @@ $volume = isset($_COOKIE['volume']) ? (float) $_COOKIE['volume'] : 0.7; // defau
     <script src="songs.js"></script>
     <link rel="icon" href="foto/logo.png" type="image/png">
 </head>
-<body  data-songs='<?= htmlspecialchars(json_encode($songs), ENT_QUOTES) ?>'>
+<body>
 
 <?php include 'nav.php'; ?>
 
@@ -57,6 +95,12 @@ if (!empty($_SESSION['user_id']) && isset($_GET['play'])) {
         require_once __DIR__ . '/songsData.php';
 
     $originalSongs = $songsForDisplay;
+    
+    if (!$hasPaid) {
+    // Nëse nuk ka paguar, fsheh 3 këngët e fundit
+    $songsForDisplay = array_slice($songsForDisplay, 0, count($songsForDisplay) - 3);
+}
+
 
     // shndrrimi i vargjeve ne objekte te klases Song
     $songObjects = array_map(function(array $s) {
@@ -69,6 +113,7 @@ if (!empty($_SESSION['user_id']) && isset($_GET['play'])) {
             $s['id']
         );
     }, $songsForDisplay);
+
 
 
     if($_SERVER["REQUEST_METHOD"]==="POST" && isset($_POST['sort'])){
@@ -201,38 +246,7 @@ if (!empty($_SESSION['user_id']) && isset($_GET['play'])) {
 </div>
 </div>
 
-<div id="add-song-form">
-    <h3>Shto Këngë të Re</h3>
-    <form id="song-form">
-        <div>
-            <label for="song-name">Emri i Këngës:</label>
-            <input type="text" id="song-name" required>
-        </div>
-
-        <div>
-            <label for="artist-name">Emri i Artistit:</label>
-            <input type="text" id="artist-name" required>
-        </div>
-
-        <div>
-            <label for="song-file">File i Muzikes (mp3):</label>
-            <input type="file" id="song-file" accept="audio/mp3" required>
-        </div>
-
-        <div>
-            <label for="song-image">Foto e Këngës:</label>
-            <input type="file" id="song-image" accept="image/*" required>
-        </div>
-
-        <button type="submit">Shto kengen</button>
-    </form>
-    <button id="remove-last-song" type="button"
-    style="width:100%; padding:12px; margin-top:10px; background:#ff4444; color:white; border:none; border-radius:15px; font-weight:bold; cursor:pointer;">
-    Hiq Këngën e Fundit
-</button>
-</div>
-
-<div class="sort-dropdown">
+<div class="sort-dropdown" style="margin-top:30px;">
   <button type="button" class="sort-dropdown-btn">
       Rendit sipas
       <span class="dropdown-icon">▼</span>

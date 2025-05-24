@@ -6,3 +6,11 @@ CREATE TABLE IF NOT EXISTS users (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     role varchar(10) DEFAULT 'client';
 );
+
+CREATE TABLE payments (
+  id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  card_number VARCHAR(100) DEFAULT NULL,
+  email VARCHAR(100) NOT NULL,
+  amount VARCHAR(20) DEFAULT NULL,
+  payment_date DATETIME NOT NULL,
+) 

@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_id'] = $userId;
             $_SESSION['fullname'] = $userFullname;
             $_SESSION['role'] = $role; 
+            $_SESSION['user_email'] = $email; 
             header('Location: songs.php');
             exit;
         } else {

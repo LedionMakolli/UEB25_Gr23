@@ -1,0 +1,28 @@
+boni | ledioni@gmail.com | 0.28 | Kredit Kartë | 2025-05-24 16:26:45
+ledi | ledion@gmail.com | 0.02 | Kredit Kartë | 2025-05-24 17:27:09
+ledi | ledion@gmail.com | 0.02 | Kredit Kartë | 2025-05-24 17:27:27
+ledi | ledion@gmail.com | 0.02 | Kredit Kartë | 2025-05-24 17:28:41
+boni | ledion@gmail.com | 0.02 | Kredit Kartë | 2025-05-24 17:29:12
+boni | ledion@gmail.com | 0.02 | Kredit Kartë | 2025-05-24 17:29:51
+ledi | boni@gmail.com | 0.02 | Kredit Kartë | 2025-05-24 17:30:55
+ledi | boni@gmail.com | 0.03 | Kredit Kartë | 2025-05-24 17:33:03
+boni | boni@gmail.com | 0.02 | Kredit Kartë | 2025-05-24 17:34:04
+boni | boni@gmail.com | 0.02 | Kredit Kartë | 2025-05-24 17:37:02
+ledi | ledion@gmail.com | 0.02 | Kredit Kartë | 2025-05-24 17:38:41
+ledi | ledion@gmail.com | 0.02 | Kredit Kartë | 2025-05-24 17:38:51
+ledi | ledion@gmail.com | 0.02 | Kredit Kartë | 2025-05-24 17:41:54
+ledi | ledion@gmail.com | 0.02 | Kredit Kartë | 2025-05-24 17:44:51
+ledion | boni@gmail.com | 0.25 | Bank Transfer | 2025-05-24 17:45:11
+ledi | ledion@gmail.com | 0.15 | Kredit Kartë | 2025-05-24 17:47:05
+boni | boni@gmail.com | 0.03 | PayPal | 2025-05-24 17:48:01
+ledion | boni@gmail.com | 0.03 | Kredit Kartë | 2025-05-24 17:49:12
+ledi | ledion@gmail.com | 29€ | Kredit Kartë | 2025-05-24 18:00:30
+ledi | ledion@gmail.com | 299€ | 2025-05-24 18:03:39
+ledi | boni@gmail.com | 299€ | 2025-05-24 18:26:12
+12345678912345 | ledion@gmail.com | 299€ | 2025-05-24 18:31:25
+12345678912345 | ledion@gmail.com | 0€ | 2025-05-24 18:35:26
+12345678912345 | boni@gmail.com | 299€ | 2025-05-24 19:13:28
+12345678912345 | ledion@gmail.com | 299€ | 2025-05-24 19:38:52
+12345678912345 | boni@gmail.com | 299€ | 2025-05-24 19:39:17
+12345678912345 | ledion@gmail.com | 299€ | 2025-05-24 19:39:28
+12345678912345 | ledion@gmail.com | 299€ | 2025-05-24 19:39:34
