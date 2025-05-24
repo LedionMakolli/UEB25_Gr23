@@ -7,6 +7,7 @@
     <title>About Us</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="styles/aboutus.css">
+    <link rel="stylesheet" href="../UEB25_Gr23/styles/chat.css">
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
     <link rel="icon" href="foto/logo.png" type="image/png">
