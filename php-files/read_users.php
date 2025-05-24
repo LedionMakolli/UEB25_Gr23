@@ -63,10 +63,10 @@ $bgColor = $theme === 'dark' ? '#333333' : '#f2f2f2';
     <input type="email" id="txtEmail" placeholder="Email"><br>
     <label>Fjalëkalimi:</label><br>
     <input type="password" id="txtPassword" placeholder="Password"><br>
-    <button id="btnKERKO">KERKO</button>
-    <button id="btnRUAJ">RUAJ</button>
-    <button id="btnEDITO">EDITO</button>
-    <button id="btnFSHI">FSHI</button>
+    <button type="button" id="btnKERKO">KERKO</button>
+    <button type="button" id="btnRUAJ">RUAJ</button>
+    <button type="button" id="btnEDITO">EDITO</button>
+    <button type="button" id="btnFSHI">FSHI</button>
   </div>
 
   <div id="div_r"></div>
