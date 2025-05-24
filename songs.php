@@ -6,9 +6,7 @@ $volume = isset($_COOKIE['volume']) ? (float) $_COOKIE['volume'] : 0.7; // defau
 
 $email = isset($_SESSION['user_email']) ? $_SESSION['user_email'] : null;
 
-// -----------------------------------------------------------
-// 1. Merr pagesën më të fundit për këtë email
-// -----------------------------------------------------------
+
 $sql  = "SELECT amount, payment_date
          FROM payments
          WHERE email = ?
@@ -22,20 +20,16 @@ $res  = $stmt->get_result();
 $hasPaid = false;
 
 if ($row = $res->fetch_assoc()) {
-    // -------------------------------------------------------
-    // 2. Përgatis të dhënat
-    // -------------------------------------------------------
-    $amount        = floatval( preg_replace('/[^\d.]/', '', $row['amount']) ); // "29€" => 29
+
+    $amount        = floatval( preg_replace('/[^\d.]/', '', $row['amount']) ); 
     $paymentDate   = new DateTime($row['payment_date']);
     $now           = new DateTime();
     $diff          = $paymentDate->diff($now);
 
-    // -------------------------------------------------------
-    // 3. Logjika e vlefshmërisë
-    // -------------------------------------------------------
-    if ($amount == 29 && $diff->m < 1 && $diff->y == 0) {       // < 1 muaj
+
+    if ($amount == 29 && $diff->m < 1 && $diff->y == 0) {       
         $hasPaid = true;
-    } elseif ($amount == 299 && $diff->y < 1) {                  // < 1 vit
+    } elseif ($amount == 299 && $diff->y < 1) {                  
         $hasPaid = true;
     }
 }
@@ -51,7 +45,6 @@ $stmt->close();
     <title>Songs</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../UEB25_Gr23/styles/chat.css">
     <link rel="stylesheet" href="styles/songs.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="songs.js"></script>
@@ -99,7 +92,7 @@ if (!empty($_SESSION['user_id']) && isset($_GET['play'])) {
     
     if (!$hasPaid) {
     // Nëse nuk ka paguar, fsheh 3 këngët e fundit
-    $songsForDisplay = array_slice($songsForDisplay, 0, count($songsForDisplay) - 3);
+    $songsForDisplay = array_slice($songsForDisplay, 0, count($songsForDisplay) - 6);
 }
 
 
@@ -222,6 +215,7 @@ if (!empty($_SESSION['user_id']) && isset($_GET['play'])) {
             <div class="music-player">
                 <div class="play-song mouse">
                     <img 
+                        class="play-song-img"
                         src="foto/play.png" 
                         alt="play" 
                         data-song="<?= $song->getId() ?>"
@@ -272,6 +266,8 @@ if (!empty($_SESSION['user_id']) && isset($_GET['play'])) {
     <span style="--i:4;" class="music-indicator-span "></span>
   </div>
 
+  <form id="song-form"></form>
+
 
 <!-- HEADPHONE SVG -->
 <div class="headphone-navigation">
@@ -285,77 +281,16 @@ if (!empty($_SESSION['user_id']) && isset($_GET['play'])) {
         </text>
     </svg>
 </div>
-    
-</main><div id="chatButton">💬</div>
-  <div id="chatPanel">
-    <div id="chatHeader">
-      <span>Chat with Illyric</span>
-      <div id="closeChat">✖️</div>
-    </div>
-    <div id="chatBody"></div>
-    <form id="inputForm">
-      <input type="text" id="messageInput" placeholder="Type a message..." autocomplete="off" required />
-      <button type="submit">Send</button>
-    </form>
-  </div>
+        <?php if (!$hasPaid): ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sortDropdown = document.querySelector('.sort-dropdown');
 
-     <?php include 'footer.php'; ?>
-
-     <script>
-    const chatButton = document.getElementById('chatButton');
-    const chatPanel = document.getElementById('chatPanel');
-    const closeChat = document.getElementById('closeChat');
-    const chatBody = document.getElementById('chatBody');
-    const form = document.getElementById('inputForm');
-    const input = document.getElementById('messageInput');
-
-    chatButton.addEventListener('click', () => {
-      chatPanel.style.display = 'flex';
-    });
-    closeChat.addEventListener('click', () => {
-      chatPanel.style.display = 'none';
-    });
-
-    form.addEventListener('submit', async e => {
-      e.preventDefault();
-      const text = input.value.trim();
-      if (!text) return;
-
-      
-      appendMessage(text, 'user');
-      input.value = '';
-
-     
-      const loadingDiv = appendMessage('Loading…', 'bot', true);
-
-      try {
-        const res = await fetch('chat.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: text }),
+            if (sortDropdown) sortDropdown.style.display = 'none';
         });
-        const { reply } = await res.json();
-
-        
-        loadingDiv.textContent = reply;
-        loadingDiv.classList.remove('loading');
-
-      } catch (err) {
-        
-        loadingDiv.textContent = 'Error: could not reach server';
-        loadingDiv.classList.remove('loading');
-      }
-    });
-
-
-    function appendMessage(text, role, isLoading = false) {
-      const div = document.createElement('div');
-      div.className = `message ${role}` + (isLoading ? ' loading' : '');
-      div.textContent = text;
-      chatBody.appendChild(div);
-      chatBody.scrollTop = chatBody.scrollHeight;
-      return div;
-    }
-  </script>
+    </script>
+<?php endif; ?> 
+</main>
+     <?php include 'footer.php'; ?>
 </body>
 </html>
