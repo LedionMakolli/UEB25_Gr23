@@ -146,41 +146,104 @@ $BILETA_CMIMI = 100;
 
 
 <script>
-        function updateTicket(location, dateString) {
-            document.getElementById('ticket-location').innerText = location;
-            document.getElementById('ticket-date').innerText = dateString;
  
-            document.querySelector('.ticket').scrollIntoView({ behavior: 'smooth' });
-            document.getElementById('buy-button').disabled = false;
+    const quantityInput = document.getElementById('ticket-quantity');
+    const amountInput = document.getElementById('amount');
+    const biletaCmimi = parseFloat(amountInput.dataset.cmimi);
+    function updateTicket(location, dateString) {
+        document.getElementById('ticket-location').innerText = location;
+        document.getElementById('ticket-date').innerText = dateString;
 
-            
-            document.getElementById('hidden-location').value = location;
-            document.getElementById('hidden-date').value = dateString;
+        document.querySelector('.ticket').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('buy-button').disabled = false;
 
-        function showPopup() {
-            <?php if (!$logged_in_user_id): ?>
-                alert('Ju lutemi kyçuni për të blerë bileta.');
-                window.location.href = 'login.php'; 
-                return;
-            <?php endif; ?>
-            document.getElementById('ticket-popup').style.display = 'flex';
-        }
+        document.getElementById('hidden-location').value = location;
+        document.getElementById('hidden-date').value = dateString;
 
-        function closePopup() {
-            document.getElementById('ticket-popup').style.display = 'none';
-            document.getElementById('buy-button').disabled = true;
-        }
+        console.log("updateTicket called with:");
+        console.log("Location (param):", location);
+        console.log("Date (param):", dateString);
+        console.log("Hidden location input value set to:", document.getElementById('hidden-location').value);
+        console.log("Hidden date input value set to:", document.getElementById('hidden-date').value);
+    }
 
-  const quantityInput = document.getElementById('ticket-quantity');
-const amountInput = document.getElementById('amount');
-const biletaCmimi = parseFloat(amountInput.dataset.cmimi);
+    function showPopup() {
+        <?php if (!$logged_in_user_id): ?>
+            alert('Ju lutemi kyçuni për të blerë bileta.');
+            window.location.href = 'login.php';
+            return;
+        <?php endif; ?>
+        document.getElementById('ticket-popup').style.display = 'flex';
+    }
 
-quantityInput.addEventListener('input', function () {
-    const quantity = parseInt(this.value) || 1;
-    const total = biletaCmimi * quantity;
-    amountInput.value = total + "€";
-});
-        }
-    </script>
+    function closePopup() {
+        document.getElementById('ticket-popup').style.display = 'none';
+        document.getElementById('buy-button').disabled = true;
+    }
+
+   
+    quantityInput.addEventListener('input', function () {
+        const quantity = parseInt(this.value) || 1;
+        const total = biletaCmimi * quantity;
+        amountInput.value = total + "€";
+    });
+
+        const chatButton = document.getElementById('chatButton');
+    const chatPanel = document.getElementById('chatPanel');
+    const closeChat = document.getElementById('closeChat');
+    const chatBody = document.getElementById('chatBody');
+    const form = document.getElementById('inputForm');
+    const input = document.getElementById('messageInput');
+
+    chatButton.addEventListener('click', () => {
+      chatPanel.style.display = 'flex';
+    });
+    closeChat.addEventListener('click', () => {
+      chatPanel.style.display = 'none';
+    });
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+
+      
+      appendMessage(text, 'user');
+      input.value = '';
+
+     
+      const loadingDiv = appendMessage('Loading…', 'bot', true);
+
+      try {
+        const res = await fetch('chat.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text }),
+        });
+        const { reply } = await res.json();
+
+        
+        loadingDiv.textContent = reply;
+        loadingDiv.classList.remove('loading');
+
+      } catch (err) {
+        
+        loadingDiv.textContent = 'Error: could not reach server';
+        loadingDiv.classList.remove('loading');
+      }
+    });
+
+
+    function appendMessage(text, role, isLoading = false) {
+      const div = document.createElement('div');
+      div.className = `message ${role}` + (isLoading ? ' loading' : '');
+      div.textContent = text;
+      chatBody.appendChild(div);
+      chatBody.scrollTop = chatBody.scrollHeight;
+      return div;
+    }
+</script>
+</body>
+</html>
  </body>
  </html>
