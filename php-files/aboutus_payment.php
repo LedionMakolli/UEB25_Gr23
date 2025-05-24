@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
             mysqli_stmt_close($stmt);
 
-             $logFile  = __DIR__ . "/payments_log.txt";
+             $logFile  = __DIR__ . "/txtFiles/payments_log.txt";
             $timestamp = date("Y-m-d H:i:s");
             $logText   = "$card_number | $email | $amount | $timestamp" . PHP_EOL;
 
