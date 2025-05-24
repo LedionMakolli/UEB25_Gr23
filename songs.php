@@ -4,7 +4,7 @@ require_once __DIR__ . '/php-files/db.php';
 
 $volume = isset($_COOKIE['volume']) ? (float) $_COOKIE['volume'] : 0.7; // default 70%
 
-$email = $_SESSION['user_email'];
+$email = isset($_SESSION['user_email']) ? $_SESSION['user_email'] : null;
 
 // -----------------------------------------------------------
 // 1. Merr pagesën më të fundit për këtë email
