@@ -48,6 +48,7 @@ $stmt->close();
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="styles/songs.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="../UEB25_Gr23/styles/chat.css">
     <script src="songs.js"></script>
     <link rel="icon" href="foto/logo.png" type="image/png">
 </head>
