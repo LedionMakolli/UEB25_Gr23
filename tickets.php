@@ -146,41 +146,49 @@ $BILETA_CMIMI = 100;
 
 
 <script>
-        function updateTicket(location, dateString) {
-            document.getElementById('ticket-location').innerText = location;
-            document.getElementById('ticket-date').innerText = dateString;
  
-            document.querySelector('.ticket').scrollIntoView({ behavior: 'smooth' });
-            document.getElementById('buy-button').disabled = false;
+    const quantityInput = document.getElementById('ticket-quantity');
+    const amountInput = document.getElementById('amount');
+    const biletaCmimi = parseFloat(amountInput.dataset.cmimi);
+    function updateTicket(location, dateString) {
+        document.getElementById('ticket-location').innerText = location;
+        document.getElementById('ticket-date').innerText = dateString;
 
-            
-            document.getElementById('hidden-location').value = location;
-            document.getElementById('hidden-date').value = dateString;
+        document.querySelector('.ticket').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('buy-button').disabled = false;
 
-        function showPopup() {
-            <?php if (!$logged_in_user_id): ?>
-                alert('Ju lutemi kyçuni për të blerë bileta.');
-                window.location.href = 'login.php'; 
-                return;
-            <?php endif; ?>
-            document.getElementById('ticket-popup').style.display = 'flex';
-        }
+        document.getElementById('hidden-location').value = location;
+        document.getElementById('hidden-date').value = dateString;
 
-        function closePopup() {
-            document.getElementById('ticket-popup').style.display = 'none';
-            document.getElementById('buy-button').disabled = true;
-        }
+        console.log("updateTicket called with:");
+        console.log("Location (param):", location);
+        console.log("Date (param):", dateString);
+        console.log("Hidden location input value set to:", document.getElementById('hidden-location').value);
+        console.log("Hidden date input value set to:", document.getElementById('hidden-date').value);
+    }
 
-  const quantityInput = document.getElementById('ticket-quantity');
-const amountInput = document.getElementById('amount');
-const biletaCmimi = parseFloat(amountInput.dataset.cmimi);
+    function showPopup() {
+        <?php if (!$logged_in_user_id): ?>
+            alert('Ju lutemi kyçuni për të blerë bileta.');
+            window.location.href = 'login.php';
+            return;
+        <?php endif; ?>
+        document.getElementById('ticket-popup').style.display = 'flex';
+    }
 
-quantityInput.addEventListener('input', function () {
-    const quantity = parseInt(this.value) || 1;
-    const total = biletaCmimi * quantity;
-    amountInput.value = total + "€";
-});
-        }
-    </script>
+    function closePopup() {
+        document.getElementById('ticket-popup').style.display = 'none';
+        document.getElementById('buy-button').disabled = true;
+    }
+
+   
+    quantityInput.addEventListener('input', function () {
+        const quantity = parseInt(this.value) || 1;
+        const total = biletaCmimi * quantity;
+        amountInput.value = total + "€";
+    });
+</script>
+</body>
+</html>
  </body>
  </html>
