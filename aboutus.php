@@ -105,55 +105,6 @@
             </div>
         </section>
 
-        <div class="div2"></div>
-
-    <!-- Top Kengetaret -->
-        <section class="Top-Kengetaret">
-            <h3 class="section__header">Top K&euml;ng&euml;tar&euml;t</h3>
-            <div class="table-container">
-                <table id="artistTable">
-                    <tr>
-                        <th>Emri</th>
-                        <th>K&euml;nga m&euml; e re</th>
-                        <th>K&euml;nga me m&euml; s&euml; shumti klikime</th>
-                        <th>Zhanri</th>
-                        <th>Viti i Debutit</th>
-                    </tr>
-                    <tr>
-                        <td>Eminem</td>
-                        <td>Houdini</td>
-                        <td>
-                            <p>River</p>
-                        </td>
-                        <td>Pop</td>
-                        <td>2017</td>
-                    </tr>
-                    <tr>
-                        <td>The Weeknd</td>
-                        <td>Dance In The Flames </td>
-                        <td>
-                            <p>Starboy</p>
-                        </td>
-                        <td>Pop</td>
-                        <td>2016</td>
-                    </tr>
-                    <tr>
-                        <td>Sza</td>
-                        <td>Open Arms</td>
-                        <td>
-                            <p>Kill Bill</p>
-                        </td>
-                        <td>Pop</td>
-                        <td>2022</td>
-                    </tr>
-                </table>
-                <button class="btn10" id="toggleTable">Top K&euml;ng&euml;tar&euml;t</button>
-            </div>
-        </section>
-    </section>
-
-    <br><br> 
-
 <div class="pricing-container" id="pricing" style="display: block;">
         <h1>Plani i &ccedil;mimeve</h1>
         <p style="color: var(--text-light);">Zgjedhni planin më të përshtatshëm për ju</p>
