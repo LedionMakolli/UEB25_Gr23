@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../UEB25_Gr23/styles/chat.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="styles/login.css">
     <link rel="icon" href="foto/logo.png" type="image/png">
