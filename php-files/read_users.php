@@ -37,12 +37,12 @@ $bgColor = $theme === 'dark' ? '#333333' : '#f2f2f2';
     $res = mysqli_query($conn, "SELECT id, fullname, email, created_at FROM users ORDER BY id");
     if (mysqli_num_rows($res) > 0) {
       echo '<table class="users-table"><tr><th>ID</th><th>Emri i plotë</th><th>Email</th><th>Regjistruar</th></tr>';
-      while ($u = mysqli_fetch_assoc($res)) {
+      while ($row = mysqli_fetch_assoc($res)) {
         echo "<tr>
-                <td>{$u['id']}</td>
-                <td>".htmlspecialchars($u['fullname'])."</td>
-                <td>".htmlspecialchars($u['email'])."</td>
-                <td>".htmlspecialchars($u['created_at'])."</td>
+                <td>{$row['id']}</td>
+                <td>".htmlspecialchars($row['fullname'])."</td>
+                <td>".htmlspecialchars($row['email'])."</td>
+                <td>".htmlspecialchars($row['created_at'])."</td>
               </tr>";
       }
       echo '</table>';
@@ -86,64 +86,84 @@ $(document).ready(function(){
     if(!id && !name && !email) {
       return alert('Fut ID, Emër ose Email për kërkim');
     }
-    $.post('action_s.php', {
-      kerko: 'kerko',
-      id: id,
-      fullname: name,
-      email: email
-    }, function(data){
-      $('#div_r').html(data);
+    $.ajax({
+      url: "action_s.php", 
+      method: "POST",
+      data: {
+        kerko: 'kerko',
+        id: id,
+        fullname: name,
+        email: email
+      },
+      success: function(data){
+        $('#div_r').html(data);
+      }
     });
   });
 
-    $('#btnRUAJ').click(function(){
-   if ($('#txtID').val().trim() !== '') {
-     return alert('Lëre fushën ID bosh kur po krijon user të ri (AUTO_INCREMENT).');
-   }
+  $('#btnRUAJ').click(function(){
+    if ($('#txtID').val().trim() !== '') {
+      return alert('Lëre fushën ID bosh kur po krijon user të ri (AUTO_INCREMENT).');
+    }
     var full = $('#txtEmri').val().trim(),
         mail = $('#txtEmail').val().trim(),
         pw   = $('#txtPassword').val();
-    if(!full||!mail||!pw) return alert('Plotëso të gjitha fushat');
-    $.post('action_s.php',{
-      ruaj: 'ruaj',
-      fullname: full,
-      email: mail,
-      password: pw
-    }, function(data){
-      $('#div_r').html(data);
+    if(!full || !mail || !pw) return alert('Plotëso të gjitha fushat');
+    $.ajax({
+      url: "action_s.php",
+      method: "POST",
+      data: {
+        ruaj: 'ruaj',
+        fullname: full,
+        email: mail,
+        password: pw
+      },
+      success: function(data){
+        $('#div_r').html(data);
+      }
     });
   });
 
   $('#btnEDITO').click(function(){
-    var id    = $('#txtID').val().trim();
-    var full  = $('#txtEmri').val().trim();
-    var mail  = $('#txtEmail').val().trim();
-    var pw    = $('#txtPassword').val();
+    var id = $('#txtID').val().trim();
+    var full = $('#txtEmri').val().trim();
+    var mail = $('#txtEmail').val().trim();
+    var pw = $('#txtPassword').val();
 
-    if(!id||!full||!mail) return alert('Plotëso ID, fullname & email');
-    $.post('action_s.php',{
-      edito: 'edito',
-      id: id,
-      fullname: full,
-      email: mail,
-      password: pw
-    }, function(data){
-      $('#div_r').html(data);
+    if(!id || !full || !mail) return alert('Plotëso ID, fullname & email');
+    $.ajax({
+      url: "action_s.php",
+      method: "POST",
+      data: {
+        edito: 'edito',
+        id: id,
+        fullname: full,
+        email: mail,
+        password: pw
+      },
+      success: function(data){
+        $('#div_r').html(data);
+      }
     });
   });
 
   $('#btnFSHI').click(function(){
-    var id   = $('#txtID').val().trim();
+    var id = $('#txtID').val().trim();
     var name = $('#txtEmri').val().trim();
 
-    if(!id||!name) return alert('Plotëso ID dhe Emrin për fshirje');
-    if(!confirm('Fshi user #'+id+' ('+name+')?')) return;
-    $.post('action_s.php',{
-      fshi:     'fshi',
-      id:       id,
-      fullname: name
-    }, function(data){
-      $('#div_r').html(data);
+    if(!id || !name) return alert('Plotëso ID dhe Emrin për fshirje');
+    if(!confirm('Fshi user #' + id + ' (' + name + ')?')) return;
+    $.ajax({
+      url: "action_s.php",
+      method: "POST",
+      data: {
+        fshi: 'fshi',
+        id: id,
+        fullname: name
+      },
+      success: function(data){
+        $('#div_r').html(data);
+      }
     });
   });
 });
