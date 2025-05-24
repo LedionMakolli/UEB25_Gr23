@@ -51,6 +51,7 @@ $stmt->close();
     <title>Songs</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../UEB25_Gr23/styles/chat.css">
     <link rel="stylesheet" href="styles/songs.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="songs.js"></script>
@@ -285,7 +286,76 @@ if (!empty($_SESSION['user_id']) && isset($_GET['play'])) {
     </svg>
 </div>
     
-</main>
+</main><div id="chatButton">💬</div>
+  <div id="chatPanel">
+    <div id="chatHeader">
+      <span>Chat with Illyric</span>
+      <div id="closeChat">✖️</div>
+    </div>
+    <div id="chatBody"></div>
+    <form id="inputForm">
+      <input type="text" id="messageInput" placeholder="Type a message..." autocomplete="off" required />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
      <?php include 'footer.php'; ?>
+
+     <script>
+    const chatButton = document.getElementById('chatButton');
+    const chatPanel = document.getElementById('chatPanel');
+    const closeChat = document.getElementById('closeChat');
+    const chatBody = document.getElementById('chatBody');
+    const form = document.getElementById('inputForm');
+    const input = document.getElementById('messageInput');
+
+    chatButton.addEventListener('click', () => {
+      chatPanel.style.display = 'flex';
+    });
+    closeChat.addEventListener('click', () => {
+      chatPanel.style.display = 'none';
+    });
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+
+      
+      appendMessage(text, 'user');
+      input.value = '';
+
+     
+      const loadingDiv = appendMessage('Loading…', 'bot', true);
+
+      try {
+        const res = await fetch('chat.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text }),
+        });
+        const { reply } = await res.json();
+
+        
+        loadingDiv.textContent = reply;
+        loadingDiv.classList.remove('loading');
+
+      } catch (err) {
+        
+        loadingDiv.textContent = 'Error: could not reach server';
+        loadingDiv.classList.remove('loading');
+      }
+    });
+
+
+    function appendMessage(text, role, isLoading = false) {
+      const div = document.createElement('div');
+      div.className = `message ${role}` + (isLoading ? ' loading' : '');
+      div.textContent = text;
+      chatBody.appendChild(div);
+      chatBody.scrollTop = chatBody.scrollHeight;
+      return div;
+    }
+  </script>
 </body>
 </html>
