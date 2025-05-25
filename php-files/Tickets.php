@@ -5,6 +5,10 @@ if (session_status() === PHP_SESSION_NONE) {
 $BILETA_CMIMI = 100;
 require_once("db.php");
 require_once("custom_error_handler.php");
+require __DIR__ . '/../vendor/autoload.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+$mail = new PHPMailer(true);
 
 if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['submit'])){
     
@@ -13,13 +17,17 @@ if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['submit'])){
     exit;
     }
 
-$userId = $_SESSION['user_id'];
+$userId = filter_var($_SESSION['user_id'], FILTER_SANITIZE_NUMBER_INT);
+$userEmail = filter_var($_SESSION['user_email'] ?? '', FILTER_SANITIZE_EMAIL);
+
 $location = trim($_POST['concert_location'] ?? '');
 $concert_date = trim($_POST['concert_date'] ?? '');
 $cardName=trim($_POST['account-number'] ?? '');
 $expiryDate = trim($_POST['expiry-date'] ?? '');
 $quantity = intval($_POST['quantity'] ?? 1);
 $total_amount = floatval(str_replace('€', '', $_POST['total_price']));
+
+
 
 $cardNameRegex = "/^([0-9]{4}\-){3}[0-9]{4}$/";
 $expiryDateRegex= "/^(0[1-9]|1[0-2])\/[0-9]{2}$/";
@@ -61,14 +69,49 @@ if (!preg_match($expiryDateRegex, $expiryDate)) {
 
             mysqli_stmt_bind_param($stmt, "issssid", $userId, $location, $concert_date, $cleanAccountNumber, $expiryDate, $quantity, $total_amount);
 
-            if (mysqli_stmt_execute($stmt)) {
+        if (mysqli_stmt_execute($stmt)) {
+                if (!empty($userEmail)) {
+                    $mail = new PHPMailer(true);
+
+                    try {
+                        $mail->isSMTP();
+                        $mail->Host = 'smtp.gmail.com';
+                        $mail->SMTPAuth = true;
+                        $mail->Username = 'duazogu@gmail.com'; 
+                        $mail->Password = 'cpgmwbjffscrohrq';    
+                        $mail->SMTPSecure = 'tls';
+                        $mail->Port = 587;
+
+                        $mail->setFrom('duazogu@gmail.com', 'Koncerte');
+                        $mail->addAddress($userEmail);
+
+                        $mail->Subject = 'Ticket confirmation';
+                        $mail->Body = "HELLO $userEmail,\n\nThank you for buying the concert ticket\n\n"
+                                    . "Details:\n"
+                                    . "Concert: $location\n"
+                                    . "Date: $concert_date\n"
+                                    . "Ticket quantity: $quantity\n"
+                                    . "Total: $total_amount €\n\n"
+                                    . "Thank you for using our platform";
+
+                        if (!$mail->send()) {
+    throw new Exception("Dërgimi i emailit dështoi: " . $mail->ErrorInfo);
+}
+
+                    } catch (Exception $e) {
+                        error_log("Dërgimi i emailit dështoi: {$mail->ErrorInfo}");
+                    }
+                }
+
                 echo "<script>alert('Bileta u ble me sukses!'); window.location.href='tickets.php';</script>";
-                exit; 
+                exit;
             } else {
                 throw new Exception("Gabim gjatë blerjes së biletës: " . mysqli_error($conn));
             }
         } catch (Exception $e) {
-            echo "<script>alert('Kërkimi dështoi: " . htmlspecialchars($e->getMessage()) . "');</script>";
+                $error = "Dërgimi i emailit dështoi: {$mail->ErrorInfo}";
+              echo "<script>alert('$error');</script>";
+          
         } finally {
             if (isset($stmt) && $stmt !== false) {
                 mysqli_stmt_close($stmt);
