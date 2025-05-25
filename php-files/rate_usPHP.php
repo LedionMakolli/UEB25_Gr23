@@ -1,4 +1,6 @@
 <?php
+require_once 'db.php';
+
 $name = $review = '';
 $rating = '';
 $errors = [];
@@ -12,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_SESSION['user_id'])) {
     $name = trim($_POST['name'] ?? '');
     $rating = $_POST['rating'] ?? '';
     $review = trim($_POST['review'] ?? '');
+    $user_id = $_SESSION['user_id'];
 
     if (!preg_match("/^[a-zA-Z\x{00C0}-\x{024F}\s]{3,50}$/u", $name)) {
         $errors['name'] = "Emri duhet të përmbajë vetëm shkronja (3-50 karaktere).";
@@ -26,8 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_SESSION['user_id'])) {
     }
 
     if (empty($errors)) {
-        $success = true;
-
         $words = explode(' ', strtolower($name));
         foreach ($words as &$word) {
             $word = ucfirst($word);
@@ -39,6 +40,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_SESSION['user_id'])) {
             $sentence = ucfirst(trim($sentence));
         }
         $review = implode(' ', $sentences);
+
+        try {
+            $stmt = $conn->prepare("INSERT INTO ratings (user_id, name, rating, review) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("isis", $_SESSION['user_id'], $name, $rating, $review);
+    
+            if ($stmt->execute()) {
+                $success = true;
+                $name = $review = '';
+                $rating = '';
+            } else {
+                $errors['database'] = "Ndodhi një gabim gjatë ruajtjes së vlerësimit.";
+            }
+            $stmt->close();
+        } catch (Exception $e) {
+            $errors['database'] = "Gabim në databazë: " . $e->getMessage();
+}
     }
 }
 ?>
