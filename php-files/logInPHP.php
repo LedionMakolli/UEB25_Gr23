@@ -31,6 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['fullname'] = $userFullname;
             $_SESSION['role'] = $role; 
             $_SESSION['user_email'] = $email; 
+            mysqli_stmt_close($stmt);  
+            mysqli_close($conn); 
             header('Location: songs.php');
             exit;
         } else {
