@@ -28,6 +28,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_SESSION['user_id'])) {
         $errors['review'] = "Komenti përmban karaktere të palejuara ose është shumë i gjatë (maks 500 karaktere).";
     }
 
+    $check_stmt = $conn->prepare("SELECT id FROM ratings WHERE user_id = ?");
+    $check_stmt->bind_param("i", $user_id);
+    $check_stmt->execute();
+    $check_stmt->store_result();
+
+    if ($check_stmt->num_rows > 0) {
+        $errors['rating'] = "Ju keni dhënë tashmë një vlerësim.";
+    }
+    $check_stmt->close();
+
     if (empty($errors)) {
         $words = explode(' ', strtolower($name));
         foreach ($words as &$word) {
