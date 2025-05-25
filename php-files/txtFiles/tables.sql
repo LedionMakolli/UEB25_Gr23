@@ -3,8 +3,8 @@ CREATE TABLE IF NOT EXISTS users (
     fullname varchar(30) not null,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    role varchar(10) DEFAULT 'client';
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    role varchar(10) DEFAULT 'client'
 );
 
 CREATE TABLE payments (
@@ -36,5 +36,7 @@ CREATE TABLE IF NOT EXISTS ratings (
     rating TINYINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
     review TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    profession VARCHAR(100),
+    profile_pic VARCHAR(255) DEFAULT 'default_profile.jpg',
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
