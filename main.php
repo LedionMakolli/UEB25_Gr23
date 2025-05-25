@@ -66,6 +66,12 @@
         </div>
       </header>
 
+      <?php
+      $linkToSongs = !empty($_SESSION['user_id'])
+          ? '<a href="songs.php"><i class="ri-arrow-right-up-line"></i></a>'
+          : '<a href="#" onclick="alert(\'Ju lutemi kyçuni për të dëgjuar këngët tona!\');"><i class="ri-arrow-right-up-line"></i></a>';
+      ?>
+
       <section class="section__container genre__container">
         <h2 class="section__header">Zgjedh zhanrin tuaj te preferuar</h2>
         <p class="section__description">
@@ -76,7 +82,7 @@
             <div class="genre__image">
               <img src="foto/r&b.jpg" alt="genre" />
               <div class="genre__link">
-                <a href="songs.php"><i class="ri-arrow-right-up-line"></i></a>
+                <?= $linkToSongs ?>
               </div>
             </div>
             <h4>R&B</h4>
@@ -85,7 +91,7 @@
             <div class="genre__image">
               <img src="foto/pop.jpg" alt="genre" />
               <div class="genre__link">
-                <a href="songs.php"><i class="ri-arrow-right-up-line"></i></a>
+                <?= $linkToSongs ?>
               </div>
             </div>
             <h4>POP</h4>
@@ -94,7 +100,7 @@
             <div class="genre__image">
               <img src="foto/hiphop.jpg" alt="genre" />
               <div class="genre__link">
-                <a href="songs.php"><i class="ri-arrow-right-up-line"></i></a>
+                <?= $linkToSongs ?>
               </div>
             </div>
             <h4>HIP HOP</h4>
@@ -103,7 +109,7 @@
             <div class="genre__image">
               <img src="foto/rock.jpg" alt="genre" />
               <div class="genre__link">
-                <a href="songs.php"><i class="ri-arrow-right-up-line"></i></a>
+                <?= $linkToSongs ?>
               </div>
             </div>
             <h4>ROCK</h4>
