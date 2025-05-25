@@ -25,11 +25,13 @@ $hasPaid = false;
 if ($isStaff) {
     $hasPaid = true;
 } elseif ($row = $res->fetch_assoc()) {
+    // konveritmi i amount ne numer
     $amount = floatval(preg_replace('/[^\d.]/', '', $row['amount']));
     $paymentDate = new DateTime($row['payment_date']);
     $now = new DateTime();
     $diff = $paymentDate->diff($now);
 
+    // kohezgjatja e pageses
     if ($amount == 29 && $diff->m < 1 && $diff->y == 0) {
         $hasPaid = true;
     } elseif ($amount == 299 && $diff->y < 1) {
@@ -97,7 +99,7 @@ $stmt->close();
                     $originalSongs = $songsForDisplay;
 
                     if (!$hasPaid) {
-                        // Nëse nuk ka paguar, fsheh 3 këngët e fundit
+                        // Nese nuk ka paguar fsheh 3 kenget e fundit
                         $songsForDisplay = array_slice($songsForDisplay, 0, count($songsForDisplay) - 6);
                     }
 
@@ -273,11 +275,10 @@ $stmt->close();
             </form>
         </div>
 
-        <?php if (!$hasPaid): ?>
+        <?php if (!$hasPaid): ?>   
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     const sortDropdown = document.querySelector('.sort-dropdown');
-
                     if (sortDropdown) sortDropdown.style.display = 'none';
                 });
             </script>

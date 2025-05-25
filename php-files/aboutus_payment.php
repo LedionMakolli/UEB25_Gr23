@@ -14,8 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $expiryDateRegex= "/^(0[1-9]|1[0-2])\/[0-9]{2}$/";
 
     $card_clean = str_replace(' ', '', $card_number);
-    if (!preg_match("/^\d{8,19}$/", $card_clean)) {
-        $errors[] = "Numri i kartelës duhet të përmbajë vetëm 8 deri në 19 shifra.";
+    if (!preg_match("/^\d{16,19}$/", $card_clean)) {
+        $errors[] = "Numri i kartelës duhet të përmbajë vetëm 16 deri në 19 shifra.";
     }
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Email adresa nuk është valide.";
