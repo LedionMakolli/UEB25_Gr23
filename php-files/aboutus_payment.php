@@ -49,9 +49,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             mysqli_stmt_store_result($check);
             mysqli_stmt_close($check);
 
-            $stmt = mysqli_prepare($conn,
+           $stmt = mysqli_prepare($conn,
                 "INSERT INTO payments (card_number, email, amount, payment_date, expiryDate)
-                 VALUES (?, ?, ?, ?, NOW())"
+                VALUES (?, ?, ?, NOW(), ?)"
             );
             if (!$stmt) {
                 throw new Exception("Gabim në prepare për INSERT: " . mysqli_error($conn));
