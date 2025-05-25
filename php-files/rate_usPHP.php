@@ -30,24 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_SESSION['user_id'])) {
         $errors['review'] = "Komenti përmban karaktere të palejuara ose është shumë i gjatë (maks 500 karaktere).";
     }
 
-    if (!empty($_FILES['profile_pic']['name'])) {
-        $target_dir = "uploads/profiles/";
-        if (!file_exists($target_dir)) {
-            mkdir($target_dir, 0755, true);
-        }
-        
-        $file_extension = pathinfo($_FILES['profile_pic']['name'], PATHINFO_EXTENSION);
-        $new_filename = uniqid() . '.' . $file_extension;
-        $target_file = $target_dir . $new_filename;
-        
-        $check = getimagesize($_FILES['profile_pic']['tmp_name']);
-        if ($check !== false && in_array(strtolower($file_extension), ['jpg', 'jpeg', 'png', 'gif'])) {
-            if (move_uploaded_file($_FILES['profile_pic']['tmp_name'], $target_file)) {
-                $profile_pic = $new_filename;
-            }
-        }
-    }
-
     $check_stmt = $conn->prepare("SELECT id FROM ratings WHERE user_id = ?");
     $check_stmt->bind_param("i", $user_id);
     $check_stmt->execute();
@@ -59,17 +41,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_SESSION['user_id'])) {
     $check_stmt->close();
 
     if (empty($errors)) {
-        $words = explode(' ', strtolower($name));
-        foreach ($words as &$word) {
-            $word = ucfirst($word);
+        $name = ucwords(strtolower($name));
+        
+        if (!empty($review)) {
+            $sentences = preg_split('/(?<=[.!?])\s+/', strtolower($review), -1, PREG_SPLIT_NO_EMPTY);
+            foreach ($sentences as &$sentence) {
+                $sentence = ucfirst(trim($sentence));
+            }
+            $review = implode(' ', $sentences);
         }
-        $name = implode(' ', $words);
-
-        $sentences = preg_split('/(?<=[.!?])\s+/', strtolower($review), -1, PREG_SPLIT_NO_EMPTY);
-        foreach ($sentences as &$sentence) {
-            $sentence = ucfirst(trim($sentence));
-        }
-        $review = implode(' ', $sentences);
 
         try {
             $stmt = $conn->prepare("INSERT INTO ratings (user_id, name, rating, review, profession, profile_pic) VALUES (?, ?, ?, ?, ?, ?)");
@@ -77,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_SESSION['user_id'])) {
     
             if ($stmt->execute()) {
                 $success = true;
-                $name = $review = '';
+                $name = $review = $profession = '';
                 $rating = '';
             } else {
                 $errors['database'] = "Ndodhi një gabim gjatë ruajtjes së vlerësimit.";
