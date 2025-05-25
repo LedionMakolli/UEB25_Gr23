@@ -16,6 +16,16 @@
     <?php 
     include 'nav.php';
     include 'php-files/mainPHP.php';
+
+    require_once 'php-files/db.php';
+    $ratings = [];
+    $stmt = $conn->prepare("SELECT name, rating, review FROM ratings ORDER BY created_at DESC");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $ratings[] = $row;
+    }
+    $stmt->close();
     ?>
 
     <header class="header" id="home">
@@ -173,6 +183,26 @@
       echo $client2->renderClient();
       echo $client3->renderClient();
       echo $client4->renderClient();
+
+      foreach ($ratings as $rating) {
+              $stars = str_repeat('<span>★</span>', $rating['rating']);
+              if ($rating['rating'] < 5) {
+                  $stars .= str_repeat('<span>☆</span>', 5 - $rating['rating']);
+              }
+              
+              echo '
+              <div class="swiper-slide">
+                <div class="client__card">
+                  <div class="client__ratings">
+                    '.$stars.'
+                  </div>
+                  <p>'.htmlspecialchars($rating['review'] ?? 'Nuk ka koment').'</p>
+                  <div class="client__details">
+                    <h4>'.htmlspecialchars($rating['name']).'</h4>
+                  </div>
+                </div>
+              </div>';
+          }
     ?>
   </div>
 </div>

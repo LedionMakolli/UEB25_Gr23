@@ -443,6 +443,15 @@ nav {
   .client__ratings span {
     color: gold;
   }
+
+  .client__ratings span:last-child {
+    margin-right: 0;
+  }
+
+  .client__ratings span[style*="color:gray"] {
+    color: var(--text-light);
+  }
+
   
   .three span:nth-last-child(1),
   .three span:nth-last-child(2) {
