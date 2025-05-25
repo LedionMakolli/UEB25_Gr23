@@ -117,7 +117,7 @@ $BILETA_CMIMI = 100;
           <h3>Plotesoni të dhënat për blerjen e biletës</h3>
           <form id="ticket-form" method="POST" action="">
              <input type="hidden" name="user_id" value="<?php echo $logged_in_user_id; ?>">
-                <?php if ($logged_in_email): ?>
+                  <?php if ($logged_in_email): ?>
                     <p>Email: <strong><?php echo htmlspecialchars($logged_in_email); ?></strong></p>
                 <?php endif; ?>
             <input type="text" id="account-number" placeholder="Numri i llogarise" name="account-number" required>
