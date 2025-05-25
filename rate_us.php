@@ -57,8 +57,15 @@
                         <div class="error-message"><?= $errors['review']; ?></div>
                     <?php endif; ?>
 
+                    <?php if (isset($errors['database'])): ?>
+                        <div class="error-message"><?= $errors['database']; ?></div>
+                    <?php endif; ?>
+
                     <button type="submit">Dërgo vlerësimin</button>
                 </form>
+
+                
+
 
             <?php else: ?>
                 <script>
