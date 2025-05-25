@@ -28,7 +28,7 @@ if (!isset($_SESSION['songs_plays'])) {
     <li><a href="main.php">Home</a></li>
     <li>
   <?php if (!empty($_SESSION['user_id'])): ?>
-    <a href="songs.php?play=1">Songs</a>
+    <a href="songs.php">Songs</a>
   <?php else: ?>
     <a href="#" onclick="alert('Ju lutemi kyçuni për të dëgjuar këngët tona!');">Songs</a>
   <?php endif; ?>

@@ -62,7 +62,7 @@ $stmt->close();
         session_start();
     }
 
-    if (!empty($_SESSION['user_id']) && isset($_GET['play'])) {
+    if (!empty($_SESSION['user_id'])) {
         $_SESSION['songs_plays'] = ($_SESSION['songs_plays'] ?? 0) + 1;
     }
     ?>
