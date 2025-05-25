@@ -179,30 +179,41 @@
     <div class="swiper">
   <div class="swiper-wrapper">
     <?php
+
+      $stmt = $conn->prepare("SELECT * FROM ratings ORDER BY created_at DESC");
+      $stmt->execute();
+      $result = $stmt->get_result();
+      $ratings = $result->fetch_all(MYSQLI_ASSOC);
+      $stmt->close();
+
       echo $client1->renderClient();
       echo $client2->renderClient();
       echo $client3->renderClient();
       echo $client4->renderClient();
 
       foreach ($ratings as $rating) {
-              $stars = str_repeat('<span>★</span>', $rating['rating']);
-              if ($rating['rating'] < 5) {
-                  $stars .= str_repeat('<span>☆</span>', 5 - $rating['rating']);
-              }
-              
-              echo '
-              <div class="swiper-slide">
-                <div class="client__card">
+          // Përdor foto nga ratings nëse ekziston, përndryshe default
+          $profile_pic = !empty($rating['profile_pic']) ? $rating['profile_pic'] : $rating['user_profile'];
+          $profile_pic_path = 'foto/' . $profile_pic;
+          
+          echo '
+          <div class="swiper-slide">
+              <div class="client__card">
                   <div class="client__ratings">
-                    '.$stars.'
+                      '.str_repeat('<span><i class="ri-star-fill" style="color: gold; font-size: 1em;"></i></span>', $rating['rating']) . 
+                      str_repeat('<span><i class="ri-star-line" style="color: gold; font-size: 1em;"></i></span>', 5 - $rating['rating']).'
                   </div>
                   <p>'.htmlspecialchars($rating['review'] ?? 'Nuk ka koment').'</p>
                   <div class="client__details">
-                    <h4>'.htmlspecialchars($rating['name']).'</h4>
+                      <img src="'.$profile_pic_path.'" alt="'.htmlspecialchars($rating['name']).'">
+                      <div class="client__info">
+                          <h4>'.htmlspecialchars($rating['name']).'</h4>
+                          <span class="client__profession">'.htmlspecialchars($rating['profession'] ?? 'Përdorues').'</span>
+                      </div>
                   </div>
-                </div>
-              </div>';
-          }
+              </div>
+          </div>';
+      }
     ?>
   </div>
 </div>
