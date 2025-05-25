@@ -83,14 +83,14 @@ $(document).ready(function(){
     var name  = $('#txtEmri').val().trim();
     var email = $('#txtEmail').val().trim();
 
-    if(!id && !name && !email) {
+    if(!id || !name || !email) {
       return alert('Fut ID, Emër ose Email për kërkim');
     }
     $.ajax({
       url: "action_s.php", 
       method: "POST",
       data: {
-        kerko: 'kerko',
+        kerko: 'kerko', 
         id: id,
         fullname: name,
         email: email
@@ -111,7 +111,7 @@ $(document).ready(function(){
     var full = $('#txtEmri').val().trim();
     var mail = $('#txtEmail').val().trim();
     var pw = $('#txtPassword').val();
-    if(!full || !mail || !pw) return alert('Plotëso të gjitha fushat');
+    if(!full && !mail && !pw) return alert('Plotëso të gjitha fushat');
     $.ajax({
       url: "action_s.php",
       method: "POST",
@@ -136,7 +136,7 @@ $(document).ready(function(){
     var mail = $('#txtEmail').val().trim();
     var pw = $('#txtPassword').val();
 
-    if(!id || !full || !mail) return alert('Plotëso ID, fullname & email');
+    if(!id && !full && !mail) return alert('Plotëso ID, fullname & email');
     $.ajax({
       url: "action_s.php",
       method: "POST",
@@ -161,7 +161,7 @@ $(document).ready(function(){
     var id = $('#txtID').val().trim();
     var name = $('#txtEmri').val().trim();
 
-    if(!id || !name) return alert('Plotëso ID dhe Emrin për fshirje');
+    if(!id && !name) return alert('Plotëso ID dhe Emrin për fshirje');
     if(!confirm('Fshi user #' + id + ' (' + name + ')?')) return;
     $.ajax({
       url: "action_s.php",
