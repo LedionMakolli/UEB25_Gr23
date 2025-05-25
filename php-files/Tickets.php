@@ -11,11 +11,15 @@ use PHPMailer\PHPMailer\Exception;
 $mail = new PHPMailer(true);
 
 if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['submit'])){
-    
     if (!isset($_SESSION['user_id'])) {
      echo "<script>alert('You must be logged in to purchase tickets.'); window.location.href='login.php';</script>";
     exit;
     }
+
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'staff') {
+    echo "<script>alert('Staff members are not allowed to purchase tickets.'); window.location.href='tickets.php';</script>";
+    exit;
+}
 
 $userId = filter_var($_SESSION['user_id'], FILTER_SANITIZE_NUMBER_INT);
 $userEmail = filter_var($_SESSION['user_email'] ?? '', FILTER_SANITIZE_EMAIL);
