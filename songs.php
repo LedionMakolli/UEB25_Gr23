@@ -21,10 +21,10 @@ $hasPaid = false;
 
 if ($row = $res->fetch_assoc()) {
 
-    $amount        = floatval(preg_replace('/[^\d.]/', '', $row['amount']));
-    $paymentDate   = new DateTime($row['payment_date']);
-    $now           = new DateTime();
-    $diff          = $paymentDate->diff($now);
+    $amount = floatval(preg_replace('/[^\d.]/', '', $row['amount']));
+    $paymentDate = new DateTime($row['payment_date']);
+    $now = new DateTime();
+    $diff = $paymentDate->diff($now);
 
 
     if ($amount == 29 && $diff->m < 1 && $diff->y == 0) {

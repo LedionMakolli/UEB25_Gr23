@@ -13,6 +13,7 @@ CREATE TABLE payments (
   email VARCHAR(100) NOT NULL,
   amount VARCHAR(20) DEFAULT NULL,
   payment_date DATETIME NOT NULL,
+  expiryDate VARCHAR(10)
 ) 
 
 CREATE TABLE tickets (
