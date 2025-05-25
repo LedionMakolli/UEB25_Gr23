@@ -90,9 +90,9 @@ $stmt->close();
                 <div id="songs-container">
                     <?php
 
-                    require_once __DIR__ . '/artist.php';
-                    require_once __DIR__ . '/song.php';
-                    require_once __DIR__ . '/songsData.php';
+                    require_once __DIR__ . '/php-files/classes/artist.php';
+                    require_once __DIR__ . '/php-files/classes/song.php';
+                    require_once __DIR__ . '/php-files/songsData.php';
 
                     $originalSongs = $songsForDisplay;
 

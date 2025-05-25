@@ -75,16 +75,4 @@ if (!isset($_SESSION['songs_plays'])) {
       </button>
     <?php endif; ?>
   </div>
-  <script>
-  function incrementSongs() {
-    fetch('php-files/increment_songs.php')
-      .then(response => response.json())
-      .then(data => {
-        alert("Keni dëgjuar këngë " + data.plays + " herë.");
-        window.location.href = 'songs.php';
-      })
-      .catch(err => console.error(err));
-  }
-</script>
-
 </nav>
