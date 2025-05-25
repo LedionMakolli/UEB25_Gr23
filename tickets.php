@@ -10,7 +10,7 @@
 </head>
 <body>
       <?php
-     if (session_status() === PHP_SESSION_NONE) {
+    if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
      include('php-files/Tickets.php');
@@ -125,7 +125,7 @@ $BILETA_CMIMI = 100;
             <input type="hidden" name="concert_location" id="hidden-location">
             <input type="hidden" name="concert_date" id="hidden-date">
             <input type="number" id="ticket-quantity" value="1" min="1" placeholder="Sasia"  name="quantity" required>
-            <input type="text" id="amount" data-cmimi="<?php echo $BILETA_CMIMI;?> " value="<?php echo $BILETA_CMIMI; ?>€" name="total_price" readonly>
+            <input type="text" id="amount" data-cmimi="<?php echo $BILETA_CMIMI;?>" value="<?php echo $BILETA_CMIMI; ?>€" name="total_price" readonly>
             <button type="submit" name="submit">Paguaj</button>
             <button type="button" onclick="closePopup()">Anulo</button>
           </form>
@@ -194,5 +194,3 @@ $BILETA_CMIMI = 100;
 <script src="../UEB25_Gr23/javascript/chat.js"></script>
 </body>
 </html>
- </body>
- </html>

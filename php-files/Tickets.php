@@ -8,7 +8,7 @@ require_once("custom_error_handler.php");
 require __DIR__ . '/../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-$mail = new PHPMailer(true);
+
 
 if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['submit'])){
     if (!isset($_SESSION['user_id'])) {
@@ -99,14 +99,13 @@ if (!preg_match($expiryDateRegex, $expiryDate)) {
                                     . "Thank you for using our platform";
 
                         if (!$mail->send()) {
-    throw new Exception("Dërgimi i emailit dështoi: " . $mail->ErrorInfo);
-}
+                           throw new Exception("Dërgimi i emailit dështoi: " . $mail->ErrorInfo);
+                         }
 
-                    } catch (Exception $e) {
-                        error_log("Dërgimi i emailit dështoi: {$mail->ErrorInfo}");
-                    }
+                 } catch (Exception $e) {
+                     error_log("Dërgimi i emailit dështoi: {$mail->ErrorInfo}");
                 }
-
+            }
                 echo "<script>alert('Bileta u ble me sukses!'); window.location.href='tickets.php';</script>";
                 exit;
             } else {
