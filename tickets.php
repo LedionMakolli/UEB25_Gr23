@@ -140,7 +140,7 @@ $BILETA_CMIMI = 100;
           <div class="dynamic-text location" id="ticket-location">Zgjidhni një vend</div>
           <div class="dynamic-text date" id="ticket-date">Zgjidhni një datë</div>
           <div class="dynamic-text other-info">LIVE MUSIC</div>
-          <button  id="buy-button" onclick="showPopup()" disabled>Bli Tani</button>
+          <button  id="buy-button" class="buttonbuy" onclick="showPopup()" disabled>Bli Tani</button>
         </div>
       </div>
 
