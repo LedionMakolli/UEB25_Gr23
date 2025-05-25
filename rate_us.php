@@ -57,6 +57,22 @@
                         <div class="error-message"><?= $errors['review']; ?></div>
                     <?php endif; ?>
 
+                    <div class="form-group">
+                        <label for="profession">Profesioni:</label>
+                        <input type="text" id="profession" name="profession" placeholder="Shkruani profesionin tuaj" value="<?= htmlspecialchars($profession ?? ''); ?>">
+                        <?php if (isset($errors['profession'])): ?>
+                            <div class="error-message"><?= $errors['profession']; ?></div>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="profile_pic">Foto profili (opsionale):</label>
+                        <input type="file" id="profile_pic" name="profile_pic" accept="image/*">
+                        <?php if (isset($errors['profile_pic'])): ?>
+                            <div class="error-message"><?= $errors['profile_pic']; ?></div>
+                        <?php endif; ?>
+                    </div>
+
                     <?php if (isset($errors['database'])): ?>
                         <div class="error-message"><?= $errors['database']; ?></div>
                     <?php endif; ?>
