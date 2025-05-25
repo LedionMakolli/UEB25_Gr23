@@ -24,31 +24,33 @@ class Client {
       return $this->imageSrc;
     }
     public function renderClient() {
-        return "
-            <div class='swiper-slide'>
-                <div class='client__card'>
-                    <div class='client__ratings'>
-                        " . str_repeat('<span><i class="ri-star-fill"></i></span>', $this->rating) . "
-                    </div>
-                    <p>{$this->comment}</p>
-                    <div class='client__details'>
-                        <img src='{$this->imageSrc}' alt='client' />
-                        <div>
-                            <h4>{$this->name}</h4>
-                            <h5>{$this->position}</h5>
-                        </div>
+    $emptyStars = 5 - $this->rating;
+    return "
+        <div class='swiper-slide'>
+            <div class='client__card'>
+                <div class='client__ratings'>
+                    " . str_repeat('<span><i class="ri-star-fill"></i></span>', $this->rating) . 
+                    str_repeat('<span><i class="ri-star-line"></i></span>', $emptyStars) . "
+                </div>
+                <p>{$this->comment}</p>
+                <div class='client__details'>
+                    <img src='{$this->imageSrc}' alt='client' />
+                    <div>
+                        <h4>{$this->name}</h4>
+                        <h5>{$this->position}</h5>
                     </div>
                 </div>
             </div>
-        ";
-    }
+        </div>
+    ";
+}
 }
 
 $client1 = new Client(
     "Luan", 
     "Trajner Fitnesi", 
     "Sesionet e mia të stërvitjes kanë arritur nivele të reja intensiteti dhe motivimi, falë ritmeve energjike dhe këngëve fuqizuese që Illyric ka bërë.", 
-    5, 
+    4, 
     "foto/gymtrainer.jpg"
 );
 
