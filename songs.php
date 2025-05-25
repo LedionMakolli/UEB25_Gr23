@@ -6,6 +6,9 @@ $volume = isset($_COOKIE['volume']) ? (float) $_COOKIE['volume'] : 0.7; // defau
 
 $email = isset($_SESSION['user_email']) ? $_SESSION['user_email'] : null;
 
+$isStaff = isset($_SESSION['role']) && $_SESSION['role'] === 'staff';
+
+
 
 $sql  = "SELECT amount, payment_date
          FROM payments
@@ -19,13 +22,13 @@ $res  = $stmt->get_result();
 
 $hasPaid = false;
 
-if ($row = $res->fetch_assoc()) {
-
+if ($isStaff) {
+    $hasPaid = true;
+} elseif ($row = $res->fetch_assoc()) {
     $amount = floatval(preg_replace('/[^\d.]/', '', $row['amount']));
     $paymentDate = new DateTime($row['payment_date']);
     $now = new DateTime();
     $diff = $paymentDate->diff($now);
-
 
     if ($amount == 29 && $diff->m < 1 && $diff->y == 0) {
         $hasPaid = true;
@@ -186,18 +189,6 @@ $stmt->close();
                                 break;
                         }
                     }
-
-                    $namesOnly = [
-                        'Love Galore',
-                        'Space Bound',
-                        'Heartles',
-                        'H.O.L.L.A',
-                        'Starlight Interlude',
-                        'One Last Time',
-                        'Mathematics',
-                        'Ms. Jackson',
-                        'Temperature'
-                    ];
                     ?>
 
                     <?php foreach ($songObjects as $song):

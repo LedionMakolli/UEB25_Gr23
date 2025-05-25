@@ -9,13 +9,17 @@ if (isset($_GET['payment_error']) && !empty($_SESSION['payment_errors'])) {
     unset($_SESSION['payment_errors']);
 }
 
+$isStaff = isset($_SESSION['role']) && $_SESSION['role'] === 'staff';
+
 
 $form_data = $_SESSION['form_data'] ?? [];
 unset($_SESSION['form_data']);
 
 $hasPaid = false;
 
-if (!empty($_SESSION['user_email'])) {
+if ($isStaff) {
+    $hasPaid = true;
+}elseif (!empty($_SESSION['user_email'])) {
     $email = $_SESSION['user_email'];
 
     $stmt = $conn->prepare("SELECT * FROM payments WHERE email = ?");
