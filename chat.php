@@ -5,7 +5,7 @@ $data = json_decode($input, true);
 $message = $data['message'] ?? '';
 
 // API key
-$apiKey = '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';
+$apiKey = 'open ai API';
 
 
 $postData = json_encode([
