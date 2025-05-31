@@ -16,6 +16,16 @@
     <?php 
     include 'nav.php';
     include 'php-files/mainPHP.php';
+
+    require_once 'php-files/db.php';
+    $ratings = [];
+    $stmt = $conn->prepare("SELECT name, rating, review FROM ratings ORDER BY created_at DESC");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $ratings[] = $row;
+    }
+    $stmt->close();
     ?>
 
     <header class="header" id="home">
@@ -56,6 +66,12 @@
         </div>
       </header>
 
+      <?php
+      $linkToSongs = !empty($_SESSION['user_id'])
+          ? '<a href="songs.php"><i class="ri-arrow-right-up-line"></i></a>'
+          : '<a href="#" onclick="alert(\'Ju lutemi kyçuni për të dëgjuar këngët tona!\');"><i class="ri-arrow-right-up-line"></i></a>';
+      ?>
+
       <section class="section__container genre__container">
         <h2 class="section__header">Zgjedh zhanrin tuaj te preferuar</h2>
         <p class="section__description">
@@ -66,7 +82,7 @@
             <div class="genre__image">
               <img src="foto/r&b.jpg" alt="genre" />
               <div class="genre__link">
-                <a href="songs.php"><i class="ri-arrow-right-up-line"></i></a>
+                <?= $linkToSongs ?>
               </div>
             </div>
             <h4>R&B</h4>
@@ -75,7 +91,7 @@
             <div class="genre__image">
               <img src="foto/pop.jpg" alt="genre" />
               <div class="genre__link">
-                <a href="songs.php"><i class="ri-arrow-right-up-line"></i></a>
+                <?= $linkToSongs ?>
               </div>
             </div>
             <h4>POP</h4>
@@ -84,7 +100,7 @@
             <div class="genre__image">
               <img src="foto/hiphop.jpg" alt="genre" />
               <div class="genre__link">
-                <a href="songs.php"><i class="ri-arrow-right-up-line"></i></a>
+                <?= $linkToSongs ?>
               </div>
             </div>
             <h4>HIP HOP</h4>
@@ -93,7 +109,7 @@
             <div class="genre__image">
               <img src="foto/rock.jpg" alt="genre" />
               <div class="genre__link">
-                <a href="songs.php"><i class="ri-arrow-right-up-line"></i></a>
+                <?= $linkToSongs ?>
               </div>
             </div>
             <h4>ROCK</h4>
@@ -169,10 +185,41 @@
     <div class="swiper">
   <div class="swiper-wrapper">
     <?php
+
+      $stmt = $conn->prepare("SELECT * FROM ratings ORDER BY created_at DESC");
+      $stmt->execute();
+      $result = $stmt->get_result();
+      $ratings = $result->fetch_all(MYSQLI_ASSOC);
+      $stmt->close();
+
       echo $client1->renderClient();
       echo $client2->renderClient();
       echo $client3->renderClient();
       echo $client4->renderClient();
+
+      foreach ($ratings as $rating) {
+          // Përdor foto nga ratings nëse ekziston, përndryshe default
+          $profile_pic = !empty($rating['profile_pic']) ? $rating['profile_pic'] : $rating['user_profile'];
+          $profile_pic_path = 'foto/' . $profile_pic;
+          
+          echo '
+          <div class="swiper-slide">
+              <div class="client__card">
+                  <div class="client__ratings">
+                      '.str_repeat('<span><i class="ri-star-fill" style="color: gold; font-size: 1em;"></i></span>', $rating['rating']) . 
+                      str_repeat('<span><i class="ri-star-line" style="color: gold; font-size: 1em;"></i></span>', 5 - $rating['rating']).'
+                  </div>
+                  <p>'.htmlspecialchars($rating['review'] ?? 'Nuk ka koment').'</p>
+                  <div class="client__details">
+                      <img src="'.$profile_pic_path.'" alt="'.htmlspecialchars($rating['name']).'">
+                      <div class="client__info">
+                          <h4>'.htmlspecialchars($rating['name']).'</h4>
+                          <span class="client__profession">'.htmlspecialchars($rating['profession'] ?? 'Përdorues').'</span>
+                      </div>
+                  </div>
+              </div>
+          </div>';
+      }
     ?>
   </div>
 </div>

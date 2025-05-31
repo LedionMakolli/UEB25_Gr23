@@ -3,8 +3,8 @@ CREATE TABLE IF NOT EXISTS users (
     fullname varchar(30) not null,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    role varchar(10) DEFAULT 'client';
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    role varchar(10) DEFAULT 'client'
 );
 
 CREATE TABLE payments (
@@ -13,6 +13,7 @@ CREATE TABLE payments (
   email VARCHAR(100) NOT NULL,
   amount VARCHAR(20) DEFAULT NULL,
   payment_date DATETIME NOT NULL,
+  expiryDate VARCHAR(10)
 ) 
 
 CREATE TABLE tickets (
@@ -26,4 +27,16 @@ CREATE TABLE tickets (
     total_amount DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users (id)
+);
+
+CREATE TABLE IF NOT EXISTS ratings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    rating TINYINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    review TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    profession VARCHAR(100),
+    profile_pic VARCHAR(255) DEFAULT 'default_profile.jpg',
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );

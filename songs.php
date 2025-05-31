@@ -6,6 +6,9 @@ $volume = isset($_COOKIE['volume']) ? (float) $_COOKIE['volume'] : 0.7; // defau
 
 $email = isset($_SESSION['user_email']) ? $_SESSION['user_email'] : null;
 
+$isStaff = isset($_SESSION['role']) && $_SESSION['role'] === 'staff';
+
+
 
 $sql  = "SELECT amount, payment_date
          FROM payments
@@ -19,14 +22,16 @@ $res  = $stmt->get_result();
 
 $hasPaid = false;
 
-if ($row = $res->fetch_assoc()) {
+if ($isStaff) {
+    $hasPaid = true;
+} elseif ($row = $res->fetch_assoc()) {
+    // konveritmi i amount ne numer
+    $amount = floatval(preg_replace('/[^\d.]/', '', $row['amount']));
+    $paymentDate = new DateTime($row['payment_date']);
+    $now = new DateTime();
+    $diff = $paymentDate->diff($now);
 
-    $amount        = floatval(preg_replace('/[^\d.]/', '', $row['amount']));
-    $paymentDate   = new DateTime($row['payment_date']);
-    $now           = new DateTime();
-    $diff          = $paymentDate->diff($now);
-
-
+    // kohezgjatja e pageses
     if ($amount == 29 && $diff->m < 1 && $diff->y == 0) {
         $hasPaid = true;
     } elseif ($amount == 299 && $diff->y < 1) {
@@ -48,6 +53,7 @@ $stmt->close();
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="styles/songs.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="../UEB25_Gr23/styles/chat.css">
     <script src="songs.js"></script>
     <link rel="icon" href="foto/logo.png" type="image/png">
 </head>
@@ -61,7 +67,7 @@ $stmt->close();
         session_start();
     }
 
-    if (!empty($_SESSION['user_id']) && isset($_GET['play'])) {
+    if (!empty($_SESSION['user_id'])) {
         $_SESSION['songs_plays'] = ($_SESSION['songs_plays'] ?? 0) + 1;
     }
     ?>
@@ -86,14 +92,14 @@ $stmt->close();
                 <div id="songs-container">
                     <?php
 
-                    require_once __DIR__ . '/artist.php';
-                    require_once __DIR__ . '/song.php';
-                    require_once __DIR__ . '/songsData.php';
+                    require_once __DIR__ . '/php-files/classes/artist.php';
+                    require_once __DIR__ . '/php-files/classes/song.php';
+                    require_once __DIR__ . '/php-files/songsData.php';
 
                     $originalSongs = $songsForDisplay;
 
                     if (!$hasPaid) {
-                        // Nëse nuk ka paguar, fsheh 3 këngët e fundit
+                        // Nese nuk ka paguar fsheh 3 kenget e fundit
                         $songsForDisplay = array_slice($songsForDisplay, 0, count($songsForDisplay) - 6);
                     }
 
@@ -185,18 +191,6 @@ $stmt->close();
                                 break;
                         }
                     }
-
-                    $namesOnly = [
-                        'Love Galore',
-                        'Space Bound',
-                        'Heartles',
-                        'H.O.L.L.A',
-                        'Starlight Interlude',
-                        'One Last Time',
-                        'Mathematics',
-                        'Ms. Jackson',
-                        'Temperature'
-                    ];
                     ?>
 
                     <?php foreach ($songObjects as $song):
@@ -281,11 +275,10 @@ $stmt->close();
             </form>
         </div>
 
-        <?php if (!$hasPaid): ?>
+        <?php if (!$hasPaid): ?>   
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     const sortDropdown = document.querySelector('.sort-dropdown');
-
                     if (sortDropdown) sortDropdown.style.display = 'none';
                 });
             </script>

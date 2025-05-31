@@ -57,8 +57,23 @@
                         <div class="error-message"><?= $errors['review']; ?></div>
                     <?php endif; ?>
 
+                    <div class="form-group">
+                        <label for="profession">Profesioni:</label>
+                        <input type="text" id="profession" name="profession" placeholder="Shkruani profesionin tuaj" value="<?= htmlspecialchars($profession ?? ''); ?>">
+                        <?php if (isset($errors['profession'])): ?>
+                            <div class="error-message"><?= $errors['profession']; ?></div>
+                        <?php endif; ?>
+                    </div>
+
+                    <?php if (isset($errors['database'])): ?>
+                        <div class="error-message"><?= $errors['database']; ?></div>
+                    <?php endif; ?>
+
                     <button type="submit">Dërgo vlerësimin</button>
                 </form>
+
+                
+
 
             <?php else: ?>
                 <script>

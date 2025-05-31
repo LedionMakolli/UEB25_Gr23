@@ -10,7 +10,7 @@
 </head>
 <body>
       <?php
-     if (session_status() === PHP_SESSION_NONE) {
+    if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
      include('php-files/Tickets.php');
@@ -117,7 +117,7 @@ $BILETA_CMIMI = 100;
           <h3>Plotesoni të dhënat për blerjen e biletës</h3>
           <form id="ticket-form" method="POST" action="">
              <input type="hidden" name="user_id" value="<?php echo $logged_in_user_id; ?>">
-                <?php if ($logged_in_email): ?>
+                  <?php if ($logged_in_email): ?>
                     <p>Email: <strong><?php echo htmlspecialchars($logged_in_email); ?></strong></p>
                 <?php endif; ?>
             <input type="text" id="account-number" placeholder="Numri i llogarise" name="account-number" required>
@@ -125,7 +125,7 @@ $BILETA_CMIMI = 100;
             <input type="hidden" name="concert_location" id="hidden-location">
             <input type="hidden" name="concert_date" id="hidden-date">
             <input type="number" id="ticket-quantity" value="1" min="1" placeholder="Sasia"  name="quantity" required>
-            <input type="text" id="amount" data-cmimi="<?php echo $BILETA_CMIMI;?> " value="<?php echo $BILETA_CMIMI; ?>€" name="total_price" readonly>
+            <input type="text" id="amount" data-cmimi="<?php echo $BILETA_CMIMI;?>" value="<?php echo $BILETA_CMIMI; ?>€" name="total_price" readonly>
             <button type="submit" name="submit">Paguaj</button>
             <button type="button" onclick="closePopup()">Anulo</button>
           </form>
@@ -140,7 +140,7 @@ $BILETA_CMIMI = 100;
           <div class="dynamic-text location" id="ticket-location">Zgjidhni një vend</div>
           <div class="dynamic-text date" id="ticket-date">Zgjidhni një datë</div>
           <div class="dynamic-text other-info">LIVE MUSIC</div>
-          <button  id="buy-button" onclick="showPopup()" disabled>Bli Tani</button>
+          <button  id="buy-button" class="buttonbuy" onclick="showPopup()" disabled>Bli Tani</button>
         </div>
       </div>
 
@@ -194,5 +194,3 @@ $BILETA_CMIMI = 100;
 <script src="../UEB25_Gr23/javascript/chat.js"></script>
 </body>
 </html>
- </body>
- </html>

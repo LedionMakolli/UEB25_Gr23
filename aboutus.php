@@ -1,3 +1,40 @@
+<?php
+session_start();
+
+require_once("php-files/db.php"); 
+
+
+if (isset($_GET['payment_error']) && !empty($_SESSION['payment_errors'])) {
+    echo '<script>alert("Gabimet:\\n\\n' . implode("\\n", $_SESSION['payment_errors']) . '");</script>';
+    unset($_SESSION['payment_errors']);
+}
+
+$isStaff = isset($_SESSION['role']) && $_SESSION['role'] === 'staff';
+
+
+$form_data = $_SESSION['form_data'] ?? [];
+unset($_SESSION['form_data']);
+
+$hasPaid = false;
+
+if ($isStaff) {
+    $hasPaid = true;
+}elseif (!empty($_SESSION['user_email'])) {
+    $email = $_SESSION['user_email'];
+
+    $stmt = $conn->prepare("SELECT * FROM payments WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $hasPaid = true;
+    }
+
+    $stmt->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -144,16 +181,21 @@
                     <li>Prioritet për rezervime në evente</li>
                     <li>Një playlist i personalizuar në muaj</li>
                 </ul>
-                 <?php if (!empty($_SESSION['user_id'])): ?>
-                <!-- heqim onclick; përdorim data-atribute për JS -->
-                <button class="pay-now" data-plan="Plani Bazik" data-amount="29">
-                    Paguaj Tani
-                </button>
+                 <?php if (!empty($_SESSION['user_email'])): ?>
+                <?php if ($hasPaid): ?>
+                    <button class="pay-now" disabled style="cursor: not-allowed; opacity: 0.6;">
+                        Ke paguar tashmë
+                    </button>
                 <?php else: ?>
-                <button onclick="alertAndRefresh()">
+                    <button class="pay-now" data-plan="Plani Bazik" data-amount="29">
+                        Paguaj Tani
+                    </button>
+                <?php endif; ?>
+            <?php else: ?>
+                <button class="pay-now" disabled style="cursor: not-allowed;">
                     Paguaj Tani
                 </button>
-                <?php endif; ?>
+            <?php endif; ?>
             </div>
         </div>
     </div>
@@ -171,13 +213,6 @@
     </form>
   </div>
 
-    <script>
-    function alertAndRefresh() {
-        alert('Ju lutemi kyçuni për të blerë planin!');
-        location.reload(); // Rifreskon faqen pasi alert mbyllet
-    }
-    </script>
-
    <div class="popup" id="ticket-popup" style="display: none;">
     <div class="popup-content">
         <span class="close" onclick="closePopup()">&times;</span>
@@ -187,7 +222,7 @@
         <!-- Këtu vendos formën me action -->
         <form id="payment-form" method="POST" action="php-files/aboutus_payment.php">
             <input type="text" name="card_number" placeholder="Kartela e bankes" required>
-            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="expiryDate" placeholder="Data e skadimit: mm/yy" required>
             <input type="text" id="amount" name="amount" placeholder="Shuma (€)" readonly >
             <button type="submit">Paguaj</button>
             <button type="button" onclick="closePopup()">Anulo</button>
@@ -196,8 +231,16 @@
 </div>
 <script src="../UEB25_Gr23/javascript/chat.js"></script>
 <?php
-if (isset($_GET['success']) && $_GET['success'] == 1) {
-    echo "<script>alert('Pagesa u krye me sukses!');</script>";
+
+if (isset($_GET['payment_success'])) {
+    echo "<script>
+        alert('Pagesa u krye me sukses!');
+        if (history.replaceState) {
+          const url = new URL(window.location);
+          url.searchParams.delete('payment_success');
+          history.replaceState(null, '', url);
+        }
+    </script>";
 }
 ?>
 
@@ -208,7 +251,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
 <script src="javascript/aboutus.js"></script>
 
 
-    <footer>
+    <footer style="width: 100%;">
       <?php include 'footer.php'; ?>
     </footer>
 
